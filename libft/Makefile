@@ -6,12 +6,12 @@
 #    By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/23 16:07:48 by alexafer          #+#    #+#              #
-#    Updated: 2023/11/23 16:07:49 by alexafer         ###   ########.fr        #
+#    Updated: 2024/03/16 19:33:55 by alexafer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libft.a
-CC = cc
+CC = gcc
 CFLAGS = -Wall -Wextra -Werror
 SRC_DIR = .
 INC_DIR = .
@@ -45,4 +45,4 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re bonus
-	
+
