@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/16 21:34:31 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/16 21:58:16 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	main(void)
 		free(prompt);
 		if (!input || mini.error)
 			break ;
-		if (!ft_strncmp(input, "path", 4))
-			mini.error = ft_get_path(&mini);
+		if (!ft_strncmp(input, "pwd", 3))
+			ft_printf("%s\n", mini.path);
 		else if (ft_strncmp(input, "\0", 1))
 			ft_printf("%s\n", input);
 		if (*input)
