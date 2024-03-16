@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/16 21:06:43 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/16 21:34:19 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,17 @@
 
 typedef struct s_minishell
 {
+	char	*folder;
 	char	*start_path;
 	char	*path;
+	char	*line;
 	int		error;
 }	t_minishell;
 
 int		ft_printf_error(void);
 int		ft_get_path(t_minishell *mini);
 void	ft_printf_path(t_minishell *mini);
+char	*ft_get_folder(t_minishell mini);
+char	*ft_make_promt(t_minishell mini);
 
 #endif

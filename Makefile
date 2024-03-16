@@ -6,7 +6,7 @@
 #    By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 09:46:53 by zerrino           #+#    #+#              #
-#    Updated: 2024/03/16 20:33:09 by alexafer         ###   ########.fr        #
+#    Updated: 2024/03/16 21:31:19 by alexafer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ GNL_FILES := $(addprefix $(GNL_DIR)/, $(GNL_FILES))
 PATH_FILES = ft_path.c
 PATH_FILES := $(addprefix $(PATH_DIR)/, $(PATH_FILES))
 
-UTILS_FILES = ft_error_manage.c
+UTILS_FILES = ft_error_manage.c ft_prompt.c
 UTILS_FILES := $(addprefix $(UTILS_DIR)/, $(UTILS_FILES))
 
 

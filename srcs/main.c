@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/16 21:06:00 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/16 21:34:31 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void sigint_handler(int sig_num)
 int	main(void)
 {
 	char		*input;
+	char		*prompt;
 	int			error;
 	t_minishell	mini;
 
@@ -35,8 +36,10 @@ int	main(void)
 	mini.error = ft_get_path(&mini);
 	while (1)
 	{
-		input = readline(">>>");
-		if (!input)
+		prompt = ft_make_promt(mini);
+		input = readline(prompt);
+		free(prompt);
+		if (!input || mini.error)
 			break ;
 		if (!ft_strncmp(input, "path", 4))
 			mini.error = ft_get_path(&mini);
