@@ -6,14 +6,14 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 21:31:02 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/16 21:38:03 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/16 23:42:42 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
 
-char	*ft_make_promt(t_minishell mini)
+char	*ft_make_prompt(volatile t_minishell mini)
 {
 	char	*prompt;
 	char	*sub_prompt;
