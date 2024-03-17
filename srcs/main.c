@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/17 01:06:59 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:31:10 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,8 @@ int	main(void)
 	mini.error = 0;
 	mini.error = ft_get_path(&mini);
 	//ft_printf("%s\n", mini.start_path);
-
+	ft_printf("int : %d\n", ft_wildscards("str", "*Hello*How*areu*"));
+	/*
 	while (1)
 	{
 		mini.prompt = ft_make_prompt(mini);
@@ -57,6 +58,7 @@ int	main(void)
 			add_history(input);
 		free(input);
 	}
-	ft_printf("\nCurrent working directory: %s\n", mini.path);
+	*/
+	ft_printf("Current working directory: %s\n", mini.path);
 	return (0);
 }

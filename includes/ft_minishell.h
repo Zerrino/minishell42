@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/17 00:28:37 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:21:57 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,4 +41,5 @@ int		ft_get_path(volatile t_minishell *shell);
 void	ft_printf_path(volatile t_minishell *shell);
 char	*ft_get_folder(volatile t_minishell shell);
 char	*ft_make_prompt(t_minishell mini);
+int		ft_wildscards(char *s1, char *s2);
 #endif

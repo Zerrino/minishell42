@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:21:18 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/16 23:44:04 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/17 15:18:41 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	ft_get_path(volatile t_minishell *shell)
 		if (shell->path == 0)
 			shell->start_path = ft_strjoin(cwd, str);
 		shell->path = ft_strjoin(cwd, str);
-		//free(str);
 	}
 	else
 		return (ft_printf_error());
