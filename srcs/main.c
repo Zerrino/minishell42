@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/17 00:55:15 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/17 01:06:59 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ void sigint_handler(int sig_num)
 	{
 		rl_on_new_line();
 		rl_replace_line("", 0);
+		ft_printf("%s\n", mini.prompt);
 		rl_redisplay();
-		ft_printf("\n%s", mini.prompt);
 	}
 }
 
