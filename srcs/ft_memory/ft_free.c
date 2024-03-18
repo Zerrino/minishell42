@@ -1,26 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_prompt.c                                        :+:      :+:    :+:   */
+/*   ft_free.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 21:31:02 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/18 01:45:41 by alexafer         ###   ########.fr       */
+/*   Created: 2024/03/18 02:32:42 by alexafer          #+#    #+#             */
+/*   Updated: 2024/03/18 02:33:11 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-char	*ft_make_prompt(volatile t_minishell mini)
+void	ft_free_split(char **split)
 {
-	char	*prompt;
-	char	*sub_prompt;
+	int	i;
 
-	sub_prompt = ft_strjoin("\033[35m", mini.folder);
-	prompt = ft_strjoin(sub_prompt, "\033[0m");
-	free(sub_prompt);
-	sub_prompt = ft_strjoin(prompt, "\033[30m>\033[0m ");
-	free(prompt);
-	return (sub_prompt);
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
 }

@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/17 15:31:10 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/18 02:55:28 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void sigint_handler(int sig_num)
 
 int	main(void)
 {
+	char		**split;
 	char		*input;
 	char		*prompt;
 	int			error;
@@ -41,8 +42,6 @@ int	main(void)
 	mini.error = 0;
 	mini.error = ft_get_path(&mini);
 	//ft_printf("%s\n", mini.start_path);
-	ft_printf("int : %d\n", ft_wildscards("str", "*Hello*How*areu*"));
-	/*
 	while (1)
 	{
 		mini.prompt = ft_make_prompt(mini);
@@ -52,13 +51,19 @@ int	main(void)
 			break ;
 		if (!ft_strncmp(input, "pwd", 3))
 			ft_printf("%s\n", mini.path);
+		split = ft_split(input, ' ');
+		if (split[0] && split[1])
+		{
+			ft_printf("les str : %s, %s\n", split[0], split[1]);
+			ft_printf("int : %d\n", ft_wildscards(split[0], split[1]));
+		}
+		ft_free_split(split);
 		//else if (ft_strncmp(input, "\0", 1))
 		//	ft_printf("%s\n", input);
 		if (*input)
 			add_history(input);
 		free(input);
 	}
-	*/
 	ft_printf("Current working directory: %s\n", mini.path);
 	return (0);
 }
