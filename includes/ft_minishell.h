@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
+/*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/18 03:27:40 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/18 16:26:47 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@
 #include "../ft_printf/ft_printf.h"
 #include "../libft/libft.h"
 #include "get_next_line.h"
-//#include "/Users/Alexandre/.brew/opt/readline/lib"
-//#include "/Users/Alexandre/.brew/opt/readline/include"
+//#include "/usr/alexafer/.brew/opt/readline/lib"
+//#include "/usr/alexafer/.brew/opt/readline/include"
 #include <readline/readline.h>
 #include <readline/history.h>
 #include <signal.h>

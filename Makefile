@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+         #
+#    By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 09:46:53 by zerrino           #+#    #+#              #
-#    Updated: 2024/03/18 02:43:02 by alexafer         ###   ########.fr        #
+#    Updated: 2024/03/18 16:33:23 by alexafer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 CC = gcc
 
 INCLUDES = #-lreadline
-CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS = #-g -fsanitize=address -Wall -Wextra -Werror
 
 SRC_DIR = srcs
 GNL_DIR = get_next_line
@@ -55,8 +55,11 @@ SRCS := $(GNL) $(SRCS)
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-READ = /usr/local/opt/readline/include
-REAB = /usr/local/opt/readline/lib
+READ = #/usr/local/opt/readline/include
+REAB = #/usr/local/opt/readline/lib
+
+READ = /Users/alexafer/.brew/opt/readline/include
+REAB = /Users/alexafer/.brew/opt/readline/lib
 
 all: $(NAME)
 

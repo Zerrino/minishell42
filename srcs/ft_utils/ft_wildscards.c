@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_wildscards.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
+/*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 15:19:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/18 03:18:40 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/18 19:40:21 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,6 @@ int	ft_lastsplit(char **split)
 	return (i - 1);
 }
 
-int	ft_return_v(int last, char *str, char **split, int i, int j)
-{
-	char	*str_2;
-	int		len;
-
-	len = ft_strlen(split[ft_lastsplit(split)]);
-	str_2 = &str[ft_strlen(str) - len];
-	if (!last && !ft_strncmp(str_2, split[ft_lastsplit(split)], len))
-		return (1);
-	if (split[i] || ft_strlen(&str[j]) && !last)
-		return(0);
-	return (1);
-}
-
 int	ft_wildscards(char *str, char *str_wild)
 {
 	char **split;
@@ -72,9 +58,17 @@ int	ft_wildscards(char *str, char *str_wild)
 	split = ft_split(str_wild, '*');
 	first = ft_first_start(str_wild);
 	last = ft_last_star(str_wild);
+	if (first == 0)
+	{
+		if (ft_strncmp(&str[j], split[i], ft_strlen(split[i])))
+		{
+			ft_free_split(split);
+			return (0);
+		}
+	}
 	while (split[i] && str[j])
 	{
-		while ((!(!first && i == 0)) && str[j] && (str[j] != split[i][0]))
+		while (str[j] && (str[j] != split[i][0]))
 			j++;
 		if (ft_strncmp(&str[j], split[i], ft_strlen(split[i])))
 			j++;
@@ -82,7 +76,15 @@ int	ft_wildscards(char *str, char *str_wild)
 		{
 			j += ft_strlen(split[i]);
 			i++;
+			if (split[i] == 0 && last == 0 && str[j])
+			{
+				if (ft_strncmp(&str[ft_strlen(str) - ft_strlen(split[i - 1])], split[i - 1], ft_strlen(split[i - 1])))
+					return (0);
+				return (1);
+			}
 		}
 	}
-	return (ft_return_v(last, str, split, i, j));
+	if (split[i] && !last)
+		return (0);
+	return (1);
 }
