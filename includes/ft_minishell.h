@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/18 01:48:38 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/18 03:21:27 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,19 @@ typedef struct s_minishell
 	int		error;
 }	t_minishell;
 
+typedef struct s_wilds
+{
+	char	**split;
+	int		j;
+	int		i;
+	int		first;
+	int		last;
+}	t_wilds;
+
 int		ft_printf_error(void);
-int		ft_get_path(volatile t_minishell *shell);
-void	ft_printf_path(volatile t_minishell *shell);
-char	*ft_get_folder(volatile t_minishell shell);
+int		ft_get_path(t_minishell *shell);
+void	ft_printf_path(t_minishell *shell);
+char	*ft_get_folder(t_minishell shell);
 char	*ft_make_prompt(t_minishell mini);
 int		ft_wildscards(char *s1, char *s2);
 void	ft_free_split(char **split);

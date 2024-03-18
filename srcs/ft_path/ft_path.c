@@ -6,13 +6,13 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:21:18 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/17 15:18:41 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/18 03:21:50 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-int	ft_get_path(volatile t_minishell *shell)
+int	ft_get_path(t_minishell *shell)
 {
 	char	cwd[PATH_MAX];
 	char	*str;
@@ -32,7 +32,7 @@ int	ft_get_path(volatile t_minishell *shell)
 	return (0);
 }
 
-char	*ft_get_folder(volatile t_minishell shell)
+char	*ft_get_folder(t_minishell shell)
 {
 	char	*folder;
 	int		i;
@@ -51,7 +51,7 @@ char	*ft_get_folder(volatile t_minishell shell)
 	return (folder);
 }
 
-void	ft_printf_path(volatile t_minishell *shell)
+void	ft_printf_path(t_minishell *shell)
 {
 	ft_printf("Started at directory: %s\n", shell->start_path);
 	ft_printf("Current directory: %s\n", shell->path);
