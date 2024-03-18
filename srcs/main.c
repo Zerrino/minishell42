@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/18 03:23:28 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/18 03:24:38 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ void	sigint_handler(int sig_num)
 	//ft_printf("\n>>>");
 	//printf("\n");
 	//printf("\n val : %d\n", sig_num);
+
 
 	rl_on_new_line();
 	rl_replace_line("", 0);
