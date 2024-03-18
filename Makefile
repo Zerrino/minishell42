@@ -6,7 +6,7 @@
 #    By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 09:46:53 by zerrino           #+#    #+#              #
-#    Updated: 2024/03/18 16:33:23 by alexafer         ###   ########.fr        #
+#    Updated: 2024/03/18 19:47:32 by alexafer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = minishell
 CC = gcc
 
 INCLUDES = #-lreadline
-CFLAGS = #-g -fsanitize=address -Wall -Wextra -Werror
+CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror
 
 SRC_DIR = srcs
 GNL_DIR = get_next_line

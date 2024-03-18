@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/17 15:19:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/18 19:40:21 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/18 20:00:59 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,8 @@ int	ft_wildscards(char *str, char *str_wild)
 	{
 		while (str[j] && (str[j] != split[i][0]))
 			j++;
+		if (!str[j])
+			break ;
 		if (ft_strncmp(&str[j], split[i], ft_strlen(split[i])))
 			j++;
 		else
@@ -78,12 +80,16 @@ int	ft_wildscards(char *str, char *str_wild)
 			i++;
 			if (split[i] == 0 && last == 0 && str[j])
 			{
+				printf("Hey");
 				if (ft_strncmp(&str[ft_strlen(str) - ft_strlen(split[i - 1])], split[i - 1], ft_strlen(split[i - 1])))
 					return (0);
-				return (1);
+				//return (1);
 			}
 		}
 	}
+	printf("split : %s\n", split[i]);
+	if (split[i] && ft_strncmp(&str[ft_strlen(str) - ft_strlen(split[i])], split[i], ft_strlen(split[i])))
+		return (0);
 	if (split[i] && !last)
 		return (0);
 	return (1);
