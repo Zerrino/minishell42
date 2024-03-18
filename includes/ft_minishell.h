@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/18 03:21:27 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/18 03:27:40 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ typedef struct s_wilds
 	int		first;
 	int		last;
 }	t_wilds;
+
+typedef struct s_command
+{
+	char	*command;
+	char	*option;
+	int		op;
+	char	**data;
+	char	*output_str;
+	int		status;
+}	t_command;
 
 int		ft_printf_error(void);
 int		ft_get_path(t_minishell *shell);
