@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/20 15:53:56 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/20 20:37:55 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,5 +67,7 @@ int		ft_wildscards(char *s1, char *s2);
 void	ft_free_split(char **split);
 int		ft_cd(char **split, t_minishell *mini);
 int		ft_execute(char **split, t_minishell *mini);
-
+void	ft_take_action(t_command *command);
+void	ft_error_msg(char *command);
+void	ft_echo(t_command *command);
 #endif

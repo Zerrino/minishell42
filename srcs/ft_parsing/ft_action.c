@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_error_manage.c                                  :+:      :+:    :+:   */
+/*   ft_action.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/16 20:27:20 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/20 20:29:42 by alexafer         ###   ########.fr       */
+/*   Created: 2024/03/20 20:24:38 by alexafer          #+#    #+#             */
+/*   Updated: 2024/03/20 20:38:41 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-int	ft_printf_error(void)
+void	ft_take_action(t_command *com)
 {
-	ft_putstr_fd("Error : ", 2);
-	ft_putstr_fd(strerror(errno), 2);
-	ft_putstr_fd("\n", 2);
-	return (1);
-}
-
-void	ft_error_msg(char *command)
-{
-	ft_putstr_fd("minishell: command not found: ", 2);
-	ft_putstr_fd(command, 2);
-	ft_putstr_fd("\n", 2);
+	if (!ft_strncmp("echo", com->command, ft_strlen(com->command)))
+		ft_echo(com);
+	else
+		ft_error_msg(com->command);
 }
