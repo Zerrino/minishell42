@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+         #
+#    By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 09:46:53 by zerrino           #+#    #+#              #
-#    Updated: 2024/03/18 19:47:32 by alexafer         ###   ########.fr        #
+#    Updated: 2024/03/20 03:15:46 by alexafer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,11 +55,11 @@ SRCS := $(GNL) $(SRCS)
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-READ = #/usr/local/opt/readline/include
-REAB = #/usr/local/opt/readline/lib
+READ = #/Users/alexafer/.brew/opt/readline/include
+REAB = #/Users/alexafer/.brew/opt/readline/lib
 
-READ = /Users/alexafer/.brew/opt/readline/include
-REAB = /Users/alexafer/.brew/opt/readline/lib
+READ = /usr/local/opt/readline/include
+REAB = /usr/local/opt/readline/lib
 
 all: $(NAME)
 
