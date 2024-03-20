@@ -6,7 +6,7 @@
 #    By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 09:46:53 by zerrino           #+#    #+#              #
-#    Updated: 2024/03/20 03:15:46 by alexafer         ###   ########.fr        #
+#    Updated: 2024/03/20 15:57:03 by alexafer         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,19 +15,21 @@ NAME = minishell
 CC = gcc
 
 INCLUDES = #-lreadline
-CFLAGS = -g -fsanitize=address #-Wall -Wextra -Werror
+CFLAGS = #-g -fsanitize=address -Wall -Wextra -Werror
 
 SRC_DIR = srcs
 GNL_DIR = get_next_line
 PATH_DIR = ft_path
 UTILS_DIR = ft_utils
 MEM_DIR = ft_memory
+PARS_DIR = ft_parsing
 
 OBJ_DIR = objs
 GNL_OBJ_DIR = objs/get_next_line
 PATH_OBJ_DIR = objs/ft_path
 UTILS_OBJ_DIR = objs/ft_utils
 MEM_DIR_OBJ_DIR = objs/ft_memory
+PARS_DIR_OBJ_DIR = objs/ft_parsing
 
 
 INC_DIR = includes
@@ -40,14 +42,16 @@ MEM_FILES := $(addprefix $(MEM_DIR)/, $(MEM_FILES))
 GNL_FILES = get_next_line.c get_next_line_utils.c
 GNL_FILES := $(addprefix $(GNL_DIR)/, $(GNL_FILES))
 
-PATH_FILES = ft_path.c
+PATH_FILES = ft_path.c ft_cd.c
 PATH_FILES := $(addprefix $(PATH_DIR)/, $(PATH_FILES))
 
 UTILS_FILES = ft_error_manage.c ft_prompt.c ft_wildscards.c
 UTILS_FILES := $(addprefix $(UTILS_DIR)/, $(UTILS_FILES))
 
+PARS_FILES = ft_parser.c
+PARS_FILES := $(addprefix $(PARS_DIR)/, $(PARS_FILES))
 
-SRC_FILES = main.c $(GNL_FILES) $(UTILS_FILES) $(PATH_FILES) $(MEM_FILES)
+SRC_FILES = main.c $(GNL_FILES) $(UTILS_FILES) $(PATH_FILES) $(MEM_FILES) $(PARS_FILES)
 
 SRCS = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 
@@ -69,6 +73,7 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(PATH_OBJ_DIR)
 	@mkdir -p $(UTILS_OBJ_DIR)
 	@mkdir -p $(MEM_DIR_OBJ_DIR)
+	@mkdir -p $(PARS_DIR_OBJ_DIR)
 	$(CC) $(CFLAGS) -I $(INC_DIR) -I $(READ) -c $< -o $@
 
 $(NAME): $(OBJS)

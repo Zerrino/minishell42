@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/18 16:24:50 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/20 16:17:56 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sigint_handler(int sig_num)
 	rl_redisplay();
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	char		**split;
 	char		*input;
@@ -36,9 +36,12 @@ int	main(void)
 	int			error;
 	t_minishell	mini;
 
+	printf("Prog started.\n");
 	signal(SIGINT, sigint_handler);
+	//mini.program_name = argv[argc - 1];
 	mini.path = 0;
 	mini.error = 0;
+	mini.stop = 0;
 	mini.error = ft_get_path(&mini);
 	//ft_printf("%s\n", mini.start_path);
 	while (1)
@@ -46,15 +49,10 @@ int	main(void)
 		mini.prompt = ft_make_prompt(mini);
 		g_prompt = mini.prompt;
 		input = readline(mini.prompt);
+		ft_parser(&mini, input);
 		free(mini.prompt);
-		if (!input || mini.error || !ft_strncmp(input, "exit", 4))
+		if (mini.stop)
 			break ;
-		if (!ft_strncmp(input, "pwd", 3))
-			ft_printf("%s\n", mini.path);
-		split = ft_split(input, ' ');
-		if (split[0] && split[1])
-			ft_printf("int : %d\n", ft_wildscards(split[0], split[1]));
-		ft_free_split(split);
 		if (*input)
 			add_history(input);
 		free(input);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_minishell.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
+/*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/18 16:26:47 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/20 15:53:56 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,14 @@
 
 typedef struct s_minishell
 {
+	char	*program_name;
 	char	*prompt;
 	char	*folder;
 	char	*start_path;
 	char	*path;
 	char	*line;
 	int		error;
+	int		stop;
 }	t_minishell;
 
 typedef struct s_wilds
@@ -60,6 +62,10 @@ int		ft_get_path(t_minishell *shell);
 void	ft_printf_path(t_minishell *shell);
 char	*ft_get_folder(t_minishell shell);
 char	*ft_make_prompt(t_minishell mini);
+void	ft_parser(t_minishell *mini, char *input);
 int		ft_wildscards(char *s1, char *s2);
 void	ft_free_split(char **split);
+int		ft_cd(char **split, t_minishell *mini);
+int		ft_execute(char **split, t_minishell *mini);
+
 #endif
