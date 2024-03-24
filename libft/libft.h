@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:07:40 by alexafer          #+#    #+#             */
-/*   Updated: 2023/11/23 16:07:57 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/24 22:47:40 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int				ft_isascii(int c);
 int				ft_isprint(int c);
 void			*ft_memset(void *s, int c, size_t n);
 void			ft_bzero(void *s, size_t n);
+char			*ft_strjoin_f(char *s1, const char *s2);
 void			*ft_memcpy(void *dst, const void *src, size_t n);
 void			*ft_memmove(void *dst, const void *src, size_t n);
 void			*ft_memchr(const void *s, int c, size_t n);

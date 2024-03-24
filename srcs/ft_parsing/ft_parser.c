@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:47:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/20 20:39:14 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/24 23:13:27 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	ft_parser(t_minishell *mini, char *input)
 	int			j;
 	int			option;
 
-	//printf("Parsing : %s\n", input);
+	printf("Parsing : %s\n", input);
 	if (!input)
 	{
 		mini->stop = 1;
@@ -65,6 +65,6 @@ void	ft_parser(t_minishell *mini, char *input)
 	//printf("command : %s\n", command.command);
 	//printf("option : %s\n", command.option);
 	//printf("data : %s\n", command.data[0]);
-	ft_take_action(&command);
+	ft_take_action(&command, mini);
 	return ;
 }

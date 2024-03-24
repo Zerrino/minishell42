@@ -6,17 +6,17 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/20 05:29:40 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/24 23:20:36 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-int	ft_cd(char **split, t_minishell *mini)
+int	ft_cd(t_command *command, t_minishell *mini)
 {
-	if (!split || !split[1])
-		return (1);
-	if (chdir(split[1]) == -1)
+	if (!command->data || !command->data[0])
+		return (0);
+	if (chdir(command->data[0]) == -1)
 		return (ft_printf_error());
 	mini->error = ft_get_path(mini);
 	return (mini->error);
