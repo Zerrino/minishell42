@@ -62,9 +62,9 @@ void	ft_parser(t_minishell *mini, char *input)
 	else
 		command.option = 0;
 	command.data = &split[i];
-	//printf("command : %s\n", command.command);
-	//printf("option : %s\n", command.option);
-	//printf("data : %s\n", command.data[0]);
+	printf("command : %s\n", command.command);
+	printf("option : %s\n", command.option);
+	printf("data : %s\n", command.data[0]);
 	ft_take_action(&command, mini);
 	return ;
 }
