@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/26 11:57:39 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/03/27 10:34:48 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@
 
 typedef struct s_minishell
 {
+	char	**env_var;
 	char	*program_name;
 	char	*prompt;
 	char	*folder;
@@ -56,6 +57,9 @@ typedef struct s_command
 	char	*output_str;
 	int		status;
 }	t_command;
+
+int	ft_env(t_minishell *mini);
+int	ft_export(t_command *com, t_minishell *mini);
 
 int		ft_printf_error(void);
 int		ft_get_path(t_minishell *shell);
