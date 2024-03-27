@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/20 16:17:56 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:32:47 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	sigint_handler(int sig_num)
 	rl_redisplay();
 }
 
-int	main(int argc, char **argv)
+int	main(int argc, char **argv, char **env)
 {
 	char		**split;
 	char		*input;
@@ -43,6 +43,7 @@ int	main(int argc, char **argv)
 	mini.error = 0;
 	mini.stop = 0;
 	mini.error = ft_get_path(&mini);
+	mini.env_var = env;
 	//ft_printf("%s\n", mini.start_path);
 	while (1)
 	{
