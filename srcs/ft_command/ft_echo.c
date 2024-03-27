@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:31:29 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/24 22:58:54 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/27 10:37:10 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,5 +29,5 @@ void	ft_echo(t_command *command)
 	if (!command->option)
 		str = ft_strjoin_f(str, "\n");
 	command->output_str = str;
-	//ft_printf("%s", command->output_str);
+	ft_printf("%s", command->output_str);
 }

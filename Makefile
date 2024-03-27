@@ -6,7 +6,7 @@
 #    By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 09:46:53 by zerrino           #+#    #+#              #
-#    Updated: 2024/03/20 20:37:29 by alexafer         ###   ########.fr        #
+#    Updated: 2024/03/27 10:36:10 by lpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ FT_PRINTF_DIR = ft_printf
 MEM_FILES = ft_free.c
 MEM_FILES := $(addprefix $(MEM_DIR)/, $(MEM_FILES))
 
-COM_FILES = ft_echo.c
+COM_FILES = ft_echo.c ft_env.c
 COM_FILES := $(addprefix $(COM_DIR)/, $(COM_FILES))
 
 GNL_FILES = get_next_line.c get_next_line_utils.c
