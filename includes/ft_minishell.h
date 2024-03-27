@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/27 10:34:48 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/03/27 20:24:28 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct s_wilds
 
 typedef struct s_command
 {
-	char	command[100];
+	char	*command;
 	char	*option;
 	int		op;
 	char	**data;
