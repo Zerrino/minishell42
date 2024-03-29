@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/27 10:34:48 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/03/29 13:50:33 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,14 @@
 #include <errno.h>
 #include <string.h>
 
+typedef	struct s_env
+{
+	char	*env_var;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_minishell
 {
-	char	**env_var;
 	char	*program_name;
 	char	*prompt;
 	char	*folder;
@@ -37,6 +42,7 @@ typedef struct s_minishell
 	char	*line;
 	int		error;
 	int		stop;
+	t_env	*env;
 }	t_minishell;
 
 typedef struct s_wilds
@@ -58,8 +64,12 @@ typedef struct s_command
 	int		status;
 }	t_command;
 
-int	ft_env(t_minishell *mini);
+int	ft_env(t_env *env);
 int	ft_export(t_command *com, t_minishell *mini);
+int	update_node(t_env *node, char *str);
+t_env	*ft_newnode(char *str);
+t_env	*init_env_var(t_minishell *mini, char **env);
+void	ft_clearlst(t_env *node);
 
 int		ft_printf_error(void);
 int		ft_get_path(t_minishell *shell);

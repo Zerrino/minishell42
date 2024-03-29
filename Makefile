@@ -6,7 +6,7 @@
 #    By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/06 09:46:53 by zerrino           #+#    #+#              #
-#    Updated: 2024/03/27 10:36:10 by lpetit           ###   ########.fr        #
+#    Updated: 2024/03/29 13:42:19 by lpetit           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,7 +40,7 @@ FT_PRINTF_DIR = ft_printf
 MEM_FILES = ft_free.c
 MEM_FILES := $(addprefix $(MEM_DIR)/, $(MEM_FILES))
 
-COM_FILES = ft_echo.c ft_env.c
+COM_FILES = ft_echo.c ft_env.c ft_export.c
 COM_FILES := $(addprefix $(COM_DIR)/, $(COM_FILES))
 
 GNL_FILES = get_next_line.c get_next_line_utils.c
@@ -49,7 +49,7 @@ GNL_FILES := $(addprefix $(GNL_DIR)/, $(GNL_FILES))
 PATH_FILES = ft_path.c ft_cd.c
 PATH_FILES := $(addprefix $(PATH_DIR)/, $(PATH_FILES))
 
-UTILS_FILES = ft_error_manage.c ft_prompt.c ft_wildscards.c
+UTILS_FILES = ft_error_manage.c ft_prompt.c ft_wildscards.c ft_init_env.c
 UTILS_FILES := $(addprefix $(UTILS_DIR)/, $(UTILS_FILES))
 
 PARS_FILES = ft_parser.c ft_action.c

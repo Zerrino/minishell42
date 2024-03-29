@@ -6,21 +6,21 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:17:05 by lpetit            #+#    #+#             */
-/*   Updated: 2024/03/26 18:21:22 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/03/29 13:50:09 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-int	ft_env(t_minishell *mini)
+int	ft_env(t_env *env)
 {
-	size_t	i;
+	t_env	*tmp;
 
-	i = 0;
-	while (mini->env_var[i])
+	tmp = env;
+	while (tmp != NULL)
 	{
-		printf("%s\n", mini->env_var[i]);
-		i++;
+		printf("%s\n", tmp->env_var);
+		tmp = tmp->next;
 	}
 	return (0);
 }
