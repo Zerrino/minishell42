@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/27 10:32:47 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/03/30 02:43:14 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int	main(int argc, char **argv, char **env)
 		mini.prompt = ft_make_prompt(mini);
 		g_prompt = mini.prompt;
 		input = readline(mini.prompt);
-		ft_parser(&mini, input);
+		ft_all_parser(&mini, input);
 		free(mini.prompt);
 		if (mini.stop)
 			break ;
