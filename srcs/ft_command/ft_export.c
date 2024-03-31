@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:21:47 by lpetit            #+#    #+#             */
-/*   Updated: 2024/03/29 13:46:52 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/03/31 16:16:33 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 	return (key);
 }*/
 
-t_env	*ft_getenv(t_env *env, char *str)
+t_env	*ft_getenv(t_env *env, char *str, int c)
 {
 	t_env	*tmp;
 	size_t	i;
@@ -36,9 +36,11 @@ t_env	*ft_getenv(t_env *env, char *str)
 		i = 0;
 		while (tmp->env_var[i] == str[i])
 		{
-			if (tmp->env_var[i] == '=')
+			if (c == 0 && tmp->env_var[i] == '=')
 				return (tmp);
 			i++;
+			if (c == 1 && tmp->env_var[i] == '=' && str[i] == '\0')
+				return (tmp);
 		}
 		tmp = tmp->next;
 	}
@@ -49,7 +51,7 @@ int	ft_export(t_command *com, t_minishell *mini)
 {
 	t_env	*tmp;
 
-	tmp = ft_getenv(mini->env, com->data[0]);
+	tmp = ft_getenv(mini->env, com->data[0], 0);
 	if (tmp != NULL)
 	{
 		if (update_node(tmp, com->data[0]) != 0)

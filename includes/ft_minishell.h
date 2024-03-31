@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/29 13:50:33 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/03/31 16:19:44 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,8 +66,10 @@ typedef struct s_command
 
 int	ft_env(t_env *env);
 int	ft_export(t_command *com, t_minishell *mini);
+int	ft_unset(t_command *com, t_minishell *mini);
 int	update_node(t_env *node, char *str);
 t_env	*ft_newnode(char *str);
+t_env	*ft_getenv(t_env *env, char *str, int c);
 t_env	*init_env_var(t_minishell *mini, char **env);
 void	ft_clearlst(t_env *node);
 

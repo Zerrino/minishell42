@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:24:38 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/29 13:53:07 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/03/31 15:57:54 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ void	ft_take_action(t_command *com, t_minishell *mini)
 		ft_env(mini->env);
 	else if (!ft_strncmp("export", com->command, ft_strlen(com->command)))
 		ft_export(com, mini);
+	else if (!ft_strncmp("unset", com->command, ft_strlen(com->command)))
+		ft_unset(com, mini);
 	else
 		ft_error_msg(com->command);
 }

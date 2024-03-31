@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:35:55 by lpetit            #+#    #+#             */
-/*   Updated: 2024/03/29 13:45:24 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/03/31 16:20:52 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	ft_clearlst(t_env *node)
 	while (node != NULL)
 	{
 		tmp = node->next;
-		free(node->env_var);
+		if (node->env_var != NULL)
+			free(node->env_var);
 		free(node);
 		node = tmp;
 	}
@@ -76,7 +77,7 @@ t_env	*init_env_var(t_minishell *mini, char **env)
 	while (i < env_len)
 	{
 		node->next = ft_newnode(env[i]);
-		if (!node)
+		if (!node->next || !node->next->env_var)
 		{
 			ft_clearlst(tmp);
 			exit(EXIT_FAILURE);
