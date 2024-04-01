@@ -6,12 +6,126 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:47:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/30 03:14:21 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/01 06:13:15 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 #include <fcntl.h>
+
+void	ft_replace_quote(char *str)
+{
+	int	quote;
+	int	i;
+
+	quote = 0;
+	i = 0;
+	while (str[i])
+	{
+		if ((quote == 0 || quote == 1) && str[i] == '"')
+			quote = !quote;
+		else if ((quote == 0 || quote == 2) && str[i] == 39)
+		{
+			if (!quote)
+				quote = 2;
+			else
+				quote = 0;
+		}
+		else if (quote && str[i] == ' ')
+			str[i] = 31;
+		else if (quote && str[i] == '|')
+			str[i] = 30;
+		else if (quote == 2 && str[i] == '$')
+			str[i] = 29;
+		i++;
+	}
+}
+
+void	ft_reverse_quote(char *str)
+{
+	int	quote;
+	int	i;
+
+	quote = 0;
+	i = 0;
+	while (str[i])
+	{
+		if ((quote == 0 || quote == 1) && str[i] == '"')
+			quote = !quote;
+		else if ((quote == 0 || quote == 2) && str[i] == 39)
+		{
+			if (!quote)
+				quote = 2;
+			else
+				quote = 0;
+		}
+		else if (quote && str[i] == 31)
+			str[i] = ' ';
+		else if (quote && str[i] == 30)
+			str[i] = '|';
+		else if (quote == 2 && str[i] == 29)
+			str[i] = '$';
+		i++;
+	}
+}
+
+char	*ft_rem_quote(char *str, int f)
+{
+	int	len;
+	int	count;
+	int	i;
+	int	j;
+	int	quote;
+	char	*result;
+
+	len = ft_strlen(str);
+	quote = 0;
+	count = 0;
+	while (i < len)
+	{
+		if ((quote == 0 || quote == 1) && str[i] == '"')
+		{
+			quote = !quote;
+			count++;
+		}
+		else if ((quote == 0 || quote == 2) && str[i] == 39)
+		{
+			if (!quote)
+				quote = 2;
+			else
+				quote = 0;
+			count++;
+		}
+		i++;
+	}
+	result = (char *)malloc(sizeof(char) * (len - count + 1));
+	if (!result)
+		return (0);
+	i = 0;
+	j = 0;
+	quote = 0;
+	while (i < len)
+	{
+		if ((quote == 0 || quote == 1) && str[i] == '"')
+		{
+			quote = !quote;
+		}
+		else if ((quote == 0 || quote == 2) && str[i] == 39)
+		{
+			if (!quote)
+				quote = 2;
+			else
+				quote = 0;
+		}
+		else
+			result[j++] = str[i];
+		i++;
+	}
+	result[j] = '\0';
+	if (f)
+		free(str);
+	return (result);
+}
 
 int	ft_empty_par(t_minishell *mini, char *input)
 {
@@ -388,7 +502,7 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 	i = 0;
 	while (command->data[i])
 	{
-		//printf("data[%d] : %s\n", i, command->data[i]);
+		printf("data[%d] : %s\n", i, command->data[i]);
 		i++;
 	}
 	i = 0;
@@ -403,6 +517,19 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 		//printf("array2 : %d\n", array2[i]);
 		i++;
 	}
+	i = 0;
+	while (command->data[i])
+	{
+		ft_reverse_quote(command->data[i]);
+		command->data[i] = ft_rem_quote(command->data[i], 0);
+		i++;
+	}
+	i = 0;
+	while (command->data[i])
+	{
+		printf("data[%d] : %s\n", i, command->data[i]);
+		i++;
+	}
 	command->output_str = 0;
 	//printf("in : %s\n", command->in);
 	ft_take_action(command, mini);
@@ -411,6 +538,7 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 		write(command->op, command->output_str, ft_strlen(command->output_str));
 }
 
+// 31 30 29 28
 void	ft_all_parser(t_minishell *mini, char *input)
 {
 	t_command	*command;
@@ -421,6 +549,7 @@ void	ft_all_parser(t_minishell *mini, char *input)
 	if (ft_empty_par(mini, input))
 		return ;
 	i  = 0;
+	ft_replace_quote(input);
 	splited = ft_split(input, '|');
 	while (splited[i])
 		i++;
