@@ -1,26 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   test_converter.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/26 16:17:05 by lpetit            #+#    #+#             */
-/*   Updated: 2024/03/29 13:50:09 by lpetit           ###   ########.fr       */
+/*   Created: 2024/04/02 14:15:30 by lpetit            #+#    #+#             */
+/*   Updated: 2024/04/02 14:38:33 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/ft_minishell.h"
+#include "../includes/ft_minishell.h"
 
-int	ft_env(t_env *env)
+void	test_converter(t_minishell *mini, t_command *com)
 {
-	t_env	*tmp;
+	char	*str;
+	char	*to_test;
+	size_t	i;
 
-	tmp = env;
-	while (tmp != NULL)
+	i = 0;
+	str = ft_strdup("");
+	while (com->data[i])
 	{
-		printf("%s\n", tmp->env_var);
-		tmp = tmp->next;
+		str = ft_strjoin_f(str, com->data[i]);
+		i++;
 	}
-	return (0);
+	to_test = converter(mini, str);
+	printf("%s\n", to_test);
+	free(to_test);
+	return ;
 }

@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/30 02:43:14 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/03/27 16:25:08 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	main(int argc, char **argv, char **env)
 	mini.error = 0;
 	mini.stop = 0;
 	mini.error = ft_get_path(&mini);
-	mini.env_var = env;
+	mini.env = init_env_var(&mini, env);
 	//ft_printf("%s\n", mini.start_path);
 	while (1)
 	{
@@ -60,6 +60,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	if (input)
 		free(input);
+	ft_clearlst(mini.env);
 	ft_printf("Current working directory: %s\n", mini.path);
 	return (0);
 }

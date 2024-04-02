@@ -26,10 +26,15 @@
 #include <errno.h>
 #include <string.h>
 
+typedef	struct s_env
+{
+	char	*env_var;
+	struct s_env	*next;
+}	t_env;
+
 typedef struct s_minishell
 {
-	char	**env_var;
-	char	*program_name;
+char	*program_name;
 	char	*prompt;
 	char	*folder;
 	char	*start_path;
@@ -37,6 +42,7 @@ typedef struct s_minishell
 	char	*line;
 	int		error;
 	int		stop;
+	t_env	*env;
 }	t_minishell;
 
 typedef struct s_wilds
@@ -60,8 +66,16 @@ typedef struct s_command
 	int		next;
 }	t_command;
 
-int	ft_env(t_minishell *mini);
+int	ft_env(t_env *env);
 int	ft_export(t_command *com, t_minishell *mini);
+int	ft_unset(t_command *com, t_minishell *mini);
+int	update_node(t_env *node, char *str);
+char	*converter(t_minishell *mini, char *str);
+t_env	*ft_newnode(char *str);
+t_env	*ft_getenv(t_env *env, char *str, int c);
+t_env	*init_env_var(t_minishell *mini, char **env);
+void	ft_clearlst(t_env *node);
+void	test_converter(t_minishell *mini, t_command *com);
 
 int		ft_printf_error(void);
 int		ft_get_path(t_minishell *shell);
