@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:24:38 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/26 17:06:29 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/02 14:35:26 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,13 @@ void	ft_take_action(t_command *com, t_minishell *mini)
 	else if (!ft_strncmp("cd", com->command, ft_strlen(com->command)))
 		ft_cd(com, mini);
 	else if (!ft_strncmp("env", com->command, ft_strlen(com->command)))
-		ft_env(mini);
+		ft_env(mini->env);
+	else if (!ft_strncmp("export", com->command, ft_strlen(com->command)))
+		ft_export(com, mini);
+	else if (!ft_strncmp("unset", com->command, ft_strlen(com->command)))
+		ft_unset(com, mini);
+	else if (!ft_strncmp("test", com->command, ft_strlen(com->command)))
+		test_converter(mini, com);
 	else
 		ft_error_msg(com->command);
 }
