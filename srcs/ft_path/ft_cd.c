@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/24 23:20:36 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:24:10 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,17 @@
 int	ft_cd(t_command *command, t_minishell *mini)
 {
 	if (!command->data || !command->data[0])
+	{
+		//cd home;
 		return (0);
+	}
 	if (chdir(command->data[0]) == -1)
+	{
+		command->status = 1;
 		return (ft_printf_error());
+	}
 	mini->error = ft_get_path(mini);
+	command->status = 0;
 	return (mini->error);
 }
 
