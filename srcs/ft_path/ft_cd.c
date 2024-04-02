@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 18:11:54 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:33:03 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,44 +55,88 @@ char	**ft_strstrjoin(char *s1, char **s2)
 	return (result);
 }
 
+
+//typedef	struct s_env
+//{
+//	char	*env_var;
+//	struct s_env	*next;
+//}	t_env;
+
+char	**ft_converter_env(t_env *env)
+{
+	t_env	*start;
+	char	**result;
+	int	i;
+
+	start = env;
+	i = 0;
+	while (env)
+	{
+		i++;
+		env = env->next;
+	}
+	result = (char **)malloc(sizeof(char) * (i + 1));
+	if (!result)
+		return (0);
+	i = 0;
+	env = start;
+	while (env)
+	{
+		result[i] = env->env_var;
+		i++;
+		env = env->next;
+	}
+	result[i] = 0;
+	return (result);
+}
+
 int	ft_execute(t_command *command, t_minishell *mini)
 {
+    pid_t	pid;
+	int		status;
 	char	**test;
 	char	*path;
 	char	*path2;
 	char	**argv;
+	char	**envp;
 	int		a;
 	int		b;
 	int		i;
 
-	path = ft_strjoin("$PATH", "");
-	path = converter(mini, path);
-	//path = ft_strjoin_f(path, "/ls");
-	//path = ft_strjoin_f(path, command->command);
-	test = ft_split(path, ':');
-	i = 0;
-	while (test[i])
+	pid = fork();
+	command->status = 0;
+	if (pid == -1)
 	{
-		test[i] = ft_strjoin_f(test[i], "/");
-		test[i] = ft_strjoin_f(test[i], command->command);
-		argv = ft_strstrjoin(test[i], command->data);
-		char *envp[] = {NULL};
-		execve(test[i], argv, envp);
-		i++;
+		printf("Pid fail\n");
+		return (0);
 	}
-	printf("path : %s\n", path);
-	//path = ft_strjoin(mini->start_path, "/");
-	//path2 = ft_strjoin(path, &mini->program_name[2]);
-	//printf("path2 : %s\n", path2);
-	//free(path);
-	a = 0;
-	//int	m = fork();
-	//printf("%d\n", m);
-	//b = execve("/Users/Alexandre/Desktop/minishell/minishell42/minishell", NULL, NULL);
-	//a = execve(split[0], NULL, NULL);
-	//b = execve(path2, &mini->program_name, NULL);
-	//free(path2);
-	if (a == -1 || b == -1)
-		return (ft_printf_error());
+	else if (pid == 0)
+	{
+		path = ft_strjoin("$PATH", "");
+		path = converter(mini, path);
+		envp = ft_converter_env(mini->env);
+		i = 0;
+		test = ft_split(path, ':');
+		i = 0;
+		while (test[i])
+		{
+			test[i] = ft_strjoin_f(test[i], "/");
+			test[i] = ft_strjoin_f(test[i], command->command);
+			argv = ft_strstrjoin(test[i], command->data);
+			a = 0;
+			while (argv[a])
+			{
+				printf("Argv : %s\n", argv[a]);
+				a++;
+			}
+			execve(test[i], argv, envp);
+			i++;
+		}
+	}
+	else
+	{
+		waitpid(pid, &status, 0);
+		printf("celui du dessus a fini.\n");
+	}
 	return (0);
 }
