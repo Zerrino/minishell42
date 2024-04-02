@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 18:56:56 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:59:48 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ int	ft_execute(t_command *command, t_minishell *mini)
 			printf("Enter here.\n");
 			path = ft_strjoin("$PATH", "");
 			path = converter(mini, path);
-			eenvp = ft_converter_env(mini->env);
 			test = ft_split(path, ':');
 			i = 0;
 			while (test[i])
@@ -125,6 +124,7 @@ int	ft_execute(t_command *command, t_minishell *mini)
 				test[i] = ft_strjoin(test[i], "/");
 				test[i] = ft_strjoin(test[i], command->command);
 				aargv = ft_strstrjoin(test[i], command->data);
+				eenvp = ft_converter_env(mini->env);
 				a = 0;
 				execve(test[i], aargv, eenvp);
 				i++;
