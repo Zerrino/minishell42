@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:47:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 17:32:09 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:53:07 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,14 +129,22 @@ char	*ft_rem_quote(char *str, int f)
 
 int	ft_empty_par(t_minishell *mini, char *input)
 {
+	int	i;
+
+	i = 0;
 	if (!input)
 	{
 		mini->stop = 1;
 		return (1);
 	}
-	if (input[0] == 0)
-		return (1);
-	return (0);
+
+	while (input[i])
+	{
+		if (input[i] != 10 && input[i] != 32 && input[i] != 9)
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int	ft_redir_right(char *folder_name, int doub)

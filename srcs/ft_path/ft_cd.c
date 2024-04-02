@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 17:27:32 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:47:52 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_cd(t_command *command, t_minishell *mini)
 	return (mini->error);
 }
 
-int	ft_execute(char **split, t_minishell *mini)
+int	ft_execute(t_command *command, t_minishell *mini)
 {
 	char	**test;
 	char	*path;
@@ -38,12 +38,15 @@ int	ft_execute(char **split, t_minishell *mini)
 	int		a;
 	int		b;
 
+	path = ft_strjoin("$PATH", "");
+	path = converter(mini, path);
+	printf("path : %s\n", path);
 	//path = ft_strjoin(mini->start_path, "/");
 	//path2 = ft_strjoin(path, &mini->program_name[2]);
 	//printf("path2 : %s\n", path2);
 	//free(path);
 	a = 0;
-	int	m = fork();
+	//int	m = fork();
 	//printf("%d\n", m);
 	//b = execve("/Users/Alexandre/Desktop/minishell/minishell42/minishell", NULL, NULL);
 	//a = execve(split[0], NULL, NULL);

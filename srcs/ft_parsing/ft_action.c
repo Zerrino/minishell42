@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:24:38 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 17:34:05 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:50:51 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +35,7 @@ void	ft_take_action(t_command *com, t_minishell *mini)
 	else if (!ft_strncmp("test", com->command, ft_strlen(com->command)))
 		test_converter(mini, com);
 	else
-		com->status = ft_error_msg(com->command);
+		ft_execute(com, mini);
+	//else
+	//	com->status = ft_error_msg(com->command);
 }
