@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 14:35:07 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/03/30 02:42:58 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,14 @@ typedef struct s_wilds
 
 typedef struct s_command
 {
-	char	command[100];
+	char	*command;
 	char	*option;
 	int		op;
+	char	*in;
 	char	**data;
 	char	*output_str;
 	int		status;
+	int		next;
 }	t_command;
 
 int	ft_env(t_env *env);
@@ -80,7 +82,8 @@ int		ft_get_path(t_minishell *shell);
 void	ft_printf_path(t_minishell *shell);
 char	*ft_get_folder(t_minishell shell);
 char	*ft_make_prompt(t_minishell mini);
-void	ft_parser(t_minishell *mini, char *input);
+void	ft_parser(t_minishell *mini, char *input, t_command *com);
+void	ft_all_parser(t_minishell *mini, char *input);
 int		ft_wildscards(char *s1, char *s2);
 void	ft_free_split(char **split);
 int		ft_cd(t_command *command, t_minishell *mini);
