@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:47:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/01 06:13:15 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 15:43:18 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -446,6 +446,7 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 	int			*array2;
 
 //	printf("Parsing : %s\n", input);
+	input = converter(mini, input);
 	if (ft_empty_par(mini, input))
 		return ;
 	command->op = 1;
