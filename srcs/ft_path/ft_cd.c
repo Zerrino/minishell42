@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 18:37:52 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:52:35 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,8 +97,8 @@ int	ft_execute(t_command *command, t_minishell *mini)
 	char	**test;
 	char	*path;
 	char	*path2;
-	char	**argv;
-	char	**envp;
+	char	**aargv;
+	char	**eenvp;
 	int		a;
 	int		b;
 	int		i;
@@ -112,21 +112,31 @@ int	ft_execute(t_command *command, t_minishell *mini)
 	}
 	else if (pid == 0)
 	{
-		path = ft_strjoin("$PATH", "");
-		path = converter(mini, path);
-		envp = ft_converter_env(mini->env);
-		i = 0;
-		test = ft_split(path, ':');
-		i = 0;
-		while (test[i])
+		if (!ft_strchr(command->command, '/'))
 		{
-			test[i] = ft_strjoin_f(test[i], "/");
-			test[i] = ft_strjoin_f(test[i], command->command);
-			argv = ft_strstrjoin(test[i], command->data);
-			a = 0;
-			execve(test[i], argv, envp);
-			i++;
+			path = ft_strjoin("$PATH", "");
+			path = converter(mini, path);
+			eenvp = ft_converter_env(mini->env);
+			test = ft_split(path, ':');
+			i = 0;
+			while (test[i])
+			{
+				test[i] = ft_strjoin_f(test[i], "/");
+				test[i] = ft_strjoin_f(test[i], command->command);
+				aargv = ft_strstrjoin(test[i], command->data);
+				a = 0;
+				execve(test[i], aargv, eenvp);
+				i++;
+			}
 		}
+		else
+		{
+			path = command->command;
+			eenvp = ft_converter_env(mini->env);
+			aargv = ft_strstrjoin(path, command->data);
+			execve(path, aargv, eenvp);
+		}
+		return (0);
 	}
 	else
 	{
