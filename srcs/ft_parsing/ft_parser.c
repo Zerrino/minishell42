@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:47:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 15:43:18 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:28:49 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -571,6 +571,7 @@ void	ft_all_parser(t_minishell *mini, char *input)
 				command[i].in = command[i - 1].output_str;
 		}
 		ft_parser(mini, splited[i], &command[i]);
+		mini->status_com = command[i].status;
 		if (mini->stop)
 			return ;
 		i++;

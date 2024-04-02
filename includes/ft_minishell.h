@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/30 02:42:58 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:25:42 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ char	*program_name;
 	char	*line;
 	int		error;
 	int		stop;
+	int		status_com;
 	t_env	*env;
 }	t_minishell;
 
@@ -91,4 +92,5 @@ int		ft_execute(char **split, t_minishell *mini);
 void	ft_take_action(t_command *com, t_minishell *mini);
 void	ft_error_msg(char *command);
 void	ft_echo(t_command *command);
+
 #endif

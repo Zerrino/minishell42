@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 17:24:10 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:27:32 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ int	ft_cd(t_command *command, t_minishell *mini)
 	if (!command->data || !command->data[0])
 	{
 		//cd home;
+		command->status = 0;
 		return (0);
 	}
 	if (chdir(command->data[0]) == -1)
