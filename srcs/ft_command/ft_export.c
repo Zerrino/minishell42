@@ -6,24 +6,11 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:21:47 by lpetit            #+#    #+#             */
-/*   Updated: 2024/03/31 16:16:33 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/02 14:12:57 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
-
-/*char	*get_key(char **data)
-{
-	char	*key;
-	int	i;
-
-	i = 0;
-	ft_strlcpy(key, data[1], ft_strlen(data[1]));
-	while (key[i] != '=')
-		i++;
-	key[i] = '\0';
-	return (key);
-}*/
 
 t_env	*ft_getenv(t_env *env, char *str, int c)
 {
