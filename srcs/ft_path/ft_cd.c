@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 18:05:55 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:11:54 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,37 @@ int	ft_cd(t_command *command, t_minishell *mini)
 	return (mini->error);
 }
 
+char	**ft_strstrjoin(char *s1, char **s2)
+{
+	char	**result;
+	int	i;
+	int	j;
+	int	m;
+
+	while (s2[i])
+		i++;
+	result = (char **)malloc(sizeof(char) * (i + 2));
+	if (!result)
+		return (0);
+	result[0] = s1;
+	j = 1;
+	m = 0;
+	while (m < i)
+	{
+		result[j] = s2[m];
+		m++;
+		j++;
+	}
+	result[j] = 0;
+	return (result);
+}
+
 int	ft_execute(t_command *command, t_minishell *mini)
 {
 	char	**test;
 	char	*path;
 	char	*path2;
+	char	**argv;
 	int		a;
 	int		b;
 	int		i;
@@ -49,7 +75,7 @@ int	ft_execute(t_command *command, t_minishell *mini)
 	{
 		test[i] = ft_strjoin_f(test[i], "/");
 		test[i] = ft_strjoin_f(test[i], command->command);
-		char *argv[] = {test[i], NULL, NULL};
+		argv = ft_strstrjoin(test[i], command->data);
 		char *envp[] = {NULL};
 		execve(test[i], argv, envp);
 		i++;
