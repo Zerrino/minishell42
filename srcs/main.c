@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 17:17:13 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:32:31 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	main(int argc, char **argv, char **env)
 	mini.stop = 0;
 	mini.error = ft_get_path(&mini);
 	mini.env = init_env_var(&mini, env);
+	mini.status_com = 0;
 	//ft_printf("%s\n", mini.start_path);
 	while (1)
 	{
@@ -59,6 +60,7 @@ int	main(int argc, char **argv, char **env)
 		if (*input)
 			add_history(input);
 		free(input);
+		printf("Last status : %d\n", mini.status_com);
 	}
 	if (input)
 		free(input);

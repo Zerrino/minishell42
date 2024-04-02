@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:27:20 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/20 20:29:42 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 17:33:29 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,10 @@ int	ft_printf_error(void)
 	return (1);
 }
 
-void	ft_error_msg(char *command)
+int	ft_error_msg(char *command)
 {
 	ft_putstr_fd("minishell: command not found: ", 2);
 	ft_putstr_fd(command, 2);
 	ft_putstr_fd("\n", 2);
+	return (1);
 }
