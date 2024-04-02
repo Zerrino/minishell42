@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 17:47:52 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:05:55 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,23 @@ int	ft_execute(t_command *command, t_minishell *mini)
 	char	*path2;
 	int		a;
 	int		b;
+	int		i;
 
 	path = ft_strjoin("$PATH", "");
 	path = converter(mini, path);
+	//path = ft_strjoin_f(path, "/ls");
+	//path = ft_strjoin_f(path, command->command);
+	test = ft_split(path, ':');
+	i = 0;
+	while (test[i])
+	{
+		test[i] = ft_strjoin_f(test[i], "/");
+		test[i] = ft_strjoin_f(test[i], command->command);
+		char *argv[] = {test[i], NULL, NULL};
+		char *envp[] = {NULL};
+		execve(test[i], argv, envp);
+		i++;
+	}
 	printf("path : %s\n", path);
 	//path = ft_strjoin(mini->start_path, "/");
 	//path2 = ft_strjoin(path, &mini->program_name[2]);
