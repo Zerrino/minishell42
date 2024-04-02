@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/27 16:25:08 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/02 17:17:13 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ void	sigint_handler(int sig_num)
 	//printf("\n");
 	//printf("\n val : %d\n", sig_num);
 
-
+	//if (sig_num == SIGQUIT)
+	//	return ;
 	rl_on_new_line();
 	rl_replace_line("", 0);
 	ft_printf("%s\n", g_prompt);
@@ -38,6 +39,7 @@ int	main(int argc, char **argv, char **env)
 
 	printf("Prog started.\n");
 	signal(SIGINT, sigint_handler);
+	signal(SIGQUIT, SIG_IGN);
 	//mini.program_name = argv[argc - 1];
 	mini.path = 0;
 	mini.error = 0;
