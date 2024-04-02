@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 18:33:03 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:37:52 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,11 +124,6 @@ int	ft_execute(t_command *command, t_minishell *mini)
 			test[i] = ft_strjoin_f(test[i], command->command);
 			argv = ft_strstrjoin(test[i], command->data);
 			a = 0;
-			while (argv[a])
-			{
-				printf("Argv : %s\n", argv[a]);
-				a++;
-			}
 			execve(test[i], argv, envp);
 			i++;
 		}
