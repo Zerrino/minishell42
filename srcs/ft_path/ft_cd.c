@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 18:52:35 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/02 18:56:56 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ int	ft_execute(t_command *command, t_minishell *mini)
 	{
 		if (!ft_strchr(command->command, '/'))
 		{
+			printf("Enter here.\n");
 			path = ft_strjoin("$PATH", "");
 			path = converter(mini, path);
 			eenvp = ft_converter_env(mini->env);
@@ -121,8 +122,8 @@ int	ft_execute(t_command *command, t_minishell *mini)
 			i = 0;
 			while (test[i])
 			{
-				test[i] = ft_strjoin_f(test[i], "/");
-				test[i] = ft_strjoin_f(test[i], command->command);
+				test[i] = ft_strjoin(test[i], "/");
+				test[i] = ft_strjoin(test[i], command->command);
 				aargv = ft_strstrjoin(test[i], command->data);
 				a = 0;
 				execve(test[i], aargv, eenvp);
@@ -131,6 +132,7 @@ int	ft_execute(t_command *command, t_minishell *mini)
 		}
 		else
 		{
+			printf("Enter here now.\n");
 			path = command->command;
 			eenvp = ft_converter_env(mini->env);
 			aargv = ft_strstrjoin(path, command->data);
