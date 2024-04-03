@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 18:59:48 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/03 03:26:32 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,25 +33,23 @@ int	ft_cd(t_command *command, t_minishell *mini)
 char	**ft_strstrjoin(char *s1, char **s2)
 {
 	char	**result;
-	int	i;
-	int	j;
-	int	m;
+	int		len;
+	int		i;
 
-	while (s2[i])
-		i++;
-	result = (char **)malloc(sizeof(char) * (i + 2));
+	len = 0;
+	while (s2[len])
+		len++;
+	result = (char **)malloc(sizeof(char *) * (len + 2));
 	if (!result)
 		return (0);
-	result[0] = s1;
-	j = 1;
-	m = 0;
-	while (m < i)
+	result[0] = ft_strdup(s1);
+	i = 1;
+	while ((i - 1) < len)
 	{
-		result[j] = s2[m];
-		m++;
-		j++;
+		result[i] = ft_strdup(s2[i - 1]);
+		i++;
 	}
-	result[j] = 0;
+	result[len + 2] = 0;
 	return (result);
 }
 
@@ -75,18 +73,19 @@ char	**ft_converter_env(t_env *env)
 		i++;
 		env = env->next;
 	}
+	env = start;
 	result = (char **)malloc(sizeof(char) * (i + 1));
 	if (!result)
 		return (0);
 	i = 0;
-	env = start;
 	while (env)
 	{
-		result[i] = env->env_var;
+		result[i] = ft_strdup(env->env_var);
 		i++;
 		env = env->next;
 	}
 	result[i] = 0;
+	env = start;
 	return (result);
 }
 
@@ -94,55 +93,53 @@ int	ft_execute(t_command *command, t_minishell *mini)
 {
     pid_t	pid;
 	int		status;
-	char	**test;
-	char	*path;
-	char	*path2;
-	char	**aargv;
-	char	**eenvp;
-	int		a;
-	int		b;
 	int		i;
+	char	**splitted;
+	char	**argv;
+	char	**env;
+	char	*path;
+	char	*empty;
 
 	pid = fork();
-	command->status = 0;
 	if (pid == -1)
 	{
-		printf("Pid fail\n");
+		printf("Pid failed\n");
 		return (0);
 	}
 	else if (pid == 0)
 	{
 		if (!ft_strchr(command->command, '/'))
 		{
-			printf("Enter here.\n");
-			path = ft_strjoin("$PATH", "");
-			path = converter(mini, path);
-			test = ft_split(path, ':');
+			printf("execute command.\n");
+			path = converter_nfree(mini, "$PATH");
+			splitted = ft_split(path, ':');
 			i = 0;
-			while (test[i])
+			while (splitted[i])
 			{
-				test[i] = ft_strjoin(test[i], "/");
-				test[i] = ft_strjoin(test[i], command->command);
-				aargv = ft_strstrjoin(test[i], command->data);
-				eenvp = ft_converter_env(mini->env);
-				a = 0;
-				execve(test[i], aargv, eenvp);
+				empty = "";
+				printf("spllited[%d] : %s\n", i, splitted[i]);
+				empty = ft_strjoin(empty, splitted[i]);
+				empty = ft_strjoin_f(empty, "/");
+				empty = ft_strjoin_f(empty, command->command);
+				argv = ft_strstrjoin(empty, command->data);
+				env = ft_converter_env(mini->env);
+				printf("empty : %s\n", empty);
+				execve(empty, argv, env);
+				//ft_free_split(argv);
+				//ft_free_split(env);
+				free(empty);
 				i++;
 			}
 		}
 		else
 		{
-			printf("Enter here now.\n");
-			path = command->command;
-			eenvp = ft_converter_env(mini->env);
-			aargv = ft_strstrjoin(path, command->data);
-			execve(path, aargv, eenvp);
+			printf("execute ./ \n");
 		}
-		return (0);
 	}
 	else
 	{
 		waitpid(pid, &status, 0);
+		command->status = status;
 		printf("celui du dessus a fini.\n");
 	}
 	return (0);

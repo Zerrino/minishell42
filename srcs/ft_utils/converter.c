@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   converter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
+/*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:27:10 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/02 14:42:39 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/03 03:18:39 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ char	*converter(t_minishell *mini, char *str)
 	char	*new;
 	char	*env_value;
 	char	*tmp;
-	
+
 	tmp = str;
 	new = ft_strdup("");
 	while (*tmp)
@@ -80,5 +80,33 @@ char	*converter(t_minishell *mini, char *str)
 		}
 	}
 	free(str);
+	return (new);
+}
+
+char	*converter_nfree(t_minishell *mini, char *str)
+{
+	char	*new;
+	char	*env_value;
+	char	*tmp;
+
+	tmp = str;
+	new = ft_strdup("");
+	while (*tmp)
+	{
+		if (*tmp && *tmp == '$')
+		{
+			tmp++;
+			env_value = get_env_value(tmp, mini->env);
+			if (env_value != NULL)
+				new = ft_strjoin_f(new, env_value);
+			while (*tmp && isalnum(*tmp))
+				tmp++;
+		}
+		else if (*tmp)
+		{
+			new = ft_charjoin_f(new, *tmp);
+			tmp++;
+		}
+	}
 	return (new);
 }

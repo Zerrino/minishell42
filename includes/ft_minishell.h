@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 17:48:12 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/03 03:18:50 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,6 @@ void	ft_take_action(t_command *com, t_minishell *mini);
 int		ft_error_msg(char *command);
 void	ft_echo(t_command *command);
 int		ft_execute(t_command *command, t_minishell *mini);
+char	*converter_nfree(t_minishell *mini, char *str);
 
 #endif
