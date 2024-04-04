@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/03 03:26:32 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/04 02:55:37 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,24 +68,23 @@ char	**ft_converter_env(t_env *env)
 
 	start = env;
 	i = 0;
-	while (env)
+	while (start)
 	{
 		i++;
-		env = env->next;
+		start = start->next;
 	}
-	env = start;
-	result = (char **)malloc(sizeof(char) * (i + 1));
+	start = env;
+	result = (char **)malloc(sizeof(char *) * (i + 1));
 	if (!result)
 		return (0);
 	i = 0;
-	while (env)
+	while (start)
 	{
-		result[i] = ft_strdup(env->env_var);
+		result[i] = ft_strdup(start->env_var);
 		i++;
-		env = env->next;
+		start = start->next;
 	}
 	result[i] = 0;
-	env = start;
 	return (result);
 }
 
