@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:47:23 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 17:48:03 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:49:27 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,38 @@ int	ft_redir_right(char *folder_name, int doub)
 	return (fd_nb);
 }
 
+static char	*ft_red_u(char *str, char *folder_name, char *result)
+{
+	str = get_next_line(0);
+	folder_name = ft_strjoin(folder_name, "\n");
+	result = ft_calloc(1, sizeof(char));
+	while (ft_strncmp(folder_name, str, ft_strlen(str)))
+	{
+		result = ft_strjoin_f(result, str);
+		free(str);
+		str = get_next_line(0);
+	}
+	free(str);
+	result = ft_strjoin(result, "\0");
+	return (result);
+}
+
+static char	*ft_red_u_2(char *str, int fd_nb, char *result)
+{
+	str = get_next_line(fd_nb);
+	result = ft_calloc(1, sizeof(char));
+	while (str)
+	{
+		result = ft_strjoin_f(result, str);
+		free(str);
+		str = get_next_line(fd_nb);
+	}
+	free(str);
+	result = ft_strjoin_f(result, "\0");
+	close(fd_nb);
+	return (result);
+}
+
 char	*ft_redir_left(char *folder_name, int doub)
 {
 	int	fd_nb;
@@ -68,19 +100,7 @@ char	*ft_redir_left(char *folder_name, int doub)
 	if (!folder_name || !folder_name[0] || ft_strchr(folder_name, '>'))
 		return (0);
 	if (doub == 1)
-	{
-		str = get_next_line(0);
-		folder_name = ft_strjoin(folder_name, "\n");
-		result = ft_calloc(1, sizeof(char));
-		while (ft_strncmp(folder_name, str, ft_strlen(str)))
-		{
-			result = ft_strjoin_f(result, str);
-			free(str);
-			str = get_next_line(0);
-		}
-		free(str);
-		result = ft_strjoin(result, "\0");
-	}
+		result = ft_red_u(str, folder_name, result);
 	else
 	{
 		fd_nb = open(folder_name, O_RDONLY);
@@ -89,17 +109,7 @@ char	*ft_redir_left(char *folder_name, int doub)
 			ft_printf_error();
 			return (0);
 		}
-		str = get_next_line(fd_nb);
-		result = ft_calloc(1, sizeof(char));
-		while (str)
-		{
-			result = ft_strjoin_f(result, str);
-			free(str);
-			str = get_next_line(fd_nb);
-		}
-		free(str);
-		result = ft_strjoin_f(result, "\0");
-		close(fd_nb);
+		result = ft_red_u_2(str, fd_nb, result);
 	}
 	return (result);
 }
