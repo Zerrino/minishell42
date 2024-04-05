@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:48:44 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 18:22:39 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:37:33 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	ft_output_com(t_minishell *mini, char *input)
 	int		doub;
 	int		output;
 
-	i  = 0;
+	i = 0;
 	output = 1;
 	while (input[i])
 	{
@@ -54,7 +54,7 @@ char	*ft_input_dir(t_minishell *mini, char *input)
 	int		doub;
 	char	*output;
 
-	i  = 0;
+	i = 0;
 	output = 0;
 	while (input[i])
 	{

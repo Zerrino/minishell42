@@ -6,24 +6,21 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:41:00 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 17:45:32 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:35:26 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-char	*ft_rem_quote(char *str, int f)
+static	int	ft_rem_count(char *str, int len)
 {
-	int	len;
-	int	count;
 	int	i;
-	int	j;
 	int	quote;
-	char	*result;
+	int	count;
 
-	len = ft_strlen(str);
-	quote = 0;
 	count = 0;
+	i = 0;
+	quote = 0;
 	while (i < len)
 	{
 		if ((quote == 0 || quote == 1) && str[i] == '"')
@@ -41,11 +38,15 @@ char	*ft_rem_quote(char *str, int f)
 		}
 		i++;
 	}
-	result = (char *)malloc(sizeof(char) * (len - count + 1));
-	if (!result)
-		return (0);
+	return (count);
+}
+
+static	char	*ft_rem_count_2(char *str, char *result, int len, int j)
+{
+	int	i;
+	int	quote;
+
 	i = 0;
-	j = 0;
 	quote = 0;
 	while (i < len)
 	{
@@ -65,6 +66,23 @@ char	*ft_rem_quote(char *str, int f)
 		i++;
 	}
 	result[j] = '\0';
+	return (result);
+}
+
+char	*ft_rem_quote(char *str, int f)
+{
+	char	*result;
+	int		len;
+	int		count;
+	int		j;
+
+	len = ft_strlen(str);
+	count = ft_rem_count(str, len);
+	result = (char *)malloc(sizeof(char) * (len - count + 1));
+	if (!result)
+		return (0);
+	j = 0;
+	result = ft_rem_count_2(str, result, len, j);
 	if (f)
 		free(str);
 	return (result);
