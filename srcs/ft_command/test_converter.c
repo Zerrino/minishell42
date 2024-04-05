@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/02 14:15:30 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/04 14:23:28 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/05 13:04:48 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	test_converter(t_minishell *mini, t_command *com)
 		str = ft_strjoin_f(str, com->data[i]);
 		i++;
 	}
-	to_test = converter_tilde(mini, str);
+	to_test = converter(mini, str);
 	printf("%s\n", to_test);
 	free(to_test);
 	return ;

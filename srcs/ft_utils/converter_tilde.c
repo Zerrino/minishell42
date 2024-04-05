@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:01:12 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/04 14:48:03 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/05 20:25:29 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ static char	*ft_charjoin_f(char *s1, char c)
 	s1_size = ft_strlen(s1);
 	join = (char *)malloc(((s1_size + 1) + 1) * sizeof(char));
 	if (!join)
+	{
+		free(s1);
 		return (NULL);
+	}
 	ft_strlcpy(join, s1, s1_size + 1);
 	join[s1_size] = c;
 	join[s1_size + 1] = '\0';
@@ -49,10 +52,25 @@ static char	*get_env_value(char *str, t_env *env)
 	return (tmp);
 }
 
+static char	*join_value(char *new, char *str, t_minishell *mini)
+{
+	char	*env_value;
+	char	*tmp;
+
+	if (!new)
+		return (NULL);
+	tmp = new;
+	env_value = get_env_value(str, mini->env);
+	if (env_value != NULL)
+		new = ft_strjoin_f(new, env_value);
+	if (!new)
+		free(tmp);
+	return (new);
+}
+
 char	*converter_tilde(t_minishell *mini, char *str)
 {
 	char	*new;
-	char	*env_value;
 	char	*tmp;
 
 	tmp = str;
@@ -61,12 +79,8 @@ char	*converter_tilde(t_minishell *mini, char *str)
 	{
 		if (*tmp && *tmp == '~')
 		{
-			env_value = get_env_value(tmp, mini->env);
-			if (env_value != NULL)
-			{
-				new = ft_strjoin_f(new, env_value);
-				tmp++;
-			}
+			new = join_value(new, tmp, mini);
+			tmp++;
 		}
 		if (*tmp)
 		{
