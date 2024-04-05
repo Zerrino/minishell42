@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/03 03:18:50 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:27:56 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 #include <signal.h>
 #include <limits.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <string.h>
 
 typedef	struct s_env
