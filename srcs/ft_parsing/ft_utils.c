@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:51:40 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 18:59:49 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 19:19:56 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ static int	ft_get_u(char **split, int i, int *array_max[2])
 	return (j);
 }
 
-char	**ft_get_data(char **split, t_command *command, int l, int *array_max[2])
+char	**ft_get_data(char **split, t_command *command, int l, int *a[2])
 {
 	char	**result;
 	int		i;
 	int		j;
 
 	i = l;
-	j = ft_get_u(split, i, array_max);
+	j = ft_get_u(split, i, a);
 	result = (char **)malloc(sizeof(char *) * (j + 1));
 	if (!result)
 		return (0);
@@ -55,7 +55,7 @@ char	**ft_get_data(char **split, t_command *command, int l, int *array_max[2])
 	j = 0;
 	while (split[i])
 	{
-		if (!ft_in_arr(i, array_max[0]) && !ft_in_arr(i, array_max[1]))
+		if (!ft_in_arr(i, a[0]) && !ft_in_arr(i, a[1]))
 		{
 			result[j] = split[i];
 			j++;

@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:47:23 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 18:49:27 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 19:21:32 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ int	ft_empty_par(t_minishell *mini, char *input)
 		mini->stop = 1;
 		return (1);
 	}
-
 	while (input[i])
 	{
 		if (input[i] != 10 && input[i] != 32 && input[i] != 9)
@@ -34,8 +33,9 @@ int	ft_empty_par(t_minishell *mini, char *input)
 
 int	ft_redir_right(char *folder_name, int doub)
 {
-	int	fd_nb;
+	int		fd_nb;
 	char	*str;
+
 	fd_nb = 1;
 	if (!folder_name || !folder_name[0] || ft_strchr(folder_name, '>'))
 		return (-1);
@@ -46,7 +46,7 @@ int	ft_redir_right(char *folder_name, int doub)
 			;
 	}
 	else if (doub == 0)
-		fd_nb = open(folder_name, O_RDWR ,O_TRUNC);
+		fd_nb = open(folder_name, O_RDWR, O_TRUNC);
 	if (fd_nb == -1)
 	{
 		fd_nb = open(folder_name, O_CREAT);
@@ -92,10 +92,10 @@ static char	*ft_red_u_2(char *str, int fd_nb, char *result)
 
 char	*ft_redir_left(char *folder_name, int doub)
 {
-	int	fd_nb;
-	int	i;
 	char	*str;
 	char	*result;
+	int		fd_nb;
+	int		i;
 
 	if (!folder_name || !folder_name[0] || ft_strchr(folder_name, '>'))
 		return (0);
