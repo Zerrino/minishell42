@@ -6,11 +6,17 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:48:44 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 17:49:04 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:22:39 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
+
+static void	ft_util_com(int *i, int *doub)
+{
+	*doub = 1;
+	*i += 1;
+}
 
 int	ft_output_com(t_minishell *mini, char *input)
 {
@@ -20,7 +26,6 @@ int	ft_output_com(t_minishell *mini, char *input)
 	int		output;
 
 	i  = 0;
-	doub = 0;
 	output = 1;
 	while (input[i])
 	{
@@ -30,10 +35,7 @@ int	ft_output_com(t_minishell *mini, char *input)
 			if (output != 1)
 				close(output);
 			if (input[i + 1] == '>')
-			{
-				doub = 1;
-				i++;
-			}
+				ft_util_com(&i, &doub);
 			splited = ft_split(&input[i + 1], ' ');
 			output = ft_redir_right(splited[0], doub);
 			ft_free_split(splited);
@@ -53,7 +55,6 @@ char	*ft_input_dir(t_minishell *mini, char *input)
 	char	*output;
 
 	i  = 0;
-	doub = 0;
 	output = 0;
 	while (input[i])
 	{
@@ -61,10 +62,7 @@ char	*ft_input_dir(t_minishell *mini, char *input)
 		{
 			doub = 0;
 			if (input[i + 1] == '<')
-			{
-				doub = 1;
-				i++;
-			}
+				ft_util_com(&i, &doub);
 			splited = ft_split(&input[i + 1], ' ');
 			if (output)
 				free(output);
