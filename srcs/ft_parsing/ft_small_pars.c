@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:52:29 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 17:54:06 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:56:37 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 	int			*array;
 	char		*ou;
 	int			*array2;
+	int			*array_max[2];
 
 //	printf("Parsing : %s\n", input);
 	input = converter(mini, input);
@@ -76,7 +77,9 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 		command->option = "n";
 	else
 		command->option = 0;
-	command->data = ft_get_data(split, command, i, array, array2);
+	array_max[0] = array;
+	array_max[1] = array2;
+	command->data = ft_get_data(split, command, i, array_max);
 	//printf("command : %s\n", command->command);
 	//printf("option : %s\n", command->option);
 	i = 0;

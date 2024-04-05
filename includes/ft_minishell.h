@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 17:58:19 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:57:50 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ int		ft_empty_par(t_minishell *mini, char *input);
 int		ft_redir_right(char *folder_name, int doub);
 char	*ft_redir_left(char *folder_name, int doub);
 int		ft_in_arr(int nb, int *array);
-char	**ft_get_data(char **split, t_command *command, int l, int *array, int *array2);
+char	**ft_get_data(char **split, t_command *command, int l, int *array_max[2]);
 int		ft_get_path(t_minishell *shell);
 void	ft_printf_path(t_minishell *shell);
 char	*ft_get_folder(t_minishell shell);
