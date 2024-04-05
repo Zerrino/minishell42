@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 17:27:56 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:58:19 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,24 @@ t_env	*init_env_var(t_minishell *mini, char **env);
 void	ft_clearlst(t_env *node);
 void	test_converter(t_minishell *mini, t_command *com);
 
+void	ft_replace_quote(char *str);
+void	ft_reverse_quote(char *str);
 int		ft_printf_error(void);
+int		*ft_get_arr_com(t_minishell *mini, t_command *command, char *input);
+int		*ft_get_arr_red(t_minishell *mini, t_command *command, char *input);
+int		ft_output_com(t_minishell *mini, char *input);
+char	*ft_input_dir(t_minishell *mini, char *input);
+char	*ft_rem_quote(char *str, int f);
+int		ft_empty_par(t_minishell *mini, char *input);
+int		ft_redir_right(char *folder_name, int doub);
+char	*ft_redir_left(char *folder_name, int doub);
+int		ft_in_arr(int nb, int *array);
+char	**ft_get_data(char **split, t_command *command, int l, int *array, int *array2);
 int		ft_get_path(t_minishell *shell);
 void	ft_printf_path(t_minishell *shell);
 char	*ft_get_folder(t_minishell shell);
 char	*ft_make_prompt(t_minishell mini);
-void	ft_parser(t_minishell *mini, char *input, t_command *com);
+void	ft_parser(t_minishell *mini, char *input, t_command	*command);
 void	ft_all_parser(t_minishell *mini, char *input);
 int		ft_wildscards(char *s1, char *s2);
 void	ft_free_split(char **split);
