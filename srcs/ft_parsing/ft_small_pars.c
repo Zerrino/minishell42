@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:52:29 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 19:23:27 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 19:29:04 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 	int			j;
 	int			option;
 	int			output;
-	int			*array;
 	char		*ou;
-	int			*array2;
 	int			*array_max[2];
 
 	input = converter(mini, input);
@@ -35,11 +33,11 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 		command->in = ou;
 	if (command->op == -1)
 		return ;
-	array = ft_get_arr_com(mini, command, input);
-	array2 = ft_get_arr_red(mini, command, input);
+	array_max[0] = ft_get_arr_com(mini, command, input);
+	array_max[1] = ft_get_arr_red(mini, command, input);
 	split = ft_split(input, ' ');
 	i = 0;
-	while (split[i] && (ft_in_arr(i, array) || ft_in_arr(i, array2)))
+	while (split[i] && (ft_in_arr(i, array_max[0]) || ft_in_arr(i, array_max[1])))
 		i++;
 	command->command = split[i];
 	if (split[i])
@@ -51,7 +49,7 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 	{
 		option = 1;
 		j = 0;
-		if ((!ft_in_arr(i, array) || !ft_in_arr(i, array2)))
+		if ((!ft_in_arr(i, array_max[0]) || !ft_in_arr(i, array_max[1])))
 		{
 			while (split[i][j] && option)
 			{
@@ -72,8 +70,6 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 		command->option = "n";
 	else
 		command->option = 0;
-	array_max[0] = array;
-	array_max[1] = array2;
 	command->data = ft_get_data(split, command, i, array_max);
 	i = 0;
 	while (command->data[i])
