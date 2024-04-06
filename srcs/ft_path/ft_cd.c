@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/04 02:55:37 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/06 09:44:16 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,10 +129,16 @@ int	ft_execute(t_command *command, t_minishell *mini)
 				free(empty);
 				i++;
 			}
+			exit(0);
 		}
 		else
 		{
+			empty = ft_strdup(command->command);
+			argv = ft_strstrjoin(empty, command->data);
+			env = ft_converter_env(mini->env);
+			execve(empty, argv, env);
 			printf("execute ./ \n");
+			exit(0);
 		}
 	}
 	else
