@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:27:10 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/05 20:24:47 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/06 17:02:08 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char 	*join_value(char *new, char *str, t_minishell *mini)
 		return (NULL);
 	tmp = new;
 	if (*str == '$')
-		env_value = "3517";
+		env_value = ft_itoa(mini->pid);
 	else if (*str == '?')
 		env_value = ft_itoa(mini->status_com);
 	else if (isalnum(*str))
@@ -106,7 +106,6 @@ char	*converter(t_minishell *mini, char *str)
 		}
 	}
 	free(str);
-	//new = converter_tilde(mini, new);
 	return (converter_tilde(mini, new));
 }
 

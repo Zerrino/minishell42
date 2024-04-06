@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/04 15:11:35 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/06 17:05:31 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 //#include "/usr/alexafer/.brew/opt/readline/include"
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <sys/wait.h>
 #include <signal.h>
 #include <limits.h>
 #include <errno.h>
@@ -43,6 +44,7 @@ char	*program_name;
 	int		error;
 	int		stop;
 	int		status_com;
+	int		pid;
 	t_env	*env;
 }	t_minishell;
 

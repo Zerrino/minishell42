@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/03 02:34:43 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/06 17:06:25 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,35 @@ void	sigint_handler(int sig_num)
 	rl_redisplay();
 }
 
+int	ft_getpid(void)
+{
+	pid_t	pid;
+	int	status;
+
+	pid = fork();
+	if (pid == -1)
+		return (1);
+	else if (pid == 0)
+		exit(0);
+	else
+	{
+		waitpid(pid, &status, 0);
+		if (WIFEXITED(status))
+			return (pid - 1);
+	}
+}
+
+int	init_shell(t_minishell *mini, char **env)
+{
+	mini->path = 0;
+	mini->stop = 0;
+	mini->error = 0;
+	mini->status_com = 0;
+	mini->error = ft_get_path(mini);
+	mini->env = init_env_var(mini, env);
+	mini->pid = ft_getpid();
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char		**split;
@@ -41,12 +70,9 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	//mini.program_name = argv[argc - 1];
-	mini.path = 0;
-	mini.error = 0;
-	mini.stop = 0;
-	mini.error = ft_get_path(&mini);
-	mini.env = init_env_var(&mini, env);
-	mini.status_com = 0;
+	init_shell(&mini, env);
+	//printf("pid %d\n", mini.pid);
+	//printf("getpid %d\n", getpid());
 	//ft_printf("%s\n", mini.start_path);
 	while (1)
 	{
@@ -60,7 +86,7 @@ int	main(int argc, char **argv, char **env)
 		if (*input)
 			add_history(input);
 		//free(input);
-		printf("Last status : %d\n", mini.status_com);
+		//printf("Last status : %d\n", mini.status_com);
 	}
 	if (input)
 		//free(input);
