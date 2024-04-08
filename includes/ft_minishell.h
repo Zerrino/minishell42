@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/06 17:05:31 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/08 21:00:53 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,12 @@ typedef struct s_command
 	char	*output_str;
 	int		status;
 	int		next;
+	int		found;
 }	t_command;
 
+
+char	**ft_strstrjoin(char *s1, char **s2);
+char	**ft_converter_env(t_env *env);
 int	ft_env(t_env *env);
 int	ft_export(t_command *com, t_minishell *mini);
 int	ft_unset(t_command *com, t_minishell *mini);
