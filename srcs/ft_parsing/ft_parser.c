@@ -40,77 +40,77 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 				exit(0);
 			}
 		}
-	pid = fork();
-	if (pid == -1)
-	{
-		printf("Error fork\n");
-		exit(0);
-	}
-	else if (pid == 0)
-	{
-		if (in_fd != 0)
+		pid = fork();
+		if (pid == -1)
 		{
-			dup2(in_fd, STDIN_FILENO);
-			close(in_fd);
+			printf("Error fork\n");
+			exit(0);
 		}
-		if (i < num_cmds - 1)
+		else if (pid == 0)
 		{
-			close(pipe_fd[0]);
-			dup2(pipe_fd[1], STDOUT_FILENO);
-			close(pipe_fd[1]);
-		}
-		ft_parser(mini, splited[i], commands[i]);
-		if (mini->stop)
-			return ;
-		if (!commands[i]->found)
-		{
-			if (!ft_strchr(commands[i]->command, '/'))
+			if (in_fd != 0)
 			{
-				path = converter_nfree(mini, "$PATH");
-				mul = ft_split(path, ':');
-				j = 0;
-				while (mul[j])
+				dup2(in_fd, STDIN_FILENO);
+				close(in_fd);
+			}
+			if (i < num_cmds - 1)
+			{
+				close(pipe_fd[0]);
+				dup2(pipe_fd[1], STDOUT_FILENO);
+				close(pipe_fd[1]);
+			}
+			ft_parser(mini, splited[i], commands[i]);
+			if (mini->stop)
+				return ;
+			if (!commands[i]->found)
+			{
+				if (!ft_strchr(commands[i]->command, '/'))
 				{
-					empty = "";
-					empty = ft_strjoin(empty, mul[j]);
-					empty = ft_strjoin_f(empty, "/");
-					empty = ft_strjoin_f(empty, commands[i]->command);
+					path = converter_nfree(mini, "$PATH");
+					mul = ft_split(path, ':');
+					j = 0;
+					while (mul[j])
+					{
+						empty = "";
+						empty = ft_strjoin(empty, mul[j]);
+						empty = ft_strjoin_f(empty, "/");
+						empty = ft_strjoin_f(empty, commands[i]->command);
+						argv = ft_strstrjoin(empty, commands[i]->data);
+						env = ft_converter_env(mini->env);
+						execve(empty, argv, env);
+						free(empty);
+						j++;
+					}
+				}
+				else
+				{
+					empty = ft_strdup(commands[i]->command);
 					argv = ft_strstrjoin(empty, commands[i]->data);
 					env = ft_converter_env(mini->env);
 					execve(empty, argv, env);
-					free(empty);
-					j++;
 				}
+				commands[i]->status = 1;
+				mini->stop = 1;
+				printf("Command not found : %s\n", commands[i]->command);
+				execve("./srcs/prob", NULL, NULL);
 			}
-			else
-			{
-				empty = ft_strdup(commands[i]->command);
-				argv = ft_strstrjoin(empty, commands[i]->data);
-				env = ft_converter_env(mini->env);
-				execve(empty, argv, env);
-			}
-			commands[i]->status = 1;
-			mini->stop = 1;
-			printf("Command not found : %s\n", commands[i]->command);
-			execve("./srcs/prob", NULL, NULL);
+			exit(0);
 		}
-		exit(0);
-	}
-	else
-	{
-		waitpid(pid, &status, 0);
-		commands[i]->status = status;
-		mini->status_com = status;
-		if (in_fd != 0)
-			close(in_fd);
-		if (i < num_cmds -1)
+		else
 		{
-			close(pipe_fd[1]);
-			in_fd = pipe_fd[0];
+			waitpid(pid, &status, 0);
+			commands[i]->status = status;
+			mini->status_com = status;
+			if (in_fd != 0)
+				close(in_fd);
+			if (i < num_cmds -1)
+			{
+				close(pipe_fd[1]);
+				in_fd = pipe_fd[0];
+			}
 		}
-	}
 	//printf("Fin de la boucle\n");
-	i++;
+		i++;
 	}
 }
 
