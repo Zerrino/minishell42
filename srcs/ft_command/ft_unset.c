@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 12:33:11 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/08 19:25:37 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/08 19:34:56 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,16 @@ void	ft_unset_env(char *str, t_minishell *mini)
 	to_unset = ft_getenv(mini->env, str, 1);
 	if (to_unset != NULL)
 	{
-		while (tmp->next != to_unset)
-			tmp = tmp->next;
-		tmp->next = to_unset->next;
+		if (mini->env != to_unset)
+		{
+			while (tmp->next != to_unset)
+				tmp = tmp->next;
+			tmp->next = to_unset->next;
+		}
+		else
+		{
+			mini->env = to_unset->next;
+		}
 		free(to_unset->env_var);
 		free(to_unset);
 	}
