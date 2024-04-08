@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/06 17:06:25 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/06 20:14:13 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,6 @@ int	main(int argc, char **argv, char **env)
 	if (input)
 		//free(input);
 	ft_clearlst(mini.env);
-	ft_printf("Current working directory: %s\n", mini.path);
+	//ft_printf("Current working directory: %s\n", mini.path);
 	return (0);
 }

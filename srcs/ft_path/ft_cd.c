@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/04 02:55:37 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:41:06 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,11 @@ char	**ft_converter_env(t_env *env)
 	result[i] = 0;
 	return (result);
 }
+void	ft_pipe_exe(char *str)
+{
+
+
+}
 
 int	ft_execute(t_command *command, t_minishell *mini)
 {
@@ -94,11 +99,19 @@ int	ft_execute(t_command *command, t_minishell *mini)
 	int		status;
 	int		i;
 	char	**splitted;
+	int		pipefd_input[2];
+	int		pipefd_output[2];
 	char	**argv;
 	char	**env;
 	char	*path;
 	char	*empty;
 
+
+
+	if (pipe(pipefd_input) != 0 || pipe(pipefd_output) != 0) {
+		printf("Pipe failed\n");
+		exit(0);
+	}
 	pid = fork();
 	if (pid == -1)
 	{
@@ -107,22 +120,29 @@ int	ft_execute(t_command *command, t_minishell *mini)
 	}
 	else if (pid == 0)
 	{
+		close(pipefd_input[1]);
+		dup2(pipefd_input[0], STDIN_FILENO);
+		close(pipefd_input[0]);
+
+		close(pipefd_output[0]);
+		dup2(pipefd_output[1], STDOUT_FILENO);
+		close(pipefd_output[1]);
+
 		if (!ft_strchr(command->command, '/'))
 		{
-			printf("execute command.\n");
 			path = converter_nfree(mini, "$PATH");
 			splitted = ft_split(path, ':');
 			i = 0;
 			while (splitted[i])
 			{
 				empty = "";
-				printf("spllited[%d] : %s\n", i, splitted[i]);
+				//printf("spllited[%d] : %s\n", i, splitted[i]);
 				empty = ft_strjoin(empty, splitted[i]);
 				empty = ft_strjoin_f(empty, "/");
 				empty = ft_strjoin_f(empty, command->command);
 				argv = ft_strstrjoin(empty, command->data);
 				env = ft_converter_env(mini->env);
-				printf("empty : %s\n", empty);
+				//printf("empty : %s\n", empty);
 				execve(empty, argv, env);
 				//ft_free_split(argv);
 				//ft_free_split(env);
@@ -132,14 +152,49 @@ int	ft_execute(t_command *command, t_minishell *mini)
 		}
 		else
 		{
-			printf("execute ./ \n");
+			empty = ft_strdup(command->command);
+			argv = ft_strstrjoin(empty, command->data);
+			env = ft_converter_env(mini->env);
+			execve(empty, argv, env);
 		}
+		mini->stop = 1;
 	}
 	else
 	{
+		char buffer[1024];
+		char	*buffer_v;
+		char	*tot;
+		close(pipefd_input[0]);
+
+		//printf("INPUT : %s\n", command->in);
+		if (command->in)
+		{
+			//printf("INPUT2 : %s\n", command->in);
+			write(pipefd_input[1], command->in, ft_strlen(command->in));
+		}
+		close(pipefd_input[1]);
+
+		close(pipefd_output[1]);
+
+		//int nbytes = read(fd[0], buffer, sizeof(buffer));
+		//write(STDOUT_FILENO, buffer, nbytes);
+		buffer_v = "1";
+		tot = ft_calloc(1, 1);
+		//tot = buffer_v;
+		while (buffer_v)
+		{
+			buffer_v = get_next_line(pipefd_output[0]);
+			//printf("buff : %s", buffer_v);
+			if (buffer_v)
+				tot = ft_strjoin_f(tot, buffer_v);
+			//tot = ft_strjoin(tot, buffer_v);
+		}
+		//printf("tot : %s", tot);
+		command->output_str = tot;
+		close(pipefd_output[0]);
+		//printf("celui du dessus a fini.\n");
 		waitpid(pid, &status, 0);
 		command->status = status;
-		printf("celui du dessus a fini.\n");
 	}
 	return (0);
 }
