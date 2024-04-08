@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 16:05:58 by alexafer          #+#    #+#             */
-/*   Updated: 2023/11/23 16:06:01 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 18:11:26 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ size_t	ft_strlen(char const *str)
 	size_t	i;
 
 	i = 0;
+	if (!str)
+		return (i);
 	while (str[i])
 		i++;
 	return (i);

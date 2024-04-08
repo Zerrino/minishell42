@@ -40,7 +40,7 @@ FT_PRINTF_DIR = ft_printf
 MEM_FILES = ft_free.c
 MEM_FILES := $(addprefix $(MEM_DIR)/, $(MEM_FILES))
 
-COM_FILES = ft_echo.c ft_env.c ft_export.c ft_unset.c test_converter.c
+COM_FILES = ft_echo.c ft_env.c ft_export.c ft_unset.c test_converter.c ft_exit.c
 COM_FILES := $(addprefix $(COM_DIR)/, $(COM_FILES))
 
 GNL_FILES = get_next_line.c get_next_line_utils.c
@@ -49,7 +49,7 @@ GNL_FILES := $(addprefix $(GNL_DIR)/, $(GNL_FILES))
 PATH_FILES = ft_path.c ft_cd.c
 PATH_FILES := $(addprefix $(PATH_DIR)/, $(PATH_FILES))
 
-UTILS_FILES = ft_error_manage.c ft_prompt.c ft_wildscards.c ft_init_env.c converter.c
+UTILS_FILES = ft_error_manage.c ft_prompt.c ft_wildscards.c ft_init_env.c converter.c converter_tilde.c
 UTILS_FILES := $(addprefix $(UTILS_DIR)/, $(UTILS_FILES))
 
 PARS_FILES = ft_parser.c ft_action.c ft_get_arr_com.c ft_get_arr_red.c ft_put_dir.c ft_rem_quo.c ft_replace.c ft_right.c ft_small_pars.c ft_utils.c
