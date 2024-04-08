@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:24:38 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/04 15:12:40 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/08 20:46:44 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	ft_take_action(t_command *com, t_minishell *mini)
 {
+	com->found = 1;
+
 	if (!ft_strncmp("echo", com->command, 5))
 		ft_echo(com);
 	//else if (!ft_strncmp("pwd", com->command, ft_strlen(com->command)))
@@ -37,7 +39,8 @@ void	ft_take_action(t_command *com, t_minishell *mini)
 	else if (!ft_strncmp("exit", com->command, ft_strlen(com->command)))
 		ft_exit(mini, com);
 	else
-		ft_execute(com, mini);
+		com->found = 0;
+
 	//else
 	//	com->status = ft_error_msg(com->command);
 }

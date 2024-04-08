@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/08 16:39:01 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/08 20:56:51 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,16 +156,12 @@ int	ft_execute(t_command *command, t_minishell *mini)
 			while (splitted[i])
 			{
 				empty = "";
-				//printf("spllited[%d] : %s\n", i, splitted[i]);
 				empty = ft_strjoin(empty, splitted[i]);
 				empty = ft_strjoin_f(empty, "/");
 				empty = ft_strjoin_f(empty, command->command);
 				argv = ft_strstrjoin(empty, command->data);
 				env = ft_converter_env(mini->env);
-				//printf("empty : %s\n", empty);
 				execve(empty, argv, env);
-				//ft_free_split(argv);
-				//ft_free_split(env);
 				free(empty);
 				i++;
 			}
