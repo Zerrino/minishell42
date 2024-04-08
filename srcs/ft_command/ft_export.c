@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:21:47 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/02 14:12:57 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/08 15:13:46 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,22 @@ int	ft_export(t_command *com, t_minishell *mini)
 	if (tmp != NULL)
 	{
 		if (update_node(tmp, com->data[0]) != 0)
-		{
-			ft_clearlst(mini->env);
-			exit(EXIT_FAILURE);
-		}
+			return (1);
 	}
-	else
+	else if (tmp == NULL)
 	{
 		tmp = mini->env;
 		while (tmp->next != NULL)
 			tmp = tmp->next;
 		tmp->next = ft_newnode(com->data[0]);
+		if (tmp->next == NULL)
+			return (1);
+		else if (tmp->next->env_var == NULL)
+		{
+			free(tmp->next);
+			tmp->next = NULL;
+			return (1);
+		}
 	}
 	return (0);
 }

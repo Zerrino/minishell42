@@ -1,32 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/03/31 12:33:11 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/08 13:48:51 by lpetit           ###   ########.fr       */
+/*   Created: 2024/04/04 15:04:55 by lpetit            #+#    #+#             */
+/*   Updated: 2024/04/04 15:12:01 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-int	ft_unset(t_command *com, t_minishell *mini)
+int	ft_exit(t_minishell *mini, t_command *com)
 {
-	t_env	*tmp;
-	t_env	*to_unset;
-
-	//printf("%s\n", com->data[0]);
-	tmp = mini->env;
-	to_unset = ft_getenv(mini->env, com->data[0], 1);
-	if (to_unset != NULL)
-	{
-		while (tmp->next != to_unset)
-			tmp = tmp->next;
-		tmp->next = to_unset->next;
-		free(to_unset->env_var);
-		free(to_unset);
-	}
-	return (0);
+	ft_clearlst(mini->env);
+	ft_free_split(com->data);
+	exit(0);
 }

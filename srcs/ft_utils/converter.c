@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:27:10 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/03 03:18:39 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/08 15:08:37 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ char	*ft_charjoin_f(char *s1, char c)
 	s1_size = ft_strlen(s1);
 	join = (char *)malloc(((s1_size + 1) + 1) * sizeof(char));
 	if (!join)
+	{
+		free(s1);
 		return (NULL);
+	}
 	ft_strlcpy(join, s1, s1_size + 1);
 	join[s1_size] = c;
 	join[s1_size + 1] = '\0';
@@ -44,9 +47,9 @@ char	*get_env_value(char *str, t_env *env)
 		i++;
 	tmp[i] = '\0';
 	node = ft_getenv(env, tmp, 1);
+	free(tmp);
 	if (!node)
 		return (NULL);
-	free(tmp);
 	tmp = node->env_var;
 	while (*tmp != '=')
 		tmp++;
@@ -54,10 +57,35 @@ char	*get_env_value(char *str, t_env *env)
 	return (tmp);
 }
 
+char 	*join_value(char *new, char *str, t_minishell *mini)
+{
+	char	*env_value;
+	char	*tmp;
+
+	if (!new)
+		return (NULL);
+	tmp = new;
+	if (*str == '$')
+		env_value = ft_itoa(mini->pid);
+	else if (*str == '?')
+		env_value = ft_itoa(mini->status_com);
+	else if (isalnum(*str))
+		env_value = ft_strdup(get_env_value(str, mini->env));
+	else if (*str == '\0' || !(isalnum(*str)))
+		env_value = ft_strdup("$");
+	if (env_value != NULL)
+	{
+		new = ft_strjoin_f(new, env_value);
+		free(env_value);
+	}
+	if (!new)
+		free(tmp);
+	return (new);
+}
+
 char	*converter(t_minishell *mini, char *str)
 {
 	char	*new;
-	char	*env_value;
 	char	*tmp;
 
 	tmp = str;
@@ -67,10 +95,11 @@ char	*converter(t_minishell *mini, char *str)
 		if (*tmp && *tmp == '$')
 		{
 			tmp++;
-			env_value = get_env_value(tmp, mini->env);
-			if (env_value != NULL)
-				new = ft_strjoin_f(new, env_value);
-			while (*tmp && isalnum(*tmp))
+			new = join_value(new, tmp, mini);
+			if (*tmp != '$' && *tmp != '?')
+				while (*tmp && isalnum(*tmp))
+					tmp++;
+			else
 				tmp++;
 		}
 		else if (*tmp)
@@ -80,13 +109,12 @@ char	*converter(t_minishell *mini, char *str)
 		}
 	}
 	free(str);
-	return (new);
+	return (converter_tilde(mini, new));
 }
 
 char	*converter_nfree(t_minishell *mini, char *str)
 {
 	char	*new;
-	char	*env_value;
 	char	*tmp;
 
 	tmp = str;
@@ -96,10 +124,11 @@ char	*converter_nfree(t_minishell *mini, char *str)
 		if (*tmp && *tmp == '$')
 		{
 			tmp++;
-			env_value = get_env_value(tmp, mini->env);
-			if (env_value != NULL)
-				new = ft_strjoin_f(new, env_value);
-			while (*tmp && isalnum(*tmp))
+			new = join_value(new, tmp, mini);
+			if (*tmp != '$' && *tmp != '?')
+				while (*tmp && isalnum(*tmp))
+					tmp++;
+			else
 				tmp++;
 		}
 		else if (*tmp)
@@ -108,5 +137,6 @@ char	*converter_nfree(t_minishell *mini, char *str)
 			tmp++;
 		}
 	}
-	return (new);
+	return (converter_tilde(mini, new));
 }
+

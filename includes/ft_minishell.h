@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 17:27:56 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/06 17:05:31 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 //#include "/usr/alexafer/.brew/opt/readline/include"
 #include <readline/readline.h>
 #include <readline/history.h>
+#include <sys/wait.h>
 #include <signal.h>
 #include <limits.h>
 #include <errno.h>
@@ -44,6 +45,7 @@ char	*program_name;
 	int		error;
 	int		stop;
 	int		status_com;
+	int		pid;
 	t_env	*env;
 }	t_minishell;
 
@@ -73,12 +75,14 @@ int	ft_export(t_command *com, t_minishell *mini);
 int	ft_unset(t_command *com, t_minishell *mini);
 int	update_node(t_env *node, char *str);
 char	*converter(t_minishell *mini, char *str);
+char	*converter_tilde(t_minishell *mini, char *str);
 t_env	*ft_newnode(char *str);
 t_env	*ft_getenv(t_env *env, char *str, int c);
 t_env	*init_env_var(t_minishell *mini, char **env);
 void	ft_clearlst(t_env *node);
 void	test_converter(t_minishell *mini, t_command *com);
 
+int		ft_exit(t_minishell *mini, t_command *com);
 int		ft_printf_error(void);
 int		ft_get_path(t_minishell *shell);
 void	ft_printf_path(t_minishell *shell);
