@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/08 16:48:05 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/08 17:02:11 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,16 +81,16 @@ int	main(int argc, char **argv, char **env)
 		g_prompt = mini.prompt;
 		input = readline(mini.prompt);
 		ft_all_parser(&mini, input);
-		//free(mini.prompt);
+		free(mini.prompt);
 		if (mini.stop)
 			break ;
 		if (*input)
 			add_history(input);
-		//free(input);
+		free(input);
 		//printf("Last status : %d\n", mini.status_com);
 	}
 	if (input)
-		//free(input);
+		free(input);
 	ft_clearlst(mini.env);
 	//ft_printf("Current working directory: %s\n", mini.path);
 	return (0);
