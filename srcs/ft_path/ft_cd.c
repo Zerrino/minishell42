@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/08 20:56:51 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/08 23:23:27 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,28 @@
 
 int	ft_cd(t_command *command, t_minishell *mini)
 {
+	int	i;
+
+	i =0;
+	while (command->data[i])
+	{
+		printf("%s\n", command->data[i]);
+		i++;
+	}
+	printf("salut\n");
 	if (!command->data || !command->data[0])
 	{
 		//cd home;
 		command->status = 0;
 		return (0);
 	}
+	printf("le chdir  = %s\n", command->data[0]);
 	if (chdir(command->data[0]) == -1)
 	{
 		command->status = 1;
 		return (ft_printf_error());
 	}
+	printf("coucou\n");
 	mini->error = ft_get_path(mini);
 	command->status = 0;
 	return (mini->error);
@@ -86,11 +97,6 @@ char	**ft_converter_env(t_env *env)
 	}
 	result[i] = 0;
 	return (result);
-}
-void	ft_pipe_exe(char *str)
-{
-
-
 }
 
 int	ft_execute(t_command *command, t_minishell *mini)

@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:24:38 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/08 20:46:44 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/09 00:11:38 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,9 @@ void	ft_take_action(t_command *com, t_minishell *mini)
 {
 	com->found = 1;
 
+	printf("%s\n", com->command);
 	if (!ft_strncmp("echo", com->command, 5))
 		ft_echo(com);
-	//else if (!ft_strncmp("pwd", com->command, ft_strlen(com->command)))
-	//	ft_printf("%s\n", mini->path);
-	//else if (!ft_strncmp("cd", com->command, ft_strlen(com->command)))
-	//	ft_cd(com, mini);
-	//else if (!ft_strncmp("env", com->command, ft_strlen(com->command)))
-	//	ft_env(mini);
 	else if (!ft_strncmp("pwd", com->command, ft_strlen(com->command)))
 		ft_printf("%s\n", mini->path);
 	else if (!ft_strncmp("cd", com->command, ft_strlen(com->command)))
