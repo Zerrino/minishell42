@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:47:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/08 21:41:28 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/08 21:42:38 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,6 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 					free(empty);
 					j++;
 				}
-				exit(0);
 			}
 			else
 			{
@@ -91,7 +90,6 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 				execve(empty, argv, env);
 			}
 			commands[i]->status = 1;
-			mini->stop = 1;
 			printf("Command not found : %s\n", commands[i]->command);
 			execve("./srcs/prob", NULL, NULL);
 		}
