@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:47:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/08 21:26:29 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/08 21:33:25 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 	char	**argv;
 	char	**env;
 	char	**mul;
+	int		status;
 	int		i;
 	int		j;
 	int		pipe_fd[2];
@@ -32,7 +33,7 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 	{
 		if (i < num_cmds -1)
 		{
-			printf("Ici dans le pipe\n");
+			//printf("Ici dans le pipe\n");
 			if (pipe(pipe_fd) == -1)
 			{
 				printf("Error pipe\n");
@@ -59,30 +60,47 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 			close(pipe_fd[1]);
 		}
 		ft_parser(mini, splited[i], commands[i]);
+		if (mini->stop)
+			return ;
 		if (!commands[i]->found)
 		{
-			printf("La command ici\n");
-			path = converter_nfree(mini, "$PATH");
-			mul = ft_split(path, ':');
-			j = 0;
-			while (mul[j])
+			if (!ft_strchr(commands[i]->command, '/'))
 			{
-				empty = "";
-				empty = ft_strjoin(empty, mul[j]);
-				empty = ft_strjoin_f(empty, "/");
-				empty = ft_strjoin_f(empty, commands[i]->command);
+				path = converter_nfree(mini, "$PATH");
+				mul = ft_split(path, ':');
+				j = 0;
+				while (mul[j])
+				{
+					empty = "";
+					empty = ft_strjoin(empty, mul[j]);
+					empty = ft_strjoin_f(empty, "/");
+					empty = ft_strjoin_f(empty, commands[i]->command);
+					argv = ft_strstrjoin(empty, commands[i]->data);
+					env = ft_converter_env(mini->env);
+					execve(empty, argv, env);
+					free(empty);
+					j++;
+				}
+			}
+			else
+			{
+				empty = ft_strdup(commands[i]->command);
 				argv = ft_strstrjoin(empty, commands[i]->data);
 				env = ft_converter_env(mini->env);
 				execve(empty, argv, env);
-				free(empty);
-				j++;
 			}
+			commands[i]->status = 1;
+			mini->stop = 1;
+			printf("Command not found : %s\n", commands[i]->command);
+			execve("./srcs/prob", NULL, NULL);
 		}
 		exit(0);
 	}
 	else
 	{
-		wait(NULL);
+		waitpid(pid, &status, 0);
+		commands[i]->status = status;
+		mini->status_com = status;
 		if (in_fd != 0)
 			close(in_fd);
 		if (i < num_cmds -1)
@@ -91,7 +109,7 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 			in_fd = pipe_fd[0];
 		}
 	}
-	printf("Fin de la boucle\n");
+	//printf("Fin de la boucle\n");
 	i++;
 	}
 }
@@ -114,26 +132,5 @@ void	ft_all_parser(t_minishell *mini, char *input)
 	command = (t_command *)malloc(sizeof(t_command) * (i));
 	if (!command)
 		return ;
-	printf("max : %d\n", max);
 	ft_execute_pipeline(mini, &command, max, splited);
-	/*
-	i = 0;
-	while (i < max)
-	{
-		command[i].in = 0;
-		command[i].next = 1;
-		if (i + 1 == max)
-			command[i].next = 0;
-		if (i > 0)
-		{
-			if (command[i - 1].next == 1)
-				command[i].in = command[i - 1].output_str;
-		}
-		ft_parser(mini, splited[i], &command[i]);
-		mini->status_com = command[i].status;
-		if (mini->stop)
-			return ;
-		i++;
-	}
-	*/
 }
