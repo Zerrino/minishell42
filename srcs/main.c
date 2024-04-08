@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/06 20:14:13 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:48:05 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	main(int argc, char **argv, char **env)
 	signal(SIGQUIT, SIG_IGN);
 	//mini.program_name = argv[argc - 1];
 	init_shell(&mini, env);
+	printf("pid = %d\n", getpid());
 	//printf("pid %d\n", mini.pid);
 	//printf("getpid %d\n", getpid());
 	//ft_printf("%s\n", mini.start_path);
