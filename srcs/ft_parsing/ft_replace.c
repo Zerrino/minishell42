@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:34:02 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 18:44:27 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:20:13 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,10 @@ void	ft_replace_quote(char *str)
 			str[i] = 29;
 		else if (quote && str[i] == '~')
 			str[i] = 28;
+		else if (quote && str[i] == '>')
+			str[i] = 27;
+		else if (quote && str[i] == '<')
+			str[i] = 26;
 		i++;
 	}
 }
@@ -66,6 +70,10 @@ void	ft_reverse_quote(char *str)
 			str[i] = '$';
 		else if (quote && str[i] == 28)
 			str[i] = '~';
+		else if (quote && str[i] == 27)
+			str[i] = '>';
+		else if (quote && str[i] == 26)
+			str[i] = '<';
 		i++;
 	}
 }
