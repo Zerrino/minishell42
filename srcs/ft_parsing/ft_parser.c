@@ -33,6 +33,8 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 	char	**argv;
 	char	**env;
 	char	**mul;
+	char	*str;
+	int		ato;
 	int		status;
 	int		i;
 	int		j;
@@ -119,8 +121,6 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 				close(pipe_fd[1]);
 				in_fd = pipe_fd[0];
 			}
-			char *str;
-			int	ato;
 			str = ft_strjoin("$?", "");
 			str = converter(mini, str);
 			ato = ft_atoi(str);
