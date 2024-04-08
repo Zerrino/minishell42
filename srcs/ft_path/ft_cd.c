@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/06 20:25:38 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/06 20:41:06 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,7 +156,6 @@ int	ft_execute(t_command *command, t_minishell *mini)
 			argv = ft_strstrjoin(empty, command->data);
 			env = ft_converter_env(mini->env);
 			execve(empty, argv, env);
-			printf("execute ./ \n");
 		}
 		mini->stop = 1;
 	}
