@@ -25,6 +25,7 @@
 #include <signal.h>
 #include <limits.h>
 #include <errno.h>
+#include <fcntl.h>
 #include <string.h>
 
 typedef	struct s_env

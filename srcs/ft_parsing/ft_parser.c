@@ -6,12 +6,11 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 15:47:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/02 17:53:07 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/05 17:27:43 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
-#include <fcntl.h>
 
 void	ft_replace_quote(char *str)
 {
@@ -195,10 +194,6 @@ char	*ft_redir_left(char *folder_name, int doub)
 		}
 		free(str);
 		result = ft_strjoin(result, "\0");
-		//i = 0;
-		//while (result[i])
-		//	i++;
-		//result[i - 1] = 0;
 	}
 	else
 	{
