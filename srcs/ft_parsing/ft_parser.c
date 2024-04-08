@@ -12,7 +12,19 @@
 
 #include "../../includes/ft_minishell.h"
 
-// 31 30 29 28
+int	ft_is_inside(char *command)
+{
+	if (!ft_strncmp("export", command, ft_strlen("export")))
+		return (3);
+	else if (!ft_strncmp("unset", command, ft_strlen("unset")))
+		return (3);
+	else if (!ft_strncmp("exit", command, ft_strlen("exit")))
+		return (3);
+	else if (!ft_strncmp("cd", command, ft_strlen("cd")))
+		return (3);
+	return (0);
+}
+
 void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, char **splited)
 {
 	pid_t	pid;
@@ -33,18 +45,17 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 	{
 		if (i < num_cmds -1)
 		{
-			//printf("Ici dans le pipe\n");
 			if (pipe(pipe_fd) == -1)
 			{
 				printf("Error pipe\n");
-				exit(0);
+				exit(1);
 			}
 		}
 		pid = fork();
 		if (pid == -1)
 		{
 			printf("Error fork\n");
-			exit(0);
+			exit(1);
 		}
 		else if (pid == 0)
 		{
@@ -89,11 +100,11 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 					env = ft_converter_env(mini->env);
 					execve(empty, argv, env);
 				}
-				commands[i]->status = 1;
-				mini->stop = 1;
 				printf("Command not found : %s\n", commands[i]->command);
-				execve("./srcs/prob", NULL, NULL);
+				exit (1);
 			}
+			else
+				exit(ft_is_inside(commands[i]->command));
 			exit(0);
 		}
 		else
@@ -107,6 +118,16 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 			{
 				close(pipe_fd[1]);
 				in_fd = pipe_fd[0];
+			}
+			char *str;
+			int	ato;
+			str = ft_strjoin("$?", "");
+			str = converter(mini, str);
+			ato = ft_atoi(str);
+			if (ato == 768)
+			{
+				ft_parser(mini, splited[i], commands[i]);
+				mini->status_com = commands[i]->status;
 			}
 		}
 	//printf("Fin de la boucle\n");
