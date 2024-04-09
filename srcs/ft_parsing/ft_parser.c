@@ -59,6 +59,8 @@ char	**ft_strstr_rev(char **split, char *str)
 void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, char **splited)
 {
 	pid_t	pid;
+	int		id_file_in;
+	int		id_file_out;
 	char	*file_in;
 	char	*file_out;
 	char	*path;
@@ -106,6 +108,7 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 				close(pipe_fd[1]);
 			}
 			ft_parser(mini, splited[i], commands[i], 0);
+			printf("DATA : %s", commands[i]->in);
 			if (mini->stop)
 				return ;
 			if (!commands[i]->found)
@@ -116,9 +119,25 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 					file_out = 0;
 					if (commands[i]->file_in.file_name)
 					{
-						file_in = "<";
 						if (commands[i]->file_in.doub)
-							file_in = ft_strjoin(file_in, "<");
+						{
+							if (dup2(1, STDIN_FILENO) < 0)
+								exit (1);
+							write(1, commands[i]->in, ft_strlen(commands[i]->in));
+						}
+						else
+						{
+							id_file_in = open(commands[i]->file_in.file_name, O_RDONLY);
+							if (id_file_in >= 0)
+							{
+								if (dup2(id_file_in, STDIN_FILENO) < 0)
+								{
+									close(id_file_in);
+									exit (1);
+								}
+							}
+
+						}
 						file_in = ft_strjoin(file_in, commands[i]->file_in.file_name);
 					}
 					if (commands[i]->file_out.file_name)
@@ -139,10 +158,6 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 						empty = ft_strjoin_f(empty, "/");
 						empty = ft_strjoin_f(empty, commands[i]->command);
 						argv = ft_strstrjoin(empty, commands[i]->data);
-						printf("here\n");
-						argv = ft_strstr_rev(argv, file_in);
-						argv = ft_strstr_rev(argv, file_out);
-						printf("stop\n");
 						int k;
 
 						k = 0;
@@ -165,6 +180,7 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 					execve(empty, argv, env);
 				}
 				printf("Command not found : %s\n", commands[i]->command);
+				close(id_file_in);
 				exit (1);
 			}
 			else
