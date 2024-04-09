@@ -72,7 +72,7 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 				dup2(pipe_fd[1], STDOUT_FILENO);
 				close(pipe_fd[1]);
 			}
-			ft_parser(mini, splited[i], commands[i]);
+			ft_parser(mini, splited[i], commands[i], 0);
 			if (mini->stop)
 				return ;
 			if (!commands[i]->found)
@@ -126,7 +126,7 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 			ato = ft_atoi(str);
 			if (ato == 768)
 			{
-				ft_parser(mini, splited[i], commands[i]);
+				ft_parser(mini, splited[i], commands[i], 1);
 				mini->status_com = commands[i]->status;
 			}
 		}

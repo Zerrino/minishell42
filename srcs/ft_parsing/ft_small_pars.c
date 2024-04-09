@@ -12,7 +12,7 @@
 
 #include "../../includes/ft_minishell.h"
 
-void	ft_parser(t_minishell *mini, char *input, t_command	*command)
+void	ft_parser(t_minishell *mini, char *input, t_command	*command, int nom)
 {
 	char		**split;
 	int			i;
@@ -79,7 +79,7 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command)
 		i++;
 	}
 	command->output_str = 0;
-	ft_take_action(command, mini);
+	ft_take_action(command, mini, nom);
 
 	if (command->output_str)
 		write(command->op, command->output_str, ft_strlen(command->output_str));
