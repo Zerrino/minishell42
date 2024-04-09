@@ -46,10 +46,10 @@ int	ft_redir_right(char *folder_name, int doub)
 			;
 	}
 	else if (doub == 0)
-		fd_nb = open(folder_name, O_RDWR, O_TRUNC);
+		fd_nb = open(folder_name, O_RDWR | O_TRUNC);
 	if (fd_nb == -1)
 	{
-		fd_nb = open(folder_name, O_CREAT);
+		fd_nb = open(folder_name, O_CREAT, 0644);
 		if (fd_nb == -1)
 			return (ft_printf_error());
 		close(fd_nb);

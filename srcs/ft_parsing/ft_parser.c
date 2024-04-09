@@ -119,8 +119,11 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 					{
 						id_file_in = open("./srcs/fichier.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
 						if (id_file_in >= 0)
-						{
 							write(id_file_in, commands[i]->in, ft_strlen(commands[i]->in));
+						close(id_file_in);
+						id_file_in = open("./srcs/fichier.txt", O_RDONLY);
+						if (id_file_in >= 0)
+						{
 							if (dup2(id_file_in, STDIN_FILENO) < 0)
 							{
 								perror("Error : dup2");
