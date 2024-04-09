@@ -96,20 +96,40 @@ void	ft_execute_pipeline(t_minishell *mini,t_command *commands, int num_cmds, ch
 		}
 		else if (pid == 0)
 		{
+			ft_parser(mini, splited[i], commands, 0);
 			if (in_fd != 0)
 			{
-				dup2(in_fd, STDIN_FILENO);
+				if (!commands->file_in.file_name)
+					dup2(in_fd, STDIN_FILENO);
 				close(in_fd);
 			}
 			if (i < num_cmds - 1)
 			{
-				//close(pipe_fd[0]);
-				dup2(pipe_fd[1], STDOUT_FILENO);
+				close(pipe_fd[0]);
+				if (!commands->file_in.file_name)
+					dup2(pipe_fd[1], STDOUT_FILENO);
 				close(pipe_fd[1]);
 			}
-			ft_parser(mini, splited[i], commands, 0);
+			if (commands->output_str)
+				write(commands->op, commands->output_str, ft_strlen(commands->output_str));
 			if (!commands->found)
 			{
+				if (commands->file_out.file_name)
+				{
+					if (commands->file_out.doub)
+						id_file_out = open(commands->file_out.file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+					else
+						id_file_out = open(commands->file_out.file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+					if (id_file_out >= 0)
+					{
+						if (dup2(id_file_out, STDOUT_FILENO) < 0)
+						{
+							perror("Error : dup2");
+							close(id_file_out);
+							exit (1);
+						}
+					}
+				}
 				if (commands->file_in.file_name)
 				{
 					if (commands->file_in.doub)
@@ -140,22 +160,6 @@ void	ft_execute_pipeline(t_minishell *mini,t_command *commands, int num_cmds, ch
 								close(id_file_in);
 								exit (1);
 							}
-						}
-					}
-				}
-				if (commands->file_out.file_name)
-				{
-					if (commands->file_out.doub)
-						id_file_out = open(commands->file_out.file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
-					else
-						id_file_out = open(commands->file_out.file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
-					if (id_file_out >= 0)
-					{
-						if (dup2(id_file_out, STDOUT_FILENO) < 0)
-						{
-							perror("Error : dup2");
-							close(id_file_out);
-							exit (1);
 						}
 					}
 				}
