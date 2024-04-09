@@ -96,60 +96,73 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 		}
 		else if (pid == 0)
 		{
-			if (in_fd != 0)
+			ft_parser(mini, splited[i], commands[i], 0);
+			if (in_fd != 0 && !commands[i]->file_in.file_name)
 			{
 				dup2(in_fd, STDIN_FILENO);
 				close(in_fd);
 			}
-			if (i < num_cmds - 1)
+			if (i < num_cmds - 1 && !commands[i]->file_out.file_name)
 			{
 				close(pipe_fd[0]);
 				dup2(pipe_fd[1], STDOUT_FILENO);
 				close(pipe_fd[1]);
 			}
-			ft_parser(mini, splited[i], commands[i], 0);
-			printf("DATA : %s", commands[i]->in);
+			//printf("DATA : %s", commands[i]->in);
 			if (mini->stop)
 				return ;
 			if (!commands[i]->found)
 			{
+				if (commands[i]->file_in.file_name)
+				{
+					if (commands[i]->file_in.doub)
+					{
+						id_file_in = open("./srcs/fichier.txt", O_RDWR | O_CREAT | O_TRUNC, 0644);
+						if (id_file_in >= 0)
+						{
+							write(id_file_in, commands[i]->in, ft_strlen(commands[i]->in));
+							if (dup2(id_file_in, STDIN_FILENO) < 0)
+							{
+								perror("Error : dup2");
+								close(id_file_in);
+								exit (1);
+							}
+						}
+					}
+					else
+					{
+						id_file_in = open(commands[i]->file_in.file_name, O_RDONLY);
+						if (id_file_in >= 0)
+						{
+							if (dup2(id_file_in, STDIN_FILENO) < 0)
+							{
+								perror("Error : dup2");
+								close(id_file_in);
+								exit (1);
+							}
+						}
+					}
+				}
+				if (commands[i]->file_out.file_name)
+				{
+					if (commands[i]->file_out.doub)
+						id_file_out = open(commands[i]->file_out.file_name, O_WRONLY | O_CREAT | O_APPEND, 0644);
+					else
+						id_file_out = open(commands[i]->file_out.file_name, O_WRONLY | O_CREAT | O_TRUNC, 0644);
+					if (id_file_out >= 0)
+					{
+						if (dup2(id_file_out, STDOUT_FILENO) < 0)
+						{
+							perror("Error : dup2");
+							close(id_file_out);
+							exit (1);
+						}
+					}
+				}
 				if (!ft_strchr(commands[i]->command, '/'))
 				{
-					file_in = 0;
-					file_out = 0;
-					if (commands[i]->file_in.file_name)
-					{
-						if (commands[i]->file_in.doub)
-						{
-							if (dup2(1, STDIN_FILENO) < 0)
-								exit (1);
-							write(1, commands[i]->in, ft_strlen(commands[i]->in));
-						}
-						else
-						{
-							id_file_in = open(commands[i]->file_in.file_name, O_RDONLY);
-							if (id_file_in >= 0)
-							{
-								if (dup2(id_file_in, STDIN_FILENO) < 0)
-								{
-									close(id_file_in);
-									exit (1);
-								}
-							}
-
-						}
-						file_in = ft_strjoin(file_in, commands[i]->file_in.file_name);
-					}
-					if (commands[i]->file_out.file_name)
-					{
-						file_out = ">";
-						if (commands[i]->file_out.doub)
-							file_out = ft_strjoin(file_out, ">");
-						file_out = ft_strjoin(file_out, commands[i]->file_out.file_name);
-					}
 					path = converter_nfree(mini, "$PATH");
 					mul = ft_split(path, ':');
-					printf("%s, %s\n", file_out, file_in);
 					j = 0;
 					while (mul[j])
 					{
@@ -159,13 +172,6 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 						empty = ft_strjoin_f(empty, commands[i]->command);
 						argv = ft_strstrjoin(empty, commands[i]->data);
 						int k;
-
-						k = 0;
-						while (argv[k])
-						{
-							printf("argv[%d] : %s\n", k, argv[k]);
-							k++;
-						}
 						env = ft_converter_env(mini->env);
 						execve(empty, argv, env);
 						free(empty);
