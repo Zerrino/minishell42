@@ -47,6 +47,12 @@ char	**ft_strstr_rev(char **split, char *str)
 	result[i] = str;
 	i++;
 	result[i] = 0;
+	i = 0;
+	while (result[i])
+	{
+		printf("result : %s\n", result[i]);
+		i++;
+	}
 	return (result);
 }
 
@@ -133,8 +139,18 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 						empty = ft_strjoin_f(empty, "/");
 						empty = ft_strjoin_f(empty, commands[i]->command);
 						argv = ft_strstrjoin(empty, commands[i]->data);
-						argv = ft_strstr_rev(argv, file_out);
+						printf("here\n");
 						argv = ft_strstr_rev(argv, file_in);
+						argv = ft_strstr_rev(argv, file_out);
+						printf("stop\n");
+						int k;
+
+						k = 0;
+						while (argv[k])
+						{
+							printf("argv[%d] : %s\n", k, argv[k]);
+							k++;
+						}
 						env = ft_converter_env(mini->env);
 						execve(empty, argv, env);
 						free(empty);
