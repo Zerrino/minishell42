@@ -18,13 +18,14 @@ static void	ft_util_com(int *i, int *doub)
 	*i += 1;
 }
 
-int	ft_output_com(t_minishell *mini, char *input)
+int	ft_output_com(t_minishell *mini, t_command *command, char *input)
 {
 	char	**splited;
 	int		i;
 	int		doub;
 	int		output;
 
+	command->file_out.file_name = 0;
 	i = 0;
 	output = 1;
 	while (input[i])
@@ -38,7 +39,12 @@ int	ft_output_com(t_minishell *mini, char *input)
 				ft_util_com(&i, &doub);
 			splited = ft_split(&input[i + 1], ' ');
 			output = ft_redir_right(splited[0], doub);
-			ft_free_split(splited);
+			if (output != -1)
+			{
+				command->file_out.file_name = splited[0];
+				command->file_out.doub = doub;
+			}
+			//ft_free_split(splited);
 			if (output == -1)
 				return (-1);
 		}
@@ -47,7 +53,7 @@ int	ft_output_com(t_minishell *mini, char *input)
 	return (output);
 }
 
-char	*ft_input_dir(t_minishell *mini, char *input)
+char	*ft_input_dir(t_minishell *mini, t_command *command, char *input)
 {
 	char	**splited;
 	int		i;
@@ -56,6 +62,7 @@ char	*ft_input_dir(t_minishell *mini, char *input)
 
 	i = 0;
 	output = 0;
+	command->file_in.file_name = 0;
 	while (input[i])
 	{
 		if (input[i] == '<')
@@ -67,7 +74,12 @@ char	*ft_input_dir(t_minishell *mini, char *input)
 			if (output)
 				free(output);
 			output = ft_redir_left(splited[0], doub);
-			ft_free_split(splited);
+			if (output)
+			{
+				command->file_in.file_name = splited[0];
+				command->file_in.doub = doub;
+			}
+			//ft_free_split(splited);
 			if (output == 0)
 				return (0);
 		}

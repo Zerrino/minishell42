@@ -25,9 +25,36 @@ int	ft_is_inside(char *command)
 	return (0);
 }
 
+char	**ft_strstr_rev(char **split, char *str)
+{
+	char	**result;
+	int		i;
+
+	i = 0;
+	if (!str)
+		return (split);
+	while (split[i])
+		i++;
+	result = (char **)malloc(sizeof(char *) * (i + 2));
+	if (!result)
+		return (0);
+	i = 0;
+	while (split[i])
+	{
+		result[i] = split[i];
+		i++;
+	}
+	result[i] = str;
+	i++;
+	result[i] = 0;
+	return (result);
+}
+
 void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, char **splited)
 {
 	pid_t	pid;
+	char	*file_in;
+	char	*file_out;
 	char	*path;
 	char	*empty;
 	char	**argv;
@@ -79,8 +106,25 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 			{
 				if (!ft_strchr(commands[i]->command, '/'))
 				{
+					file_in = 0;
+					file_out = 0;
+					if (commands[i]->file_in.file_name)
+					{
+						file_in = "<";
+						if (commands[i]->file_in.doub)
+							file_in = ft_strjoin(file_in, "<");
+						file_in = ft_strjoin(file_in, commands[i]->file_in.file_name);
+					}
+					if (commands[i]->file_out.file_name)
+					{
+						file_out = ">";
+						if (commands[i]->file_out.doub)
+							file_out = ft_strjoin(file_out, ">");
+						file_out = ft_strjoin(file_out, commands[i]->file_out.file_name);
+					}
 					path = converter_nfree(mini, "$PATH");
 					mul = ft_split(path, ':');
+					printf("%s, %s\n", file_out, file_in);
 					j = 0;
 					while (mul[j])
 					{
@@ -89,6 +133,8 @@ void	ft_execute_pipeline(t_minishell *mini,t_command **commands, int num_cmds, c
 						empty = ft_strjoin_f(empty, "/");
 						empty = ft_strjoin_f(empty, commands[i]->command);
 						argv = ft_strstrjoin(empty, commands[i]->data);
+						argv = ft_strstr_rev(argv, file_out);
+						argv = ft_strstr_rev(argv, file_in);
 						env = ft_converter_env(mini->env);
 						execve(empty, argv, env);
 						free(empty);

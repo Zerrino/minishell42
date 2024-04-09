@@ -27,8 +27,8 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command, int nom)
 	if (ft_empty_par(mini, input))
 		return ;
 	command->op = 1;
-	command->op = ft_output_com(mini, input);
-	ou = ft_input_dir(mini, input);
+	command->op = ft_output_com(mini, command, input);
+	ou = ft_input_dir(mini, command, input);
 	if (ou)
 		command->in = ou;
 	if (command->op == -1)

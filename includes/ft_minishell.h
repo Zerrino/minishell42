@@ -58,11 +58,19 @@ typedef struct s_wilds
 	int		last;
 }	t_wilds;
 
+typedef struct s_file
+{
+	char	*file_name;
+	int		doub;
+}	t_file;
+
 typedef struct s_command
 {
 	char	*command;
 	char	*option;
 	int		op;
+	t_file	file_in;
+	t_file	file_out;
 	char	*in;
 	char	**data;
 	char	*output_str;
@@ -92,8 +100,8 @@ int		ft_exit(t_minishell *mini, t_command *com);
 int		ft_printf_error(void);
 int		*ft_get_arr_com(t_minishell *mini, t_command *command, char *input);
 int		*ft_get_arr_red(t_minishell *mini, t_command *command, char *input);
-int		ft_output_com(t_minishell *mini, char *input);
-char	*ft_input_dir(t_minishell *mini, char *input);
+int		ft_output_com(t_minishell *mini, t_command *command, char *input);
+char	*ft_input_dir(t_minishell *mini, t_command *command, char *input);
 char	*ft_rem_quote(char *str, int f);
 int		ft_empty_par(t_minishell *mini, char *input);
 int		ft_redir_right(char *folder_name, int doub);
