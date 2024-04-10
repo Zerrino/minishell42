@@ -14,6 +14,8 @@
 
 int	ft_cd(t_command *command, t_minishell *mini)
 {
+	int	i;
+
 	if (!command->data || !command->data[0])
 	{
 		if (chdir(converter(mini, ft_strjoin("$HOME", ""))) == -1)
@@ -24,6 +26,14 @@ int	ft_cd(t_command *command, t_minishell *mini)
 		mini->error = ft_get_path(mini);
 		command->status = 0;
 		return (0);
+	}
+	while (command->data[i])
+		i++;
+	if (i > 1)
+	{
+		ft_putendl_fd("minishell: cd: too many arguments", 2);
+		command->status = 1;
+		return (1);
 	}
 	if (chdir(command->data[0]) == -1)
 	{
