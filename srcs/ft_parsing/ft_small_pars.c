@@ -12,50 +12,54 @@
 
 #include "../../includes/ft_minishell.h"
 
-void	ft_parser(t_minishell *mini, char *input, t_command	*command, int nom)
+void	ext(t_minishell *mini, t_command *command, char *input)
 {
-	char		**split;
-	int			i;
-	int			l;
-	int			j;
-	int			option;
-	int			output;
-	char		*ou;
-	int			*array_max[2];
+	char	**split;
+	int		*a[2];
+	int		i;
+	int		l;
 
-	input = converter(mini, input);
-	if (ft_empty_par(mini, input))
-		return ;
-	command->op = 1;
-	command->op = ft_output_com(mini, command, input);
-	ou = ft_input_dir(mini, command, input);
-	if (ou)
-		command->in = ou;
-	if (command->op == -1)
-		return ;
-	array_max[0] = ft_get_arr_com(mini, command, input);
-	array_max[1] = ft_get_arr_red(mini, command, input);
+	a[0] = ft_get_arr_com(mini, command, input);
+	a[1] = ft_get_arr_red(mini, command, input);
 	split = ft_split(input, ' ');
 	i = 0;
-	while (split[i] && (ft_in_arr(i, array_max[0]) || ft_in_arr(i, array_max[1])))
+	while (split[i] && (ft_in_arr(i, a[0]) || ft_in_arr(i, a[1])))
 		i++;
-	command->command = split[i];
-	if (split[i])
-		i++;
-	if (!split[i])
-		command->option = 0;
+	set_command_data(command, split, &i);
 	l = i;
-	while (split[i])
+	find_option(split, command, a, &i);
+	if (i > l)
+		command->option = "n";
+	else
+		command->option = 0;
+	proc(command, split, i, a);
+}
+
+void	set_command_data(t_command *command, char **split, int *i)
+{
+	command->command = split[*i];
+	if (split[*i])
+		(*i)++;
+	if (!split[*i])
+		command->option = 0;
+}
+
+void	find_option(char **split, t_command *command, int **array_max, int *i)
+{
+	int	option;
+	int	j;
+
+	while (split[*i])
 	{
 		option = 1;
 		j = 0;
-		if ((!ft_in_arr(i, array_max[0]) || !ft_in_arr(i, array_max[1])))
+		if (!ft_in_arr(*i, array_max[0]) || !ft_in_arr(*i, array_max[1]))
 		{
-			while (split[i][j] && option)
+			while (split[*i][j])
 			{
-				if ((j == 0 && split[i][j] == '-'))
+				if (j == 0 && split[*i][j] == '-')
 					;
-				else if (split[i][j] == 'n')
+				else if (split[*i][j] == 'n')
 					option = 1;
 				else
 					option = 0;
@@ -64,13 +68,15 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command, int nom)
 			if (option == 0)
 				break ;
 		}
-		i++;
+		(*i)++;
 	}
-	if (i > l)
-		command->option = "n";
-	else
-		command->option = 0;
-	command->data = ft_get_data(split, command, i, array_max);
+}
+
+void	proc(t_command *command, char **split, int start_index, int **array_max)
+{
+	int	i;
+
+	command->data = ft_get_data(split, command, start_index, array_max);
 	i = 0;
 	while (command->data[i])
 	{
@@ -79,7 +85,13 @@ void	ft_parser(t_minishell *mini, char *input, t_command	*command, int nom)
 		i++;
 	}
 	command->output_str = 0;
+}
+
+void	ft_parser(t_minishell *mini, char *input, t_command *command, int nom)
+{
+	parser_init(mini, &input, command);
+	if (!(command->op != -1))
+		return ;
+	ext(mini, command, input);
 	ft_take_action(command, mini, nom);
-
-
 }

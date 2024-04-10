@@ -16,7 +16,12 @@ int	ft_cd(t_command *command, t_minishell *mini)
 {
 	if (!command->data || !command->data[0])
 	{
-		//cd home;
+		if (chdir(converter(mini, ft_strjoin("$HOME", ""))) == -1)
+		{
+			command->status = 1;
+			return (ft_printf_error());
+		}
+		mini->error = ft_get_path(mini);
 		command->status = 0;
 		return (0);
 	}
@@ -53,18 +58,11 @@ char	**ft_strstrjoin(char *s1, char **s2)
 	return (result);
 }
 
-
-//typedef	struct s_env
-//{
-//	char	*env_var;
-//	struct s_env	*next;
-//}	t_env;
-
 char	**ft_converter_env(t_env *env)
 {
 	t_env	*start;
 	char	**result;
-	int	i;
+	int		i;
 
 	start = env;
 	i = 0;
@@ -86,135 +84,4 @@ char	**ft_converter_env(t_env *env)
 	}
 	result[i] = 0;
 	return (result);
-}
-void	ft_pipe_exe(char *str)
-{
-
-
-}
-
-int	ft_execute(t_command *command, t_minishell *mini)
-{
-    pid_t	pid;
-	int		status;
-	int		i;
-	char	**splitted;
-	int		pipefd_input[2];
-	int		pipefd_output[2];
-	char	**argv;
-	char	**env;
-	char	*path;
-	char	*empty;
-
-
-	if (command->next)
-		printf("Next\n");
-	else
-		printf("No next\n");
-	if (command->next)
-	{
-		if (pipe(pipefd_output) != 0)
-		{
-			printf("Pipe failed\n");
-			exit(0);
-		}
-	}
-	if (command->in)
-	{
-		if (pipe(pipefd_output) != 0)
-		{
-			printf("Pipe failed\n");
-			exit(0);
-		}
-	}
-	pid = fork();
-	if (pid == -1)
-	{
-		printf("Pid failed\n");
-		return (0);
-	}
-	else if (pid == 0)
-	{
-		if (command->in)
-		{
-			close(pipefd_input[1]);
-			dup2(pipefd_input[0], STDIN_FILENO);
-			close(pipefd_input[0]);
-		}
-		if (command->next)
-		{
-			close(pipefd_output[0]);
-			dup2(pipefd_output[1], STDOUT_FILENO);
-			close(pipefd_output[1]);
-		}
-
-		if (!ft_strchr(command->command, '/'))
-		{
-			path = converter_nfree(mini, "$PATH");
-			splitted = ft_split(path, ':');
-			i = 0;
-			while (splitted[i])
-			{
-				empty = "";
-				empty = ft_strjoin(empty, splitted[i]);
-				empty = ft_strjoin_f(empty, "/");
-				empty = ft_strjoin_f(empty, command->command);
-				argv = ft_strstrjoin(empty, command->data);
-				env = ft_converter_env(mini->env);
-				execve(empty, argv, env);
-				free(empty);
-				i++;
-			}
-		}
-		else
-		{
-			empty = ft_strdup(command->command);
-			argv = ft_strstrjoin(empty, command->data);
-			env = ft_converter_env(mini->env);
-			execve(empty, argv, env);
-		}
-		command->status = 1;
-		mini->stop = 1;
-		printf("test Command not found : %s\n", command->command);
-		execve("./srcs/prob", NULL, NULL);
-	}
-	else
-	{
-		char	*buffer_v;
-		char	*tot;
-		close(pipefd_input[0]);
-
-		//printf("INPUT : %s\n", command->in);
-		if (command->in)
-		{
-			//printf("INPUT2 : %s\n", command->in);
-			write(pipefd_input[1], command->in, ft_strlen(command->in));
-		}
-		if (command->in)
-			close(pipefd_input[1]);
-		if (command->next)
-		{
-
-			//int nbytes = read(fd[0], buffer, sizeof(buffer));
-			//write(STDOUT_FILENO, buffer, nbytes);
-			buffer_v = "1";
-			tot = ft_calloc(1, 1);
-			//tot = buffer_v;
-			while (buffer_v)
-			{
-				buffer_v = get_next_line(pipefd_output[0]);
-				//printf("buff : %s", buffer_v);
-				if (buffer_v)
-					tot = ft_strjoin_f(tot, buffer_v);
-				//tot = ft_strjoin(tot, buffer_v);
-			}
-			//printf("tot : %s", tot);
-			command->output_str = tot;
-			close(pipefd_output[0]);
-		}
-		//printf("celui du dessus a fini.\n");
-		waitpid(pid, &status, 0);
-		command->status = status;
-	}
-	return (0);
 }

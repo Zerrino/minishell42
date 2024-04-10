@@ -80,6 +80,32 @@ typedef struct s_command
 }	t_command;
 
 
+typedef struct s_pipeline_data
+{
+	t_minishell	*mini;
+	t_command	*commands;
+	char		**splited;
+	int			num_cmds;
+	int			i;
+	int			in_fd;
+	int			pipe_fd[2];
+	pid_t		pid;
+}	t_pipeline_data;
+
+
+void	set_command_data(t_command *command, char **split, int *i);
+void	find_option(char **split, t_command *command, int **array_max, int *i);
+void	proc(t_command *command, char **split, int start_index, int **array_max);
+void	parser_init(t_minishell *mini, char **input, t_command *command);
+void	writing_file(t_pipeline_data *data);
+int	ft_is_inside(char *command);
+void	parent_process(t_pipeline_data *data);
+void	handle_file_out_redirection(t_pipeline_data *data);
+void	handle_file_in_redirection(t_pipeline_data *data);
+void	execute_path_command(t_pipeline_data *data, char *command_path);
+void	execute_command(t_pipeline_data *data);
+void	handle_redirections(t_pipeline_data *data);
+void	search_and_execute_command(t_pipeline_data *data);
 char	**ft_strstrjoin(char *s1, char **s2);
 char	**ft_converter_env(t_env *env);
 int	ft_env(t_env *env);

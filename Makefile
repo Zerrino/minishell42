@@ -52,7 +52,7 @@ PATH_FILES := $(addprefix $(PATH_DIR)/, $(PATH_FILES))
 UTILS_FILES = ft_error_manage.c ft_prompt.c ft_wildscards.c ft_init_env.c converter.c converter_tilde.c
 UTILS_FILES := $(addprefix $(UTILS_DIR)/, $(UTILS_FILES))
 
-PARS_FILES = ft_parser.c ft_action.c ft_get_arr_com.c ft_get_arr_red.c ft_put_dir.c ft_rem_quo.c ft_replace.c ft_right.c ft_small_pars.c ft_utils.c
+PARS_FILES = ft_parser.c ft_action.c ft_get_arr_com.c ft_get_arr_red.c ft_put_dir.c ft_rem_quo.c ft_replace.c ft_right.c ft_small_pars.c ft_utils.c ft_parser_utils.c ft_parser_utils_2.c ft_parser_i.c
 PARS_FILES := $(addprefix $(PARS_DIR)/, $(PARS_FILES))
 
 SRC_FILES = main.c $(GNL_FILES) $(UTILS_FILES) $(PATH_FILES) $(MEM_FILES) $(PARS_FILES) $(COM_FILES)
