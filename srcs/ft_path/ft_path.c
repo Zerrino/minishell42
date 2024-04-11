@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:21:18 by alexafer          #+#    #+#             */
-/*   Updated: 2024/03/24 23:15:34 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:33:47 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,3 @@ void	ft_printf_path(t_minishell *shell)
 	ft_printf("Started at directory: %s\n", shell->start_path);
 	ft_printf("Current directory: %s\n", shell->path);
 }
-

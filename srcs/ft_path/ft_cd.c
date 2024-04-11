@@ -6,25 +6,33 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 04:16:31 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/08 20:56:51 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:32:17 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
+int	cd_home(t_command *com, t_minishell *mini)
+{
+	if (chdir(converter(mini, ft_strjoin("$HOME", ""))) == -1)
+	{
+		com->status = 1;
+		return (1);
+	}
+	mini->error = ft_get_path(mini);
+	com->status = 0;
+	return (0);
+}
+
 int	ft_cd(t_command *command, t_minishell *mini)
 {
 	int	i;
 
+	i = 0;
 	if (!command->data || !command->data[0])
 	{
-		if (chdir(converter(mini, ft_strjoin("$HOME", ""))) == -1)
-		{
-			command->status = 1;
+		if (cd_home(command, mini) == 1)
 			return (ft_printf_error());
-		}
-		mini->error = ft_get_path(mini);
-		command->status = 0;
 		return (0);
 	}
 	while (command->data[i])
