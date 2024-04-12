@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:21:47 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/08 19:12:55 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/11 14:17:06 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,18 @@ int	has_equal_sign(char *str)
 int	check(char *str)
 {
 	size_t	i;
+	char	*err_msg;
 
 	i = 0;
-	if (!(isalpha(str[i])))
-	{
-		printf("export: `%s': not a valid identifier\n", str);
-		return (1);
-	}
+	err_msg = "': not a valid identifier\n";
 	while (str[i])
 	{
-		if (!(isalnum(str[i])) && str[i] != '_' && str[i] != '=')
+		if (!(isalnum(str[i])) && str[i] != '_' && str[i] != '=' || 
+			!(isalpha(str[0])))
 		{
-			printf("export: `%s': not a valid identifier\n", str);
+			write(2, "export: `", 9);
+			write(2, str, ft_strlen(str));
+			write(2, err_msg, ft_strlen(err_msg));
 			return (1);
 		}
 		i++;
@@ -100,8 +100,8 @@ int	ft_export_env(char *str, t_minishell *mini)
 
 int	ft_export(t_command *com, t_minishell *mini)
 {
-	int	ret;
-	int	tmp;
+	int		ret;
+	int		tmp;
 	size_t	i;
 
 	i = 0;

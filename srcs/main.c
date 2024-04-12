@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:01:52 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/08 17:02:11 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/11 12:54:04 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ int	init_shell(t_minishell *mini, char **env)
 	mini->stop = 0;
 	mini->error = 0;
 	mini->status_com = 0;
-	mini->error = ft_get_path(mini);
 	mini->env = init_env_var(mini, env);
+	mini->error = ft_get_path(mini);
 	mini->pid = ft_getpid();
 }
 

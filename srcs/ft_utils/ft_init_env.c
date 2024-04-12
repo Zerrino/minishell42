@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/27 15:35:55 by lpetit            #+#    #+#             */
-/*   Updated: 2024/03/31 16:20:52 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/11 12:56:17 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,15 @@ t_env	*init_env_var(t_minishell *mini, char **env)
 {
 	t_env	*tmp;
 	t_env	*node;
-	int	env_len;
-	int	i;
+	int		i;
 
 	i = 0;
-	env_len = 0;
-	while (env[env_len])
-		env_len++;
 	node = ft_newnode(env[i]);
 	if (!node)
 		exit(EXIT_FAILURE);
 	tmp = node;
 	i++;
-	while (i < env_len)
+	while (env[i])
 	{
 		node->next = ft_newnode(env[i]);
 		if (!node->next || !node->next->env_var)

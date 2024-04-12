@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:27:10 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/08 15:08:37 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/11 12:58:38 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ char	*get_env_value(char *str, t_env *env)
 	return (tmp);
 }
 
-char 	*join_value(char *new, char *str, t_minishell *mini)
+char	*join_value(char *new, char *str, t_minishell *mini)
 {
 	char	*env_value;
 	char	*tmp;
@@ -139,4 +139,3 @@ char	*converter_nfree(t_minishell *mini, char *str)
 	}
 	return (converter_tilde(mini, new));
 }
-

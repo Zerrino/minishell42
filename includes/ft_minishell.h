@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/08 21:00:53 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/11 13:50:18 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,29 @@
 # define FT_MINISHELL_H
 
 //Users/Alexandre/.brew/opt/readline/include
-#include "../ft_printf/ft_printf.h"
-#include "../libft/libft.h"
-#include "get_next_line.h"
+# include "../ft_printf/ft_printf.h"
+# include "../libft/libft.h"
+# include "get_next_line.h"
 //#include "/usr/alexafer/.brew/opt/readline/lib"
 //#include "/usr/alexafer/.brew/opt/readline/include"
-#include <readline/readline.h>
-#include <readline/history.h>
-#include <sys/wait.h>
-#include <signal.h>
-#include <limits.h>
-#include <errno.h>
-#include <fcntl.h>
-#include <string.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+# include <sys/wait.h>
+# include <signal.h>
+# include <limits.h>
+# include <errno.h>
+# include <fcntl.h>
+# include <string.h>
 
-typedef	struct s_env
+typedef struct s_env
 {
-	char	*env_var;
+	char			*env_var;
 	struct s_env	*next;
 }	t_env;
 
 typedef struct s_minishell
 {
-char	*program_name;
+	char	*program_name;
 	char	*prompt;
 	char	*folder;
 	char	*start_path;
@@ -79,7 +79,6 @@ typedef struct s_command
 	int		found;
 }	t_command;
 
-
 typedef struct s_pipeline_data
 {
 	t_minishell	*mini;
@@ -92,13 +91,12 @@ typedef struct s_pipeline_data
 	pid_t		pid;
 }	t_pipeline_data;
 
-
 void	set_command_data(t_command *command, char **split, int *i);
 void	find_option(char **split, t_command *command, int **array_max, int *i);
 void	proc(t_command *command, char **split, int start_index, int **array_max);
 void	parser_init(t_minishell *mini, char **input, t_command *command);
 void	writing_file(t_pipeline_data *data);
-int	ft_is_inside(char *command);
+int		ft_is_inside(char *command);
 void	parent_process(t_pipeline_data *data);
 void	handle_file_out_redirection(t_pipeline_data *data);
 void	handle_file_in_redirection(t_pipeline_data *data);
@@ -108,10 +106,10 @@ void	handle_redirections(t_pipeline_data *data);
 void	search_and_execute_command(t_pipeline_data *data);
 char	**ft_strstrjoin(char *s1, char **s2);
 char	**ft_converter_env(t_env *env);
-int	ft_env(t_env *env);
-int	ft_export(t_command *com, t_minishell *mini);
-int	ft_unset(t_command *com, t_minishell *mini);
-int	update_node(t_env *node, char *str);
+int		ft_env(t_env *env, t_command *com);
+int		ft_export(t_command *com, t_minishell *mini);
+int		ft_unset(t_command *com, t_minishell *mini);
+int		update_node(t_env *node, char *str);
 char	*converter(t_minishell *mini, char *str);
 char	*converter_tilde(t_minishell *mini, char *str);
 t_env	*ft_newnode(char *str);
