@@ -40,11 +40,7 @@ int	ft_redir_right(char *folder_name, int doub)
 	if (!folder_name || !folder_name[0] || ft_strchr(folder_name, '>'))
 		return (-1);
 	if (doub == 1)
-	{
-		fd_nb = open(folder_name, O_RDWR);
-		while (get_next_line(fd_nb))
-			;
-	}
+		fd_nb = open(folder_name, O_RDWR | O_APPEND);
 	else if (doub == 0)
 		fd_nb = open(folder_name, O_RDWR | O_TRUNC);
 	if (fd_nb == -1)
@@ -64,7 +60,7 @@ static char	*ft_red_u(char *folder_name)
 	char	*result;
 
 	str = get_next_line(0);
-	folder_name = ft_strjoin(folder_name, "\n");
+	folder_name = ft_strjoin_f(folder_name, "\n");
 	result = ft_calloc(1, sizeof(char));
 	while (ft_strncmp(folder_name, str, ft_strlen(str)))
 	{
@@ -73,7 +69,8 @@ static char	*ft_red_u(char *folder_name)
 		str = get_next_line(0);
 	}
 	free(str);
-	result = ft_strjoin(result, "\0");
+	result = ft_strjoin_f(result, "\0");
+	free(folder_name);
 	return (result);
 }
 

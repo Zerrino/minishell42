@@ -17,7 +17,6 @@ static void	ft_static_com(char **splited, int *nb)
 	int	i;
 	int	x;
 
-	nb = 0;
 	i = 0;
 	while (splited[i])
 	{
@@ -27,14 +26,14 @@ static void	ft_static_com(char **splited, int *nb)
 			if (splited[i][1] == '>')
 				x = 1;
 			if (!splited[i][1 + x])
-				nb++;
-			nb++;
+				(*nb)++;
+			(*nb)++;
 		}
 		i++;
 	}
 }
 
-static int	*ft_static_com_2(char **splited, int *array, int i)
+static int	*ft_static_com_2(char **splited, int *array, int i, int max_size)
 {
 	int	x;
 	int	j;
@@ -49,6 +48,7 @@ static int	*ft_static_com_2(char **splited, int *array, int i)
 			if (splited[i][1] == '>')
 				x = 1;
 			if (!splited[i][1 + x])
+			if (j < max_size - 1)
 			{
 				array[j] = i + 1;
 				j++;
@@ -58,7 +58,8 @@ static int	*ft_static_com_2(char **splited, int *array, int i)
 		}
 		i++;
 	}
-	array[j] = -1;
+	if (j < max_size)
+		array[j] = -1;
 	return (array);
 }
 
@@ -78,7 +79,7 @@ int	*ft_get_arr_com(t_minishell *mini, t_command *command, char *input)
 	if (!array)
 		return (0);
 	i = 0;
-	array = ft_static_com_2(splited, array, i);
+	array = ft_static_com_2(splited, array, i, nb + 1);
 	ft_free_split(splited);
 	return (array);
 }
