@@ -57,7 +57,7 @@ char	**ft_get_data(char **split, t_command *command, int l, int *a[2])
 	{
 		if (!ft_in_arr(i, a[0]) && !ft_in_arr(i, a[1]))
 		{
-			result[j] = split[i];
+			result[j] = ft_strdup(split[i]);
 			j++;
 		}
 		i++;

@@ -68,6 +68,11 @@ static char	*join_value(char *new, char *str, t_minishell *mini)
 	return (new);
 }
 
+static int	return_tilde(char *str)
+{
+
+}
+
 char	*converter_tilde(t_minishell *mini, char *str)
 {
 	char	*new;

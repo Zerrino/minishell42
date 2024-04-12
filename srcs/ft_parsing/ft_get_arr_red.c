@@ -77,5 +77,6 @@ int	*ft_get_arr_red(t_minishell *mini, t_command *command, char *input)
 	if (!array)
 		return (0);
 	array = ft_static_com_2(splited, array, i);
+	ft_free_split(splited);
 	return (array);
 }

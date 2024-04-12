@@ -65,6 +65,7 @@ static	char	*ft_rem_count_2(char *str, char *result, int len, int j)
 			result[j++] = str[i];
 		i++;
 	}
+	free(str);
 	result[j] = '\0';
 	return (result);
 }

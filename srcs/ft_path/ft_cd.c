@@ -72,7 +72,7 @@ char	**ft_strstrjoin(char *s1, char **s2)
 		result[i] = ft_strdup(s2[i - 1]);
 		i++;
 	}
-	result[len + 2] = 0;
+	result[len + 1] = 0;
 	return (result);
 }
 

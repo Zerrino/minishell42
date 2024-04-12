@@ -33,11 +33,14 @@ void	ext(t_minishell *mini, t_command *command, char *input)
 	else
 		command->option = 0;
 	proc(command, split, i, a);
+	ft_free_split(split);
+	free(a[0]);
+	free(a[1]);
 }
 
 void	set_command_data(t_command *command, char **split, int *i)
 {
-	command->command = split[*i];
+	command->command = ft_strdup(split[*i]);
 	if (split[*i])
 		(*i)++;
 	if (!split[*i])

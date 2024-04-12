@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:46:12 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/10 23:56:34 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/12 04:32:34 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	execute_path_command(t_pipeline_data *data, char *command_path)
 
 void	execute_command(t_pipeline_data *data)
 {
+	int	i;
+
 	handle_file_out_redirection(data);
 	handle_file_in_redirection(data);
 	if (!data->commands->found)
@@ -58,8 +60,10 @@ void	execute_command(t_pipeline_data *data)
 		ft_error_msg(data->commands->command);
 		exit(1);
 	}
-	else
-		exit(ft_is_inside(data->commands->command));
+	ft_free_split(data->commands->data);
+	i = ft_is_inside(data->commands->command);
+	free(data->commands->command);
+	exit(i);
 }
 
 void	handle_redirections(t_pipeline_data *data)

@@ -89,7 +89,7 @@ char	*converter(t_minishell *mini, char *str)
 	char	*tmp;
 
 	tmp = str;
-	new = ft_strdup("");
+	new = ft_calloc(1, 1);
 	while (*tmp)
 	{
 		if (*tmp && *tmp == '$')
