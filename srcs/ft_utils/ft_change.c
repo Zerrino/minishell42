@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/12 05:47:51 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/12 06:26:29 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/12 06:35:24 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static int	ft_change_len(char *str, char c)
 		i++;
 	}
 	max += i;
-	free(str);
 	return (max);
 }
 
