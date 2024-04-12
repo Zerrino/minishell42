@@ -20,7 +20,9 @@ int	ft_empty_par(t_minishell *mini, char *input)
 	if (!input)
 	{
 		mini->stop = 1;
-		exit (1);
+		ft_exit(mini, NULL, 1);
+		//ft_exit(mini, 0, 1);
+		exit(1);
 	}
 	while (input[i])
 	{

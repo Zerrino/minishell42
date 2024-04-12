@@ -79,6 +79,7 @@ void	ft_all_parser(t_minishell *mini, char *input)
 	int			i;
 	int			max;
 
+	mini->input_1 = input;
 	if (ft_empty_par(mini, input))
 		return ;
 	new_input = ft_strdup(input);
@@ -92,12 +93,12 @@ void	ft_all_parser(t_minishell *mini, char *input)
 		new_input = ft_change_input(new_input, '<');
 	}
 	splited = ft_split(new_input, '|');
+	mini->split_1 = splited;
 	while (splited[i])
 		i++;
 	max = i;
 	ft_execute_pipeline(mini, &command, max, splited);
 	free(new_input);
-	//ft_free_split(command.data);
 	ft_free_split(splited);
 }
 

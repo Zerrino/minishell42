@@ -37,19 +37,18 @@ void	ft_free_env_list(t_env *env)
 	char	*line;
 	*/
 
-int	ft_exit(t_minishell *mini, t_command *com)
+int	ft_exit(t_minishell *mini, t_command *com, int i)
 {
-	printf("EXIT ENTER\n");
-	/*
-	free(mini->program_name);
-	free(mini->prompt);
-	free(mini->start_path);
+	if (com)
+	{
+		free(com->command);
+		if (com->data)
+			ft_free_split(com->data);
+	}
 	free(mini->path);
-	free(mini->line);
-	*/
-	//free(mini->input);
-	clear_history();
+	free(mini->start_path);
+	free(mini->input_1);
+	rl_clear_history();
 	ft_free_env_list(mini->env);
-	ft_free_split(com->data);
-	exit(0);
+	exit(i);
 }

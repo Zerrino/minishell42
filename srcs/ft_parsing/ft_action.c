@@ -41,7 +41,7 @@ void	ft_take_action(t_command *com, t_minishell *mini, int nom)
 	else if (!ft_strncmp("exit", com->command, ft_strlen("exit")))
 	{
 		if (nom)
-			ft_exit(mini, com);
+			ft_exit(mini, com, 0);
 	}
 	else
 		com->found = 0;

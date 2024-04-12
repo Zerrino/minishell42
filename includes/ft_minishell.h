@@ -46,6 +46,8 @@ typedef struct s_minishell
 	int		stop;
 	int		status_com;
 	int		pid;
+	char	*input_1;
+	char	**split_1;
 	t_env	*env;
 }	t_minishell;
 
@@ -123,7 +125,7 @@ void	test_converter(t_minishell *mini, t_command *com);
 
 void	ft_replace_quote(char *str);
 void	ft_reverse_quote(char *str);
-int		ft_exit(t_minishell *mini, t_command *com);
+int		ft_exit(t_minishell *mini, t_command *com, int i);
 int		ft_printf_error(void);
 int		*ft_get_arr_com(t_minishell *mini, t_command *command, char *input);
 int		*ft_get_arr_red(t_minishell *mini, t_command *command, char *input);

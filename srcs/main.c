@@ -70,12 +70,12 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argv;
 	(void)argc;
-	printf("Prog started.\n");
+	//printf("Prog started.\n");
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);
 	//mini.program_name = argv[argc - 1];
 	init_shell(&mini, env);
-	printf("pid = %d\n", getpid());
+	//printf("pid = %d\n", getpid());
 	//printf("pid %d\n", mini.pid);
 	//printf("getpid %d\n", getpid());
 	//ft_printf("%s\n", mini.start_path);
@@ -84,10 +84,10 @@ int	main(int argc, char **argv, char **env)
 		mini.prompt = ft_make_prompt(mini);
 		g_prompt = mini.prompt;
 		input = readline(mini.prompt);
+		free(mini.prompt);
 		if (input && *input)
 			add_history(input);
 		ft_all_parser(&mini, input);
-		free(mini.prompt);
 		if (mini.stop)
 			break ;
 		free(input);
