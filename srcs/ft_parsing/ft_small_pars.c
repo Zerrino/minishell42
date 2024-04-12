@@ -37,6 +37,7 @@ void	ext(t_minishell *mini, t_command *command, char *input)
 	ft_free_split(split);
 	free(a[0]);
 	free(a[1]);
+	free(input);
 }
 
 void	set_command_data(t_command *command, char **split, int *i)

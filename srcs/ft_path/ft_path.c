@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
+#include <limits.h>
 
 int	ft_get_path(t_minishell *shell)
 {

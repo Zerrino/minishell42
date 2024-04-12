@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 00:21:07 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/12 17:46:18 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:12:10 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,8 @@
 void	parser_init(t_minishell *mini, char **input, t_command *command)
 {
 	char	*ou;
-	//char	*test;
 
-	//*input = converter(mini, *input);
+	*input = converter(mini, *input);
 	if (ft_empty_par(mini, *input))
 	{
 		command->op = -1;

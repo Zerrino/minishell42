@@ -109,6 +109,7 @@ char	*ft_redir_left(char *folder_name, int doub)
 		fd_nb = open(folder_name, O_RDONLY);
 		if (fd_nb == -1)
 		{
+			free(folder_name);
 			ft_printf_error();
 			return (0);
 		}
