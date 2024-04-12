@@ -97,5 +97,7 @@ void	ft_all_parser(t_minishell *mini, char *input)
 	max = i;
 	ft_execute_pipeline(mini, &command, max, splited);
 	free(new_input);
+	//ft_free_split(command.data);
+	ft_free_split(splited);
 }
 

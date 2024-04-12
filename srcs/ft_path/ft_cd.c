@@ -14,11 +14,16 @@
 
 int	cd_home(t_command *com, t_minishell *mini)
 {
-	if (chdir(converter(mini, ft_strjoin("$HOME", ""))) == -1)
+	char	*str;
+
+	str = converter(mini, ft_strjoin("$HOME", ""));
+	if (chdir(str) == -1)
 	{
 		com->status = 1;
+		free(str);
 		return (1);
 	}
+	free(str);
 	mini->error = ft_get_path(mini);
 	com->status = 0;
 	return (0);

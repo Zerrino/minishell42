@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:42:10 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/12 07:02:48 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/12 20:36:35 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ void	parent_process(t_pipeline_data *data)
 	free(str);
 	if (ato == 768)
 	{
-		ft_parser(data->mini, data->splited[data->i], data->commands, 1);
+		str = ft_strdup(data->splited[data->i]);
+		ft_parser(data->mini, str, data->commands, 1);
 		data->mini->status_com = data->commands->status;
+		free(data->commands->command);
+		ft_free_split(data->commands->data);
 	}
 }
 
