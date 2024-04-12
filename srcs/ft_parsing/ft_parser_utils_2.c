@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:46:12 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/12 04:32:34 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/12 18:31:49 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ void	search_and_execute_command(t_pipeline_data *data)
 		command_path = ft_strjoin(directories[j], "/");
 		command_path = ft_strjoin_f(command_path, data->commands->command);
 		execute_path_command(data, command_path);
-		//free(command_path);
+		free(command_path);
 		j++;
 	}
-	//ft_free_split(directories);
+	free(path);
+	ft_free_split(directories);
 }
 
 void	execute_path_command(t_pipeline_data *data, char *command_path)
@@ -41,8 +42,8 @@ void	execute_path_command(t_pipeline_data *data, char *command_path)
 	argv = ft_strstrjoin(command_path, data->commands->data);
 	env = ft_converter_env(data->mini->env);
 	execve(command_path, argv, env);
-	//ft_free_split(argv);
-	//ft_free_split(env);
+	ft_free_split(argv);
+	ft_free_split(env);
 }
 
 void	execute_command(t_pipeline_data *data)
@@ -58,6 +59,8 @@ void	execute_command(t_pipeline_data *data)
 		else
 			execute_path_command(data, data->commands->command);
 		ft_error_msg(data->commands->command);
+		ft_clearlst(data->mini->env);
+		ft_free_split(data->commands->data);
 		exit(1);
 	}
 	ft_free_split(data->commands->data);

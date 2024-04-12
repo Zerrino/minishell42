@@ -47,7 +47,10 @@ int	ft_redir_right(char *folder_name, int doub)
 	{
 		fd_nb = open(folder_name, O_CREAT, 0644);
 		if (fd_nb == -1)
+		{
+			free(folder_name);
 			return (ft_printf_error());
+		}
 		close(fd_nb);
 		fd_nb = open(folder_name, O_WRONLY);
 	}
