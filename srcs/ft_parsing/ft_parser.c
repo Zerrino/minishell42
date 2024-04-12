@@ -75,16 +75,28 @@ void	ft_all_parser(t_minishell *mini, char *input)
 {
 	t_command	command;
 	char		**splited;
+	char		*new_input;
 	int			i;
 	int			max;
 
 	if (ft_empty_par(mini, input))
 		return ;
+	new_input = ft_strdup(input);
+	if (!new_input)
+		return ;
 	i = 0;
-	ft_replace_quote(input);
-	splited = ft_split(input, '|');
+	ft_replace_quote(new_input);
+	if (ft_strlen(new_input) > 2)
+	{
+		new_input = ft_change_input(new_input, '>');
+		new_input = ft_change_input(new_input, '<');
+	}
+	splited = ft_split(new_input, '|');
 	while (splited[i])
 		i++;
 	max = i;
 	ft_execute_pipeline(mini, &command, max, splited);
+	ft_free_split(splited);
+	free(new_input);
 }
+

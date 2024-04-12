@@ -49,7 +49,7 @@ GNL_FILES := $(addprefix $(GNL_DIR)/, $(GNL_FILES))
 PATH_FILES = ft_path.c ft_cd.c
 PATH_FILES := $(addprefix $(PATH_DIR)/, $(PATH_FILES))
 
-UTILS_FILES = ft_error_manage.c ft_prompt.c ft_wildscards.c ft_init_env.c converter.c converter_tilde.c ft_split_new.c
+UTILS_FILES = ft_error_manage.c ft_prompt.c ft_wildscards.c ft_init_env.c converter.c converter_tilde.c ft_split_new.c ft_change.c
 UTILS_FILES := $(addprefix $(UTILS_DIR)/, $(UTILS_FILES))
 
 PARS_FILES = ft_parser.c ft_action.c ft_get_arr_com.c ft_get_arr_red.c ft_put_dir.c ft_rem_quo.c ft_replace.c ft_right.c ft_small_pars.c ft_utils.c ft_parser_utils.c ft_parser_utils_2.c ft_parser_i.c

@@ -80,12 +80,12 @@ int	main(int argc, char **argv, char **env)
 		mini.prompt = ft_make_prompt(mini);
 		g_prompt = mini.prompt;
 		input = readline(mini.prompt);
+		if (input && *input)
+			add_history(input);
 		ft_all_parser(&mini, input);
 		free(mini.prompt);
 		if (mini.stop)
 			break ;
-		if (*input)
-			add_history(input);
 		free(input);
 		//printf("Last status : %d\n", mini.status_com);
 	}
