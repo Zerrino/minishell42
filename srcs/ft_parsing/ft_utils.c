@@ -46,6 +46,7 @@ char	**ft_get_data(char **split, t_command *command, int l, int *a[2])
 	int		i;
 	int		j;
 
+	(void)command;
 	i = l;
 	j = ft_get_u(split, i, a);
 	result = (char **)malloc(sizeof(char *) * (j + 1));

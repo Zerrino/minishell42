@@ -24,10 +24,3 @@ void	ft_free_split(char **split)
 	}
 	free(split);
 }
-
-void	ft_free_arr(int *arr)
-{
-	int	i;
-
-	i = 0;
-}

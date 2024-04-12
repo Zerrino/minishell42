@@ -39,7 +39,6 @@ static int	*ft_static_com_2(char **splited, int *array, int i)
 	int	x;
 	int	j;
 
-	i = 0;
 	x = 0;
 	j = 0;
 	while (splited[i])
@@ -70,12 +69,15 @@ int	*ft_get_arr_com(t_minishell *mini, t_command *command, char *input)
 	int		nb;
 	int		i;
 
+	(void)mini;
+	(void)command;
 	nb = 0;
 	splited = ft_split(input, ' ');
 	ft_static_com(splited, &nb);
 	array = (int *)malloc(sizeof(int) * (nb + 1));
 	if (!array)
 		return (0);
+	i = 0;
 	array = ft_static_com_2(splited, array, i);
 	ft_free_split(splited);
 	return (array);

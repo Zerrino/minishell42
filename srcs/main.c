@@ -45,6 +45,7 @@ int	ft_getpid(void)
 		if (WIFEXITED(status))
 			return (pid - 1);
 	}
+	return (0);
 }
 
 int	init_shell(t_minishell *mini, char **env)
@@ -56,16 +57,19 @@ int	init_shell(t_minishell *mini, char **env)
 	mini->env = init_env_var(mini, env);
 	mini->error = ft_get_path(mini);
 	mini->pid = ft_getpid();
+	return (0);
 }
 
 int	main(int argc, char **argv, char **env)
 {
-	char		**split;
+	//char		**split;
 	char		*input;
-	char		*prompt;
-	int			error;
+	//char		*prompt;
+	//int			error;
 	t_minishell	mini;
 
+	(void)argv;
+	(void)argc;
 	printf("Prog started.\n");
 	signal(SIGINT, sigint_handler);
 	signal(SIGQUIT, SIG_IGN);

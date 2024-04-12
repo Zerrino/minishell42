@@ -37,9 +37,9 @@ static char	*get_env_value(char *str, t_env *env)
 {
 	t_env	*node;
 	char	*tmp;
-	size_t	i;
+	//size_t	i;
 
-	i = 0;
+	//i = 0;
 	if (str[1] != '\0' && str[1] != ' ' && str[1] != '/')
 		return (NULL);
 	node = ft_getenv(env, "HOME", 1);

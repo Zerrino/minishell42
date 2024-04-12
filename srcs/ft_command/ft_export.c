@@ -57,8 +57,8 @@ int	check(char *str)
 	err_msg = "': not a valid identifier\n";
 	while (str[i])
 	{
-		if (!(isalnum(str[i])) && str[i] != '_' && str[i] != '=' || 
-			!(isalpha(str[0])))
+		if (!((ft_isalnum(str[i])) && str[i] != '_' && str[i] != '=') ||
+		 !(ft_isalpha(str[0])))
 		{
 			write(2, "export: `", 9);
 			write(2, str, ft_strlen(str));

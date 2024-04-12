@@ -64,6 +64,7 @@ t_env	*init_env_var(t_minishell *mini, char **env)
 	t_env	*node;
 	int		i;
 
+	(void)mini;
 	i = 0;
 	node = ft_newnode(env[i]);
 	if (!node)

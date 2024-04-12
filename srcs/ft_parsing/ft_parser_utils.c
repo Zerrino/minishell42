@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:42:10 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/10 23:36:06 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/12 07:02:48 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	parent_process(t_pipeline_data *data)
 void	handle_file_out_redirection(t_pipeline_data *data)
 {
 	char	*f;
-	int		len;
+	//int		len;
 
 	f = data->commands->file_out.file_name;
 	if (data->commands->file_out.file_name)
@@ -92,7 +92,7 @@ static void	write_data_redirection(t_pipeline_data *data, int id_file_in)
 void	handle_file_in_redirection(t_pipeline_data *data)
 {
 	int		id_file_in;
-	int		len;
+	//int		len;
 	char	*filename;
 
 	filename = data->commands->file_in.file_name;

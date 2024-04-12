@@ -47,6 +47,7 @@ int	ft_output_com(t_minishell *mini, t_command *command, char *input)
 	int		doub;
 	int		output;
 
+	(void)mini;
 	command->file_out.file_name = 0;
 	i = 0;
 	output = 1;
@@ -99,6 +100,7 @@ char	*ft_input_dir(t_minishell *mini, t_command *command, char *input)
 	int		doub;
 	char	*output;
 
+	(void)mini;
 	i = 0;
 	output = 0;
 	command->file_in.file_name = 0;

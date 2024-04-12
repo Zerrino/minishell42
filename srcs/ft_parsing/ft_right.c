@@ -20,7 +20,7 @@ int	ft_empty_par(t_minishell *mini, char *input)
 	if (!input)
 	{
 		mini->stop = 1;
-		exit(1);
+		exit (1);
 	}
 	while (input[i])
 	{
@@ -34,13 +34,17 @@ int	ft_empty_par(t_minishell *mini, char *input)
 int	ft_redir_right(char *folder_name, int doub)
 {
 	int		fd_nb;
-	char	*str;
+	//char	*str;
 
 	fd_nb = 1;
 	if (!folder_name || !folder_name[0] || ft_strchr(folder_name, '>'))
 		return (-1);
 	if (doub == 1)
-		fd_nb = open(folder_name, O_RDWR | O_APPEND);
+	{
+		fd_nb = open(folder_name, O_RDWR);
+		while (get_next_line(fd_nb))
+			;
+	}
 	else if (doub == 0)
 		fd_nb = open(folder_name, O_RDWR | O_TRUNC);
 	if (fd_nb == -1)
@@ -54,8 +58,11 @@ int	ft_redir_right(char *folder_name, int doub)
 	return (fd_nb);
 }
 
-static char	*ft_red_u(char *str, char *folder_name, char *result)
+static char	*ft_red_u(char *folder_name)
 {
+	char	*str;
+	char	*result;
+
 	str = get_next_line(0);
 	folder_name = ft_strjoin(folder_name, "\n");
 	result = ft_calloc(1, sizeof(char));
@@ -70,8 +77,11 @@ static char	*ft_red_u(char *str, char *folder_name, char *result)
 	return (result);
 }
 
-static char	*ft_red_u_2(char *str, int fd_nb, char *result)
+static char	*ft_red_u_2(int fd_nb)
 {
+	char	*result;
+	char	*str;
+
 	str = get_next_line(fd_nb);
 	result = ft_calloc(1, sizeof(char));
 	while (str)
@@ -88,15 +98,15 @@ static char	*ft_red_u_2(char *str, int fd_nb, char *result)
 
 char	*ft_redir_left(char *folder_name, int doub)
 {
-	char	*str;
+	//char	*str;
 	char	*result;
 	int		fd_nb;
-	int		i;
+	//int		i;
 
 	if (!folder_name || !folder_name[0] || ft_strchr(folder_name, '>'))
 		return (0);
 	if (doub == 1)
-		result = ft_red_u(str, folder_name, result);
+		result = ft_red_u(folder_name);
 	else
 	{
 		fd_nb = open(folder_name, O_RDONLY);
@@ -105,7 +115,7 @@ char	*ft_redir_left(char *folder_name, int doub)
 			ft_printf_error();
 			return (0);
 		}
-		result = ft_red_u_2(str, fd_nb, result);
+		result = ft_red_u_2(fd_nb);
 	}
 	return (result);
 }

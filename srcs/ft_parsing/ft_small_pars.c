@@ -15,7 +15,7 @@
 void	ext(t_minishell *mini, t_command *command, char *input)
 {
 	char	**split;
-	char	**split2;
+	//char	**split2;
 	int		*a[2];
 	int		i;
 	int		l;
@@ -53,6 +53,7 @@ void	find_option(char **split, t_command *command, int **array_max, int *i)
 	int	option;
 	int	j;
 
+	(void)command;
 	while (split[*i])
 	{
 		option = 1;
