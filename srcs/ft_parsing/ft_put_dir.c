@@ -21,6 +21,7 @@ static void	ft_util_com(int *i, int *doub)
 static int	ft_output_util(t_command *c, char **splited, int doub)
 {
 	int	output;
+	int	i;
 
 	output = ft_redir_right(splited[0], doub);
 	if (output != -1)
@@ -28,6 +29,14 @@ static int	ft_output_util(t_command *c, char **splited, int doub)
 		c->file_out.file_name = splited[0];
 		c->file_out.doub = doub;
 	}
+	i = 0;
+	while (splited[i])
+	{
+		if (i > 0)
+			free(splited[i]);
+		i++;
+	}
+	free(splited);
 	return (output);
 }
 
@@ -62,6 +71,8 @@ int	ft_output_com(t_minishell *mini, t_command *command, char *input)
 
 static char	*ft_input_util(t_command *c, char **splited, int doub, char *output)
 {
+	int	i;
+
 	if (output)
 		free(output);
 	output = ft_redir_left(splited[0], doub);
@@ -70,6 +81,14 @@ static char	*ft_input_util(t_command *c, char **splited, int doub, char *output)
 		c->file_in.file_name = splited[0];
 		c->file_in.doub = doub;
 	}
+	i = 0;
+	while (splited[i])
+	{
+		if (i > 0)
+			free(splited[i]);
+		i++;
+	}
+	free(splited);
 	return (output);
 }
 

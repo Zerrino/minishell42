@@ -40,11 +40,7 @@ int	ft_redir_right(char *folder_name, int doub)
 	if (!folder_name || !folder_name[0] || ft_strchr(folder_name, '>'))
 		return (-1);
 	if (doub == 1)
-	{
-		fd_nb = open(folder_name, O_RDWR);
-		while (get_next_line(fd_nb))
-			;
-	}
+		fd_nb = open(folder_name, O_RDWR | O_APPEND);
 	else if (doub == 0)
 		fd_nb = open(folder_name, O_RDWR | O_TRUNC);
 	if (fd_nb == -1)
