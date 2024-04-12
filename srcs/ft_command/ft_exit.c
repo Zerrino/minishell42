@@ -27,16 +27,6 @@ void	ft_free_env_list(t_env *env)
 	}
 }
 
-
-/*
-	char	*program_name;
-	char	*prompt;
-	char	*folder;
-	char	*start_path;
-	char	*path;
-	char	*line;
-	*/
-
 int	ft_exit(t_minishell *mini, t_command *com, int i)
 {
 	if (com)

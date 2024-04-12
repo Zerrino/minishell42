@@ -93,12 +93,11 @@ typedef struct s_pipeline_data
 	pid_t		pid;
 }	t_pipeline_data;
 
-
 char	*ft_change_input(char *str, char c);
 char	**ft_split_str(char const *str, char *charset);
 void	set_command_data(t_command *command, char **split, int *i);
 void	find_option(char **split, t_command *command, int **array_max, int *i);
-void	proc(t_command *command, char **split, int start_index, int **array_max);
+void	proc(t_command *command, char **split, int s, int **a);
 void	parser_init(t_minishell *mini, char **input, t_command *command);
 void	writing_file(t_pipeline_data *data);
 int		ft_is_inside(char *command);
@@ -122,21 +121,20 @@ t_env	*ft_getenv(t_env *env, char *str, int c);
 t_env	*init_env_var(t_minishell *mini, char **env);
 void	ft_clearlst(t_env *node);
 void	test_converter(t_minishell *mini, t_command *com);
-
 void	ft_replace_quote(char *str);
 void	ft_reverse_quote(char *str);
 int		ft_exit(t_minishell *mini, t_command *com, int i);
 int		ft_printf_error(void);
 int		*ft_get_arr_com(t_minishell *mini, t_command *command, char *input);
 int		*ft_get_arr_red(t_minishell *mini, t_command *command, char *input);
-int		ft_output_com(t_minishell *mini, t_command *command, char *input);
+int		ft_output_com(t_command *command, char *input);
 char	*ft_input_dir(t_minishell *mini, t_command *command, char *input);
 char	*ft_rem_quote(char *str, int f);
 int		ft_empty_par(t_minishell *mini, char *input);
 int		ft_redir_right(char *folder_name, int doub);
 char	*ft_redir_left(char *folder_name, int doub);
 int		ft_in_arr(int nb, int *array);
-char	**ft_get_data(char **split, t_command *command, int l, int *array_max[2]);
+char	**ft_get_data(char **split, t_command *c, int l, int *a[2]);
 int		ft_get_path(t_minishell *shell);
 void	ft_printf_path(t_minishell *shell);
 char	*ft_get_folder(t_minishell shell);

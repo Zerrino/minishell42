@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 00:21:07 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/12 18:12:10 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/13 01:14:45 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	parser_init(t_minishell *mini, char **input, t_command *command)
 		return ;
 	}
 	command->op = 1;
-	command->op = ft_output_com(mini, command, *input);
+	command->op = ft_output_com(command, *input);
 	ou = ft_input_dir(mini, command, *input);
 	if (ou)
 		command->in = ou;

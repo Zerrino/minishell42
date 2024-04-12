@@ -21,8 +21,6 @@ int	ft_empty_par(t_minishell *mini, char *input)
 	{
 		mini->stop = 1;
 		ft_exit(mini, NULL, 1);
-		//ft_exit(mini, 0, 1);
-		exit(1);
 	}
 	while (input[i])
 	{
@@ -36,7 +34,6 @@ int	ft_empty_par(t_minishell *mini, char *input)
 int	ft_redir_right(char *folder_name, int doub)
 {
 	int		fd_nb;
-	//char	*str;
 
 	fd_nb = 1;
 	if (!folder_name || !folder_name[0] || ft_strchr(folder_name, '>'))
@@ -100,10 +97,8 @@ static char	*ft_red_u_2(int fd_nb)
 
 char	*ft_redir_left(char *folder_name, int doub)
 {
-	//char	*str;
 	char	*result;
 	int		fd_nb;
-	//int		i;
 
 	if (!folder_name || !folder_name[0] || ft_strchr(folder_name, '>'))
 		return (0);

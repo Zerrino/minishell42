@@ -33,7 +33,7 @@ static void	ft_static_com(char **splited, int *nb)
 	}
 }
 
-static int	*ft_static_com_2(char **splited, int *array, int i, int max_size)
+static int	*ft_static_com_2(char **splited, int *array, int i)
 {
 	int	x;
 	int	j;
@@ -48,20 +48,13 @@ static int	*ft_static_com_2(char **splited, int *array, int i, int max_size)
 			if (splited[i][1] == '<')
 				x = 1;
 			if (!splited[i][1 + x])
-			{
-				if (j < max_size - 1)
-				{
-					array[j] = i + 1;
-					j++;
-				}
-			}
+				array[j++] = i + 1;
 			array[j] = i;
 			j++;
 		}
 		i++;
 	}
-	if (j < max_size)
-		array[j] = -1;
+	array[j] = -1;
 	return (array);
 }
 
@@ -81,7 +74,7 @@ int	*ft_get_arr_red(t_minishell *mini, t_command *command, char *input)
 	if (!array)
 		return (0);
 	i = 0;
-	array = ft_static_com_2(splited, array, i, nb + 1);
+	array = ft_static_com_2(splited, array, i);
 	ft_free_split(splited);
 	return (array);
 }

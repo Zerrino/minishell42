@@ -12,6 +12,7 @@
 
 #include "../../includes/ft_minishell.h"
 
+/*
 int	ft_first_start(char *str)
 {
 	if (!str)
@@ -80,7 +81,8 @@ int	ft_wildscards(char *str, char *str_wild)
 			i++;
 			if (split[i] == 0 && last == 0 && str[j])
 			{
-				if ((first || i > 1) && !(ft_strncmp(&str[ft_strlen(str) - ft_strlen(split[i - 1])], split[i - 1], ft_strlen(split[i - 1]))))
+				if ((first || i > 1) && !(ft_strncmp(&str[ft_strlen(str)
+				 - ft_strlen(split[i - 1])], split[i - 1], ft_strlen(split[i - 1]))))
 					return (1);
 				if (ft_strncmp(&str[j], split[i - 1], ft_strlen(split[i - 1])))
 					return (0);
@@ -88,9 +90,11 @@ int	ft_wildscards(char *str, char *str_wild)
 			}
 		}
 	}
-	if (split[i] && ft_strncmp(&str[ft_strlen(str) - ft_strlen(split[i])], split[i], ft_strlen(split[i])))
+	if (split[i] && ft_strncmp(&str[ft_strlen(str) - ft_strlen(split[i])]
+	, split[i], ft_strlen(split[i])))
 		return (0);
 	if (split[i] && !last)
 		return (0);
 	return (1);
 }
+*/

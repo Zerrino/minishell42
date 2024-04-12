@@ -15,7 +15,7 @@ NAME = minishell
 CC = gcc
 
 INCLUDES = #-lreadline
-CFLAGS = -Wall -Wextra -Werror #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 
 SRC_DIR = srcs
 GNL_DIR = get_next_line

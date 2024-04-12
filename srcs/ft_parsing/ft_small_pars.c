@@ -15,7 +15,6 @@
 void	ext(t_minishell *mini, t_command *command, char *input)
 {
 	char	**split;
-	//char	**split2;
 	int		*a[2];
 	int		i;
 	int		l;

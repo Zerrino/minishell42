@@ -37,10 +37,8 @@ char	*ft_get_folder(t_minishell shell)
 {
 	char	*folder;
 	int		i;
-	//int		j;
 
 	i = 0;
-	//j = 0;
 	folder = shell.path;
 	while (*folder)
 		if (*folder++ == 47)

@@ -40,14 +40,13 @@ static int	ft_output_util(t_command *c, char **splited, int doub)
 	return (output);
 }
 
-int	ft_output_com(t_minishell *mini, t_command *command, char *input)
+int	ft_output_com(t_command *command, char *input)
 {
 	char	**splited;
 	int		i;
 	int		doub;
 	int		output;
 
-	(void)mini;
 	command->file_out.file_name = 0;
 	i = 0;
 	output = 1;
