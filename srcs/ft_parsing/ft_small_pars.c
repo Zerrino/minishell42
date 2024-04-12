@@ -15,13 +15,14 @@
 void	ext(t_minishell *mini, t_command *command, char *input)
 {
 	char	**split;
+	char	**split2;
 	int		*a[2];
 	int		i;
 	int		l;
 
 	a[0] = ft_get_arr_com(mini, command, input);
 	a[1] = ft_get_arr_red(mini, command, input);
-	split = ft_split(input, ' ');
+	split = ft_split_str(input, " ");
 	i = 0;
 	while (split[i] && (ft_in_arr(i, a[0]) || ft_in_arr(i, a[1])))
 		i++;
