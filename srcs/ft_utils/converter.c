@@ -43,7 +43,7 @@ char	*get_env_value(char *str, t_env *env)
 	tmp = ft_strdup(str);
 	if (!tmp)
 		return (NULL);
-	while (tmp[i] && isalnum(tmp[i]))
+	while (tmp[i] && ft_isalnum(tmp[i]))
 		i++;
 	tmp[i] = '\0';
 	node = ft_getenv(env, tmp, 1);
@@ -64,14 +64,20 @@ char	*join_value(char *new, char *str, t_minishell *mini)
 
 	if (!new)
 		return (NULL);
+	env_value = 0;
 	tmp = new;
 	if (*str == '$')
 		env_value = ft_itoa(mini->pid);
 	else if (*str == '?')
 		env_value = ft_itoa(mini->status_com);
-	else if (isalnum(*str))
-		env_value = ft_strdup(get_env_value(str, mini->env));
-	else if (*str == '\0' || !(isalnum(*str)))
+	else if (ft_isalnum(*str))
+	{
+		if (!get_env_value(str, mini->env))
+			env_value = 0;
+		else
+			env_value = ft_strdup(get_env_value(str, mini->env));
+	}
+	else if (*str == '\0' || !(ft_isalnum(*str)))
 		env_value = ft_strdup("$");
 	if (env_value != NULL)
 	{
@@ -89,7 +95,7 @@ char	*converter(t_minishell *mini, char *str)
 	char	*tmp;
 
 	tmp = str;
-	new = ft_calloc(1, 1);
+	new = ft_strdup("");
 	while (*tmp)
 	{
 		if (*tmp && *tmp == '$')
@@ -97,7 +103,7 @@ char	*converter(t_minishell *mini, char *str)
 			tmp++;
 			new = join_value(new, tmp, mini);
 			if (*tmp != '$' && *tmp != '?')
-				while (*tmp && isalnum(*tmp))
+				while (*tmp && ft_isalnum(*tmp))
 					tmp++;
 			else
 				tmp++;
@@ -126,7 +132,7 @@ char	*converter_nfree(t_minishell *mini, char *str)
 			tmp++;
 			new = join_value(new, tmp, mini);
 			if (*tmp != '$' && *tmp != '?')
-				while (*tmp && isalnum(*tmp))
+				while (*tmp && ft_isalnum(*tmp))
 					tmp++;
 			else
 				tmp++;
