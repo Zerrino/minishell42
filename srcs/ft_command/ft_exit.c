@@ -17,6 +17,7 @@ void	ft_free_env_list(t_env *env)
 	t_env	*current;
 	t_env	*next;
 
+	printf("exit\n");
 	current = env;
 	while (current)
 	{
