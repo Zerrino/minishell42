@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:46:12 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/12 18:31:49 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/14 17:35:41 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ void	execute_command(t_pipeline_data *data)
 	handle_file_in_redirection(data);
 	if (!data->commands->found)
 	{
+		signal(SIGINT, SIG_IGN);
+		signal(SIGQUIT, SIG_DFL);
 		if (!ft_strchr(data->commands->command, '/'))
 			search_and_execute_command(data);
 		else

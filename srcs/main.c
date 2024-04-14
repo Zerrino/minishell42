@@ -16,11 +16,17 @@ volatile char	*g_prompt;
 
 void	sigint_handler(int sig_num)
 {
+	int	i;
+
 	(void)sig_num;
-	rl_on_new_line();
-	rl_replace_line("", 0);
-	ft_printf("%s\n", g_prompt);
-	rl_redisplay();
+	i = ft_strlen((char *)g_prompt);
+	if (i > 1)
+	{
+		rl_on_new_line();
+		rl_replace_line("", 0);
+		ft_printf("%s\n", g_prompt);
+		rl_redisplay();
+	}
 }
 
 int	ft_getpid(void)
