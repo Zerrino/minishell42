@@ -95,7 +95,7 @@ static char	*ft_red_u_2(int fd_nb)
 	return (result);
 }
 
-char	*ft_redir_left(char *folder_name, int doub)
+char	*ft_redir_left(t_command *com, char *folder_name, int doub)
 {
 	char	*result;
 	int		fd_nb;
@@ -110,7 +110,8 @@ char	*ft_redir_left(char *folder_name, int doub)
 		if (fd_nb == -1)
 		{
 			free(folder_name);
-			ft_printf_error();
+			if (!com->nom)
+				ft_printf_error();
 			return (0);
 		}
 		result = ft_red_u_2(fd_nb);

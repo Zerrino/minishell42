@@ -75,7 +75,7 @@ static char	*ft_input_util(t_command *c, char **splited, int doub, char *output)
 
 	if (output)
 		free(output);
-	output = ft_redir_left(splited[0], doub);
+	output = ft_redir_left(c, splited[0], doub);
 	if (output)
 	{
 		c->file_in.file_name = splited[0];

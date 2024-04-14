@@ -94,8 +94,7 @@ void	proc(t_command *command, char **split, int start_index, int **array_max)
 
 void	ft_parser(t_minishell *mini, char *input, t_command *command, int nom)
 {
-	command->nom = nom;
-	parser_init(mini, &input, command);
+	parser_init(mini, &input, command, nom);
 	if (!(command->op != -1))
 		return ;
 	ext(mini, command, input);

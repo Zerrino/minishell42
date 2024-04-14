@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:42:10 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/13 01:12:38 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:18:45 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,15 +82,6 @@ void	handle_file_out_redirection(t_pipeline_data *data)
 	}
 }
 
-static void	write_data_redirection(t_pipeline_data *data, int id_file_in)
-{
-	int	len;
-
-	len = ft_strlen(data->commands->in);
-	write(id_file_in, data->commands->in, len);
-	close(id_file_in);
-}
-
 void	handle_file_in_redirection(t_pipeline_data *data)
 {
 	int		id_file_in;
@@ -104,7 +95,8 @@ void	handle_file_in_redirection(t_pipeline_data *data)
 			filename = "./srcs/fichier.txt";
 			id_file_in = open(filename, O_RDWR | O_CREAT | O_TRUNC, 0644);
 			if (id_file_in >= 0)
-				write_data_redirection(data, id_file_in);
+				write(id_file_in, data->commands->in,
+					ft_strlen(data->commands->in));
 		}
 		id_file_in = open(filename, O_RDONLY);
 		if (id_file_in < 0 || dup2(id_file_in, STDIN_FILENO) < 0)

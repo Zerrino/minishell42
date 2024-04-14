@@ -6,26 +6,27 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/11 00:21:07 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/14 17:47:51 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/14 18:25:17 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/ft_minishell.h"
 
-void	parser_init(t_minishell *mini, char **input, t_command *command)
+void	parser_init(t_minishell *mini, char **input, t_command *c, int nom)
 {
 	char	*ou;
 
+	mini->nom = nom;
+	c->nom = nom;
 	*input = converter(mini, *input);
 	if (ft_empty_par(mini, *input))
 	{
-		command->op = -1;
+		c->op = -1;
 		return ;
 	}
-	command->op = 1;
-	command->op = ft_output_com(command, *input);
-	if (command->nom)
-		ou = ft_input_dir(mini, command, *input);
+	c->op = 1;
+	c->op = ft_output_com(c, *input);
+	ou = ft_input_dir(mini, c, *input);
 	if (ou)
-		command->in = ou;
+		c->in = ou;
 }
