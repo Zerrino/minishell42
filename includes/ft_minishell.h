@@ -79,6 +79,7 @@ typedef struct s_command
 	int		status;
 	int		next;
 	int		found;
+	int		nom;
 }	t_command;
 
 typedef struct s_pipeline_data
