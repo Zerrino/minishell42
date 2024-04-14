@@ -83,6 +83,11 @@ typedef struct s_command
 	int		nom;
 }	t_command;
 
+typedef struct s_signal_data
+{
+	char	*prompt;
+}	t_signal_data;
+
 typedef struct s_pipeline_data
 {
 	t_minishell	*mini;

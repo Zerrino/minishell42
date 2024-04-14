@@ -12,21 +12,13 @@
 
 #include "../includes/ft_minishell.h"
 
-volatile char	*g_prompt;
-
 void	sigint_handler(int sig_num)
 {
-	int	i;
-
 	(void)sig_num;
-	i = ft_strlen((char *)g_prompt);
-	if (i > 1)
-	{
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		ft_printf("%s\n", g_prompt);
-		rl_redisplay();
-	}
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	ft_printf("\033[35mminishell > \033[0m\n");
+	rl_redisplay();
 }
 
 int	ft_getpid(void)
@@ -50,6 +42,7 @@ int	ft_getpid(void)
 
 int	init_shell(t_minishell *mini, char **env)
 {
+	mini->prompt = 0;
 	mini->path = 0;
 	mini->stop = 0;
 	mini->error = 0;
@@ -72,10 +65,7 @@ int	main(int argc, char **argv, char **env)
 	init_shell(&mini, env);
 	while (1)
 	{
-		mini.prompt = ft_make_prompt(mini);
-		g_prompt = mini.prompt;
-		input = readline(mini.prompt);
-		free(mini.prompt);
+		input = readline("\033[35mminishell > \033[0m");
 		if (input && *input)
 			add_history(input);
 		ft_all_parser(&mini, input);

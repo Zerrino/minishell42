@@ -20,7 +20,7 @@ char	*ft_make_prompt(t_minishell mini)
 	sub_prompt = ft_strjoin("\033[35m", mini.folder);
 	prompt = ft_strjoin(sub_prompt, "\033[0m");
 	free(sub_prompt);
-	sub_prompt = ft_strjoin(prompt, "\033[30m>\033[0m ");
+	sub_prompt = ft_strjoin(prompt, "\033[30m>\033[0m");
 	free(prompt);
 	return (sub_prompt);
 }
