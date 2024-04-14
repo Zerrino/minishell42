@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:21:47 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/11 14:17:06 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/14 18:17:07 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,18 +51,16 @@ int	has_equal_sign(char *str)
 int	check(char *str)
 {
 	size_t	i;
-	char	*err_msg;
 
 	i = 0;
-	err_msg = "': not a valid identifier\n";
 	while (str[i])
 	{
-		if ((!(ft_isalnum(str[i])) && str[i] != '_' && str[i] != '=')
+		if ((!(ft_isalnum(str[i])) && str[i] != '_')
 			|| !(ft_isalpha(str[0])))
 		{
-			write(2, "export: `", 9);
-			write(2, str, ft_strlen(str));
-			write(2, err_msg, ft_strlen(err_msg));
+			if (str[i] == '=' && str[0] != '=')
+				break ;
+			ft_error_export(str);
 			return (1);
 		}
 		i++;
@@ -108,7 +106,7 @@ int	ft_export(t_command *com, t_minishell *mini)
 	ret = 0;
 	while (com->data[i])
 	{
-		if (!(check(com->data[i])))
+		if (!(check(com->data[i])) && !(check_value(com->data[i])))
 		{
 			tmp = ft_export_env(com->data[i], mini);
 			if (tmp == 1)

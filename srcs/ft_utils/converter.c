@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:27:10 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/11 12:58:38 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/14 15:47:05 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,12 +71,7 @@ char	*join_value(char *new, char *str, t_minishell *mini)
 	else if (*str == '?')
 		env_value = ft_itoa(mini->status_com);
 	else if (ft_isalnum(*str))
-	{
-		if (!get_env_value(str, mini->env))
-			env_value = 0;
-		else
-			env_value = ft_strdup(get_env_value(str, mini->env));
-	}
+		env_value = ft_strdup(get_env_value(str, mini->env));
 	else if (*str == '\0' || !(ft_isalnum(*str)))
 		env_value = ft_strdup("$");
 	if (env_value != NULL)

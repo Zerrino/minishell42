@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/11 13:50:18 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/14 18:51:31 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,5 +156,8 @@ int		ft_error_msg(char *command);
 void	ft_echo(t_command *command);
 int		ft_execute(t_command *command, t_minishell *mini);
 char	*converter_nfree(t_minishell *mini, char *str);
+int	has_equal_sign(char *str);
+int	check_value(char *str);
+void	ft_error_export(char *str);
 
 #endif
