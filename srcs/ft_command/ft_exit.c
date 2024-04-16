@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 15:04:55 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/16 23:18:39 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/16 23:29:51 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ void	ft_free_env_list(t_env *env)
 	t_env	*current;
 	t_env	*next;
 
-	//printf("exit\n");
 	current = env;
 	while (current)
 	{
@@ -33,7 +32,7 @@ int	check_exit_arg_nbr(t_command *com)
 	if (com->data[1] != NULL)
 	{
 		write(2, "exit: too many arguments\n", 25);
-		return(1);
+		return (1);
 	}
 	else
 		return (0);

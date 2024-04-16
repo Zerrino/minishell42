@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:42:10 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/16 23:11:07 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/16 23:28:59 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ void	parent_process(t_pipeline_data *data)
 	if (status == 3 || status == 4)
 	{
 		str = ft_strdup(data->splited[data->i]);
+		str = NULL;
 		ft_parser(data->mini, str, data->commands, 1);
 		data->mini->status_com = data->commands->status;
 		free(data->commands->command);

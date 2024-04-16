@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:52:29 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/08 20:45:28 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/16 23:26:46 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,8 @@ void	proc(t_command *command, char **split, int start_index, int **array_max)
 
 void	ft_parser(t_minishell *mini, char *input, t_command *command, int nom)
 {
+	//if (!input)
+	//	return ;
 	parser_init(mini, &input, command, nom);
 	if (!(command->op != -1))
 		return ;
