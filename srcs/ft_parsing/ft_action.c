@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:24:38 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/11 13:49:50 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/16 14:26:23 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static void	ft_take_action_2(t_command *com, t_minishell *mini, int nom)
 	else if (!ft_strncmp("exit", com->command, ft_strlen("exit")))
 	{
 		if (nom)
-			ft_exit(mini, com, 0);
+			com->status = ft_exit(mini, com);
 	}
 	else
 		com->found = 0;

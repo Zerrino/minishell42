@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/14 18:51:31 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/16 13:49:32 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ void	ft_clearlst(t_env *node);
 void	test_converter(t_minishell *mini, t_command *com);
 void	ft_replace_quote(char *str);
 void	ft_reverse_quote(char *str);
-int		ft_exit(t_minishell *mini, t_command *com, int i);
+int		ft_exit(t_minishell *mini, t_command *com);
 int		ft_printf_error(void);
 int		*ft_get_arr_com(t_minishell *mini, t_command *command, char *input);
 int		*ft_get_arr_red(t_minishell *mini, t_command *command, char *input);

@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/04 14:01:12 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/05 20:25:29 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/16 13:43:22 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,11 @@ static char	*ft_charjoin_f(char *s1, char c)
 	return (join);
 }
 
-static char	*get_env_value(char *str, t_env *env)
+static char	*get_env_value(t_env *env)
 {
 	t_env	*node;
 	char	*tmp;
 
-	if (str[1] != '\0' && str[1] != ' ' && str[1] != '/')
-		return (NULL);
 	node = ft_getenv(env, "HOME", 1);
 	if (!node)
 		return (NULL);
@@ -50,7 +48,7 @@ static char	*get_env_value(char *str, t_env *env)
 	return (tmp);
 }
 
-static char	*join_value(char *new, char *str, t_minishell *mini)
+static char	*join_value(char *new, t_minishell *mini)
 {
 	char	*env_value;
 	char	*tmp;
@@ -58,12 +56,21 @@ static char	*join_value(char *new, char *str, t_minishell *mini)
 	if (!new)
 		return (NULL);
 	tmp = new;
-	env_value = get_env_value(str, mini->env);
+	env_value = get_env_value(mini->env);
 	if (env_value != NULL)
 		new = ft_strjoin_f(new, env_value);
 	if (!new)
 		free(tmp);
 	return (new);
+}
+
+int	valid_t(char *str)
+{
+	if (str[0] == ' ' && str[1] == '~' && (str[2] == '\0' 
+			|| str[2] == ' ' || str[2] == '/'))
+		return (1);
+	else
+		return (0);
 }
 
 char	*converter_tilde(t_minishell *mini, char *str)
@@ -75,16 +82,17 @@ char	*converter_tilde(t_minishell *mini, char *str)
 	new = ft_strdup("");
 	while (*tmp)
 	{
-		if (*tmp && *tmp == '~')
+		if (*tmp && valid_t(tmp))
 		{
-			new = join_value(new, tmp, mini);
+			new = ft_charjoin_f(new, ' ');
+			if (new == NULL)
+				break ;
 			tmp++;
+			new = join_value(new, mini);
 		}
-		if (*tmp)
-		{
+		else if (*tmp)
 			new = ft_charjoin_f(new, *tmp);
-			tmp++;
-		}
+		tmp++;
 	}
 	free(str);
 	return (new);
