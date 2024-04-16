@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/05 17:47:23 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/05 19:21:32 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/16 15:15:13 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int	ft_empty_par(t_minishell *mini, char *input)
 	if (!input)
 	{
 		mini->stop = 1;
-		ft_exit(mini, NULL, 1);
+		ft_exit(mini, NULL);
 	}
 	while (input[i])
 	{

@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:42:10 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/14 18:18:45 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/16 23:11:07 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	ft_is_inside(char *command)
 	else if (!ft_strncmp("unset", command, ft_strlen("unset")))
 		return (3);
 	else if (!ft_strncmp("exit", command, ft_strlen("exit")))
-		return (3);
+		return (4);
 	else if (!ft_strncmp("cd", command, ft_strlen("cd")))
 		return (3);
 	return (0);
@@ -29,10 +29,11 @@ void	parent_process(t_pipeline_data *data)
 {
 	char	*str;
 	int		status;
-	int		ato;
 
 	waitpid(data->pid, &status, 0);
-	data->mini->status_com = status;
+	status = status % 255;
+	if (status != 4)
+		data->mini->status_com = status;
 	if (data->in_fd != 0)
 		close(data->in_fd);
 	if (data->i < data->num_cmds - 1)
@@ -40,11 +41,7 @@ void	parent_process(t_pipeline_data *data)
 		close(data->pipe_fd[1]);
 		data->in_fd = data->pipe_fd[0];
 	}
-	str = ft_strjoin("$?", "");
-	str = converter(data->mini, str);
-	ato = ft_atoi(str);
-	free(str);
-	if (ato == 768)
+	if (status == 3 || status == 4)
 	{
 		str = ft_strdup(data->splited[data->i]);
 		ft_parser(data->mini, str, data->commands, 1);
