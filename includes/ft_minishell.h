@@ -156,8 +156,8 @@ int		ft_error_msg(char *command);
 void	ft_echo(t_command *command);
 int		ft_execute(t_command *command, t_minishell *mini);
 char	*converter_nfree(t_minishell *mini, char *str);
-int	has_equal_sign(char *str);
-int	check_value(char *str);
+int		has_equal_sign(char *str);
+int		check_value(char *str);
 void	ft_error_export(char *str);
 
 #endif

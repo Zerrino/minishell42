@@ -63,17 +63,17 @@ int	ft_exit(t_minishell *mini, t_command *com)
 {
 	int	ret;
 
-	if (com->data[0] != NULL)
+	if (com && com->data[0] != NULL)
 		ret = ft_atoi(com->data[0]);
 	else
 		ret = mini->status_com % 255;
-	write(1, "exit\n", 5);
-	if (check_exit_arg_value(com))
+	if (com && check_exit_arg_value(com))
 		ret = 2;
-	else if (check_exit_arg_nbr(com))
+	else if (com && check_exit_arg_nbr(com))
 		return (1);
 	if (com)
 	{
+		write(1, "exit\n", 5);
 		free(com->command);
 		if (com->data)
 			ft_free_split(com->data);

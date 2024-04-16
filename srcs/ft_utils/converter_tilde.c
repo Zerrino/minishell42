@@ -66,7 +66,7 @@ static char	*join_value(char *new, t_minishell *mini)
 
 int	valid_t(char *str)
 {
-	if (str[0] == ' ' && str[1] == '~' && (str[2] == '\0' 
+	if (str[0] == ' ' && str[1] == '~' && (str[2] == '\0'
 			|| str[2] == ' ' || str[2] == '/'))
 		return (1);
 	else
