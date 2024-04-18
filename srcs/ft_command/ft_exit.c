@@ -29,7 +29,7 @@ void	ft_free_env_list(t_env *env)
 
 int	check_exit_arg_nbr(t_command *com)
 {
-	if (com->data[1] != NULL)
+	if (com->data[0] && com->data[1])
 	{
 		write(2, "exit: too many arguments\n", 25);
 		return (1);
@@ -63,16 +63,17 @@ int	ft_exit(t_minishell *mini, t_command *com)
 {
 	int	ret;
 
-	if (com && com->data[0] != NULL)
-		ret = ft_atoi(com->data[0]);
-	else
-		ret = mini->status_com % 255;
-	if (com && check_exit_arg_value(com))
-		ret = 2;
-	else if (com && check_exit_arg_nbr(com))
-		return (1);
+	ret = 0;
 	if (com)
 	{
+		if (com->data[0] != NULL)
+			ret = ft_atoi(com->data[0]);
+		else
+			ret = mini->status_com % 255;
+		if (check_exit_arg_value(com))
+			ret = 2;
+		else if (check_exit_arg_nbr(com))
+			return (1);
 		write(1, "exit\n", 5);
 		free(com->command);
 		if (com->data)

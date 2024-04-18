@@ -15,7 +15,7 @@ NAME = minishell
 CC = gcc
 
 INCLUDES = #-lreadline
-CFLAGS = -Wall -Wextra -Werror  #-g -fsanitize=address
+CFLAGS = -Wall -Wextra -Werror  -g -fsanitize=address
 
 SRC_DIR = srcs
 GNL_DIR = get_next_line
@@ -63,11 +63,11 @@ SRCS := $(GNL) $(SRCS)
 
 OBJS = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
-READ = #/Users/alexafer/.brew/opt/readline/include
-REAB = #/Users/alexafer/.brew/opt/readline/lib
+READ = #/usr/local/opt/readline/include
+REAB = #/usr/local/opt/readline/lib
 
-READ = /usr/local/opt/readline/include
-REAB = /usr/local/opt/readline/lib
+READ = /Users/alexafer/.brew/opt/readline/include
+REAB = /Users/alexafer/.brew/opt/readline/lib
 
 all: $(NAME)
 
