@@ -27,7 +27,7 @@ void	ext(t_minishell *mini, t_command *command, char *input)
 		i++;
 	set_command_data(command, split, &i);
 	l = i;
-	find_option(split, command, a, &i);
+	find_option(split, a, &i);
 	if (i > l)
 		command->option = "n";
 	else
@@ -48,29 +48,27 @@ void	set_command_data(t_command *command, char **split, int *i)
 		command->option = 0;
 }
 
-void	find_option(char **split, t_command *command, int **array_max, int *i)
+void	find_option(char **split, int **array_max, int *i)
 {
 	int	option;
-	int	j;
-	int	start;
+	int	j[2];
 
-	(void)command;
 	while (split[*i])
 	{
 		option = 1;
-		j = 0;
-		start = 0;
+		j[0] = 0;
+		j[1] = 0;
 		if (!ft_in_arr(*i, array_max[0]) || !ft_in_arr(*i, array_max[1]))
 		{
-			while (split[*i][j])
+			while (split[*i][j[0]])
 			{
-				if (j == 0 && split[*i][j] == '-')
-					start = 1;
-				else if (option && start && split[*i][j] == 'n')
+				if (j[0] == 0 && split[*i][j[0]] == '-')
+					j[1] = 1;
+				else if (option && j[1] && split[*i][j[0]] == 'n')
 					option = 1;
 				else
 					option = 0;
-				j++;
+				j[0]++;
 			}
 			if (option == 0)
 				break ;

@@ -103,7 +103,7 @@ typedef struct s_pipeline_data
 char	*ft_change_input(char *str, char c);
 char	**ft_split_str(char const *str, char *charset);
 void	set_command_data(t_command *command, char **split, int *i);
-void	find_option(char **split, t_command *command, int **array_max, int *i);
+void	find_option(char **split, int **array_max, int *i);
 void	proc(t_command *command, char **split, int s, int **a);
 void	parser_init(t_minishell *mini, char **input, t_command *c, int nom);
 void	writing_file(t_pipeline_data *data);
