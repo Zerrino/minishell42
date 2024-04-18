@@ -60,11 +60,11 @@ int	main(int argc, char **argv, char **env)
 
 	(void)argv;
 	(void)argc;
-	signal(SIGINT, sigint_handler);
-	signal(SIGQUIT, SIG_IGN);
 	init_shell(&mini, env);
 	while (1)
 	{
+		signal(SIGINT, sigint_handler);
+		signal(SIGQUIT, SIG_IGN);
 		input = readline("\033[35mminishell > \033[0m");
 		if (input && *input)
 			add_history(input);

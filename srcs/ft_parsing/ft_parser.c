@@ -94,6 +94,7 @@ void	ft_all_parser(t_minishell *mini, char *input)
 	splited = ft_split(new_input, '|');
 	while (splited[i])
 		i++;
+	signal(SIGINT, SIG_IGN);
 	ft_execute_pipeline(mini, &command, i, splited);
 	free(new_input);
 	ft_free_split(splited);
