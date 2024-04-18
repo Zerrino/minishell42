@@ -52,19 +52,21 @@ void	find_option(char **split, t_command *command, int **array_max, int *i)
 {
 	int	option;
 	int	j;
+	int	start;
 
 	(void)command;
 	while (split[*i])
 	{
 		option = 1;
 		j = 0;
+		start = 0;
 		if (!ft_in_arr(*i, array_max[0]) || !ft_in_arr(*i, array_max[1]))
 		{
 			while (split[*i][j])
 			{
 				if (j == 0 && split[*i][j] == '-')
-					;
-				else if (split[*i][j] == 'n')
+					start = 1;
+				else if (option && start && split[*i][j] == 'n')
 					option = 1;
 				else
 					option = 0;
