@@ -52,6 +52,12 @@ typedef struct s_minishell
 	t_env	*env;
 }	t_minishell;
 
+typedef struct s_ran
+{
+	int		doub;
+	char	*output;
+}	t_ran;
+
 typedef struct s_wilds
 {
 	char	**split;
@@ -139,7 +145,8 @@ char	*ft_input_dir(t_minishell *mini, t_command *command, char *input);
 char	*ft_rem_quote(char *str, int f);
 int		ft_empty_par(t_minishell *mini, char *input);
 int		ft_redir_right(char *folder_name, int doub);
-char	*ft_redir_left(t_command *com, char *folder_name, int doub);
+char	*ft_redir_left(t_command *com, char *folder_name, int doub,
+			t_minishell *mini);
 int		ft_in_arr(int nb, int *array);
 char	**ft_get_data(char **split, t_command *c, int l, int *a[2]);
 int		ft_get_path(t_minishell *shell);

@@ -69,6 +69,7 @@ REAB = #/usr/local/opt/readline/lib
 READ = /Users/alexafer/.brew/opt/readline/include
 REAB = /Users/alexafer/.brew/opt/readline/lib
 
+
 all: $(NAME)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c

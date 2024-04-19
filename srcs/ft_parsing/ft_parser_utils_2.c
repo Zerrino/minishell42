@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/10 22:46:12 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/16 23:55:24 by alexafer         ###   ########.fr       */
+/*   Updated: 2024/04/19 13:57:38 by alexafer         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,10 +56,13 @@ void	execute_command(t_pipeline_data *data)
 	{
 		signal(SIGINT, SIG_IGN);
 		signal(SIGQUIT, SIG_DFL);
-		if (!ft_strchr(data->commands->command, '/'))
-			search_and_execute_command(data);
-		else
-			execute_path_command(data, data->commands->command);
+		if (data->mini->env->env_var)
+		{
+			if (!ft_strchr(data->commands->command, '/'))
+				search_and_execute_command(data);
+			else
+				execute_path_command(data, data->commands->command);
+		}
 		ft_error_msg(data->commands->command);
 		ft_clearlst(data->mini->env);
 		ft_free_split(data->commands->data);

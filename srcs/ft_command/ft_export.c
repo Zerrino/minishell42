@@ -17,6 +17,8 @@ t_env	*ft_getenv(t_env *env, char *str, int c)
 	t_env	*tmp;
 	size_t	i;
 
+	if (!env)
+		return (NULL);
 	tmp = env;
 	while (tmp != NULL)
 	{
