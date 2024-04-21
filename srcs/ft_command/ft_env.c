@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 16:17:05 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/11 13:54:19 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/21 16:10:51 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,11 @@ int	ft_env(t_env *env, t_command *com)
 		return (1);
 	while (tmp != NULL)
 	{
-		str = ft_strjoin_f(str, tmp->env_var);
-		str = ft_charjoin_f(str, '\n');
+		if (tmp->exp == 1)
+		{
+			str = ft_strjoin_free(str, tmp->env_var);
+			str = ft_charjoin_f(str, '\n');
+		}
 		tmp = tmp->next;
 	}
 	if (!str)

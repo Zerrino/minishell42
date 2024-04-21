@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 20:27:20 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/14 18:19:44 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/20 14:53:45 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ int	check_value(char *str)
 	i = 0;
 	while (str[i] && str[i] != '=')
 		i++;
+	if (str[i] == '\0')
+		return (0);
 	i++;
 	while (str[i])
 	{
