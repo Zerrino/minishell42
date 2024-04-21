@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/26 18:21:47 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/21 15:52:36 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/21 18:01:28 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,8 +83,9 @@ int	ft_export_env(char *str, t_minishell *mini)
 	tmp = ft_getenv(mini->env, str, 1);
 	if (tmp != NULL)
 	{
-		if (update_node(tmp, str) != 0)
-			return (1);
+		if (has_equal_sign(str))
+			if (update_node(tmp, str) != 0)
+				return (1);
 	}
 	else if (tmp == NULL && has_equal_sign(str))
 	{
