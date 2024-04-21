@@ -6,7 +6,7 @@
 /*   By: lpetit <lpetit@student.s19.be>             +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/21 14:58:27 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/21 15:46:11 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/21 16:21:58 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ t_env	*append_value(t_env *node, char *str)
 	node->env_var = str;
 	node->exp = 1;
 	free(tmp);
-	return (node);	
+	return (node);
 }
 
 int	export_append(char *str, t_minishell *mini)
