@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/16 19:34:16 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/16 13:49:32 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/21 15:34:04 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@
 typedef struct s_env
 {
 	char			*env_var;
+	int				exp;
 	struct s_env	*next;
 }	t_env;
 
@@ -49,6 +50,7 @@ typedef struct s_minishell
 	int		pid;
 	char	*input_1;
 	char	**split_1;
+	char	**base_env;
 	t_env	*env;
 }	t_minishell;
 
@@ -127,11 +129,14 @@ int		ft_env(t_env *env, t_command *com);
 int		ft_export(t_command *com, t_minishell *mini);
 int		ft_unset(t_command *com, t_minishell *mini);
 int		update_node(t_env *node, char *str);
+int		export_no_arg(t_command *com, t_minishell *mini);
+int		export_append(char *str, t_minishell*mini);
 char	*converter(t_minishell *mini, char *str);
 char	*converter_tilde(t_minishell *mini, char *str);
 t_env	*ft_newnode(char *str);
 t_env	*ft_getenv(t_env *env, char *str, int c);
-t_env	*init_env_var(t_minishell *mini, char **env);
+t_env	*export_new(char *str, t_minishell *mini);
+t_env	*init_env_var(char **env);
 void	ft_clearlst(t_env *node);
 void	test_converter(t_minishell *mini, t_command *com);
 void	ft_replace_quote(char *str);
@@ -143,6 +148,7 @@ int		*ft_get_arr_red(t_minishell *mini, t_command *command, char *input);
 int		ft_output_com(t_command *command, char *input);
 char	*ft_input_dir(t_minishell *mini, t_command *command, char *input);
 char	*ft_rem_quote(char *str, int f);
+char	*ft_strjoin_free(char *s1, char const *s2);
 int		ft_empty_par(t_minishell *mini, char *input);
 int		ft_redir_right(char *folder_name, int doub);
 char	*ft_redir_left(t_command *com, char *folder_name, int doub,
@@ -164,6 +170,7 @@ void	ft_echo(t_command *command);
 int		ft_execute(t_command *command, t_minishell *mini);
 char	*converter_nfree(t_minishell *mini, char *str);
 int		has_equal_sign(char *str);
+int		has_plus_sign(char *str);
 int		check_value(char *str);
 void	ft_error_export(char *str);
 

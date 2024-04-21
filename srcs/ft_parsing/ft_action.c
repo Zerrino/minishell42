@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/20 20:24:38 by alexafer          #+#    #+#             */
-/*   Updated: 2024/04/16 14:26:23 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/21 17:56:22 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	ft_take_action_2(t_command *com, t_minishell *mini, int nom)
 {
 	if (!ft_strncmp("export", com->command, ft_strlen("export")))
 	{
-		if (nom)
+		if ((!nom && com->data[0] == NULL) || (nom && com->data[0]))
 			com->status = ft_export(com, mini);
 	}
 	else if (!ft_strncmp("unset", com->command, ft_strlen("unset")))

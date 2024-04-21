@@ -6,7 +6,7 @@
 /*   By: alexafer <alexafer@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/31 16:27:10 by lpetit            #+#    #+#             */
-/*   Updated: 2024/04/14 15:47:05 by lpetit           ###   ########.fr       */
+/*   Updated: 2024/04/21 18:26:15 by lpetit           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	*converter(t_minishell *mini, char *str)
 
 	tmp = str;
 	new = ft_strdup("");
-	while (*tmp)
+	while (str && *tmp)
 	{
 		if (*tmp && *tmp == '$')
 		{
